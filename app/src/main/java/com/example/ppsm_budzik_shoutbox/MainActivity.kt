@@ -19,39 +19,15 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
+    public var recyclerView = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        ////////////////////////////////////////////////////////////////////////
-        //getting recyclerview from xml
-        val recyclerView = findViewById(R.id.recyclerView) as? RecyclerView
 
-        //adding a layoutmanager
-        val manager = LinearLayoutManager(this)
-
-        recyclerView?.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
-
-
-        //crating an arraylist to store users using the data class user
-        val messages = ArrayList<Message>()
-        messages.add(Message("LOGIN JAKIS", "TERESC WRIADOMOSCI KURWA", "2020-05-03T17:11:23.743Z"))
-        messages.add(Message("LOGIN JAKIS", "TERESC WRIADOMOSCI KURWA", "2020-05-03T17:11:23.743Z"))
-        messages.add(Message("LOGIN JAKIS", "TERESC WRIADOMOSCI KURWA", "2020-05-03T17:11:23.743Z"))
-        messages.add(Message("LOGIN JAKIS", "TERESC WRIADOMOSCI KURWA", "2020-05-03T17:11:23.743Z"))
-        messages.add(Message("LOGIN JAKIS", "TERESC WRIADOMOSCI KURWA", "2020-05-03T17:11:23.743Z"))
-
-        //creating our adapter
-        val adapter = CustomAdapter(messages)
-
-        //now adding the adapter to recyclerview
-        recyclerView?.adapter = adapter
-        ///////////////////////////////////////////////////////////////////////
-
-
-        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
+        var drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, GravityCompat.END)
         // supportActionBar!!.hide()
         val navView: NavigationView = findViewById(R.id.nav_view)
@@ -64,12 +40,12 @@ class MainActivity : AppCompatActivity() {
             ), drawerLayout
         )
 
-
         //setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }
 
-    override fun onSupportNavigateUp(): Boolean {
+
+        override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
