@@ -1,13 +1,13 @@
-package com.example.ppsm_budzik_shoutbox.ui.gallery
+package com.example.ppsm_budzik_shoutbox.ui.settings
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class GalleryViewModel : ViewModel() {
+class SettingsViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is gallery Fragment"
+        value = "This is slideshow Fragment"
     }
     val text: LiveData<String> = _text
 }

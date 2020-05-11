@@ -1,4 +1,4 @@
-package com.example.ppsm_budzik_shoutbox.ui.gallery
+package com.example.ppsm_budzik_shoutbox.ui.shoutbox
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,20 +10,20 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.ppsm_budzik_shoutbox.R
 
-class GalleryFragment : Fragment() {
+class ShoutboxFragment : Fragment() {
 
-    private lateinit var galleryViewModel: GalleryViewModel
+    private lateinit var shoutboxViewModel: ShoutboxViewModel
 
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        galleryViewModel =
-                ViewModelProviders.of(this).get(GalleryViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_gallery, container, false)
-        val textView: TextView = root.findViewById(R.id.text_gallery)
-        galleryViewModel.text.observe(viewLifecycleOwner, Observer {
+        shoutboxViewModel =
+                ViewModelProviders.of(this).get(ShoutboxViewModel::class.java)
+        val root = inflater.inflate(R.layout.fragment_shoutbox, container, false)
+        val textView: TextView = root.findViewById(R.id.text_home)
+        shoutboxViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
         return root
