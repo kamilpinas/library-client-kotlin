@@ -21,6 +21,14 @@
         <item name="android:textSize">18dp</item>
     </style>
 
+    <style name="toolbarStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">?attr/actionBarSize</item>
+        <item name="android:background">#1ab5ed</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">18dp</item>
+    </style>
+
     <style name="inputStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">150px</item>
