@@ -52,6 +52,16 @@ class ShoutboxFragment : Fragment() {
         messages.add(Message("LOGIN JAKIS", "TERESC WRIADOMOSCI KURWA", "2020-05-03T17:11:23.743Z"))
         messages.add(Message("LOGIN JAKIS", "TERESC WRIADOMOSCI KURWA", "2020-05-03T17:11:23.743Z"))
         messages.add(Message("LOGIN JAKIS", "TERESC WRIADOMOSCI KURWA", "2020-05-03T17:11:23.743Z"))
+        messages.add(Message("LOGIN JAKIS", "TERESC WRIADOMOSCI KURWA", "2020-05-03T17:11:23.743Z"))
+        messages.add(Message("LOGIN JAKIS", "TERESC WRIADOMOSCI KURWA", "2020-05-03T17:11:23.743Z"))
+        messages.add(Message("LOGIN JAKIS", "TERESC WRIADOMOSCI KURWA", "2020-05-03T17:11:23.743Z"))
+        messages.add(Message("LOGIN JAKIS", "TERESC WRIADOMOSCI KURWA", "2020-05-03T17:11:23.743Z"))
+        messages.add(Message("LOGIN JAKIS", "TERESC WRIADOMOSCI KURWA", "2020-05-03T17:11:23.743Z"))
+        messages.add(Message("LOGIN JAKIS", "TERESC WRIADOMOSCI KURWA", "2020-05-03T17:11:23.743Z"))
+        messages.add(Message("LOGIN JAKIS", "TERESC WRIADOMOSCI KURWA", "2020-05-03T17:11:23.743Z"))
+        messages.add(Message("LOGIN JAKIS", "TERESC WRIADOMOSCI KURWA", "2020-05-03T17:11:23.743Z"))
+        messages.add(Message("LOGIN JAKIS", "TERESC WRIADOMOSCI KURWA", "2020-05-03T17:11:23.743Z"))
+        messages.add(Message("LOGIN JAKIS", "TERESC WRIADOMOSCI KURWA", "2020-05-03T17:11:23.743Z"))
 
         //creating our adapter
         val adapter = CustomAdapter(messages)
@@ -71,4 +81,6 @@ class ShoutboxFragment : Fragment() {
             drawer_layout.openDrawer(GravityCompat.START)
         }
     }
+
+
 }

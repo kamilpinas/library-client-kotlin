@@ -7,7 +7,7 @@
     tools:context=".ui.settings.SettingsFragment">
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/cityNameInput"
+        android:id="@+id/loginInput"
         style="@style/inputStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,7 +21,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <Button
-        android:id="@+id/checkWeatherButton"
+        android:id="@+id/loginButton"
         style="@style/buttonStyle"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -33,7 +33,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cityNameInput" />
+        app:layout_constraintTop_toBottomOf="@+id/loginInput" />
 
     <ImageView
         android:id="@+id/imageView2"
