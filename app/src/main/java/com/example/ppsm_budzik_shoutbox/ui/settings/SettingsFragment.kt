@@ -18,7 +18,6 @@ class SettingsFragment : Fragment() {
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
-    
     ): View? {
         settingsViewModel =
                 ViewModelProviders.of(this).get(SettingsViewModel::class.java)
