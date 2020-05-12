@@ -30,7 +30,6 @@ class CustomAdapter(private val exampleList: Array<Message>) :
         holder.textLogin.text = currentItem.login
         holder.textDate.text = currentItem.date.toString().substring(0, 10)
         holder.textTime.text = currentItem.date.toString().substring(11, 19)
-
     }
 
     override fun getItemCount() = exampleList.size

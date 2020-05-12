@@ -7,11 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import androidx.core.view.get
+import androidx.core.view.iterator
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import com.example.ppsm_budzik_shoutbox.R
 import com.example.ppsm_budzik_shoutbox.ui.shoutbox.ShoutboxFragment
+import com.example.ppsm_budzik_shoutbox.ui.shoutbox.ShoutboxViewModel
+import kotlinx.android.synthetic.main.activity_main.*
 
 class SettingsFragment : Fragment() {
 
@@ -38,6 +43,7 @@ class SettingsFragment : Fragment() {
             bundle.putString("login", editText.text.toString())
             val fragment: Fragment = ShoutboxFragment()
             fragment.arguments = bundle
+
             val fragmentManager: FragmentManager? = fragmentManager
             fragmentManager?.beginTransaction()
                 ?.replace(R.id.nav_host_fragment, fragment)
