@@ -2,4 +2,12 @@ package com.example.ppsm_budzik_shoutbox
 
 import java.util.*
 
-data class Message  (val login : String, val content : String, val date : String)
+import java.io.Serializable
+
+
+class Message : Serializable {
+    var content: String? = null
+    var login: String? = null
+    var date: String? = null
+    var id: String? = null
+}

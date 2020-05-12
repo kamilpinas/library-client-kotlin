@@ -4,19 +4,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.example.lab9_f.JsonPlaceholderAPI
 import com.example.ppsm_budzik_shoutbox.CustomAdapter
 import com.example.ppsm_budzik_shoutbox.Message
 import com.example.ppsm_budzik_shoutbox.R
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_shoutbox.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class ShoutboxFragment : Fragment() {
 
@@ -31,46 +33,17 @@ class ShoutboxFragment : Fragment() {
             ViewModelProviders.of(this).get(ShoutboxViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_shoutbox, container, false)
 
-
-        ////////////////////////////////////////////////////////////
-        //getting recyclerview from xml
-
-        val recyclerView : RecyclerView = root.findViewById(R.id.recyclerView)
-
-        //adding a layoutmanager
-        //recyclerView?.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
-        recyclerView?.layoutManager = LinearLayoutManager(root.context)
-        //crating an arraylist to store users using the data class user
-        val messages = ArrayList<Message>()
-        messages.add(Message("LOGIN JAKIS", "TERESC WRIADOMOSCI KURWA", "2020-05-03T17:11:23.743Z"))
-        messages.add(Message("LOGIN JAKIS", "TERESC WRIADOMOSCI KURWA", "2020-05-03T17:11:23.743Z"))
-        messages.add(Message("LOGIN JAKIS", "TERESC WRIADOMOSCI KURWA", "2020-05-03T17:11:23.743Z"))
-        messages.add(Message("LOGIN JAKIS", "TERESC WRIADOMOSCI KURWA", "2020-05-03T17:11:23.743Z"))
-        messages.add(Message("LOGIN JAKIS", "TERESC WRIADOMOSCI KURWA", "2020-05-03T17:11:23.743Z"))
-        messages.add(Message("LOGIN JAKIS", "TERESC WRIADOMOSCI KURWA", "2020-05-03T17:11:23.743Z"))
-        messages.add(Message("LOGIN JAKIS", "TERESC WRIADOMOSCI KURWA", "2020-05-03T17:11:23.743Z"))
-        messages.add(Message("LOGIN JAKIS", "TERESC WRIADOMOSCI KURWA", "2020-05-03T17:11:23.743Z"))
-        messages.add(Message("LOGIN JAKIS", "TERESC WRIADOMOSCI KURWA", "2020-05-03T17:11:23.743Z"))
-        messages.add(Message("LOGIN JAKIS", "TERESC WRIADOMOSCI KURWA", "2020-05-03T17:11:23.743Z"))
-        messages.add(Message("LOGIN JAKIS", "TERESC WRIADOMOSCI KURWA", "2020-05-03T17:11:23.743Z"))
-        messages.add(Message("LOGIN JAKIS", "TERESC WRIADOMOSCI KURWA", "2020-05-03T17:11:23.743Z"))
-        messages.add(Message("LOGIN JAKIS", "TERESC WRIADOMOSCI KURWA", "2020-05-03T17:11:23.743Z"))
-        messages.add(Message("LOGIN JAKIS", "TERESC WRIADOMOSCI KURWA", "2020-05-03T17:11:23.743Z"))
-        messages.add(Message("LOGIN JAKIS", "TERESC WRIADOMOSCI KURWA", "2020-05-03T17:11:23.743Z"))
-        messages.add(Message("LOGIN JAKIS", "TERESC WRIADOMOSCI KURWA", "2020-05-03T17:11:23.743Z"))
-        messages.add(Message("LOGIN JAKIS", "TERESC WRIADOMOSCI KURWA", "2020-05-03T17:11:23.743Z"))
-        messages.add(Message("LOGIN JAKIS", "TERESC WRIADOMOSCI KURWA", "2020-05-03T17:11:23.743Z"))
-        messages.add(Message("LOGIN JAKIS", "TERESC WRIADOMOSCI KURWA", "2020-05-03T17:11:23.743Z"))
-        messages.add(Message("LOGIN JAKIS", "TERESC WRIADOMOSCI KURWA", "2020-05-03T17:11:23.743Z"))
-
-        //creating our adapter
-        val adapter = CustomAdapter(messages)
-
-        //now adding the adapter to recyclerview
-        recyclerView?.adapter = adapter
-        ////////////////////////////////////////////////////////////
-
-
+        //////////json
+        val baseUrl = "http://tgryl.pl/"
+        val retrofit = Retrofit.Builder().baseUrl(baseUrl)
+            .addConverterFactory(
+                GsonConverterFactory
+                    .create()
+            )
+            .build()
+        val jsonPlaceholderAPI = retrofit.create(JsonPlaceholderAPI::class.java)
+        createJsonGet(jsonPlaceholderAPI)
+        ////API
         return root
     }
 
@@ -82,5 +55,30 @@ class ShoutboxFragment : Fragment() {
         }
     }
 
+    fun createJsonGet(jsonPlaceholderAPI: JsonPlaceholderAPI) {
+        val call = jsonPlaceholderAPI.getMessageArray()
+        call!!.enqueue(object : Callback<Array<Message>?> {
+            override fun onResponse(
+                call: Call<Array<Message>?>,
+                response: Response<Array<Message>?>
+            ) {
+                if (!response.isSuccessful) {
+                    println("Code: " + response.code())
+                    return
+                }
+                val messagesData = response.body()!!
+                recyclerView.adapter = CustomAdapter(messagesData)
+                recyclerView.layoutManager = LinearLayoutManager(context)
+                recyclerView.setHasFixedSize(true)
+            }
+
+            override fun onFailure(
+                call: Call<Array<Message>?>,
+                t: Throwable
+            ) {
+                println(t.message)
+            }
+        })
+    }
 
 }
