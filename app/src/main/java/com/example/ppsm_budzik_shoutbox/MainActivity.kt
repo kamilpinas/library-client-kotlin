@@ -11,10 +11,12 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
+lateinit var navView:NavigationView/// zeby w settings fragment tego uzyc do ustawienia odpowiedniego itemu w drawerze po kliknieciu login
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -22,9 +24,7 @@ class MainActivity : AppCompatActivity() {
         var drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, GravityCompat.END)
 
-        val navView: NavigationView = findViewById(R.id.nav_view)
-
-
+        navView = findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host_fragment)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -33,7 +33,6 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_shoutbox, R.id.nav_settings
             ), drawerLayout
         )
-
         navView.setupWithNavController(navController)
         navView.setCheckedItem(R.id.nav_shoutbox)
     }

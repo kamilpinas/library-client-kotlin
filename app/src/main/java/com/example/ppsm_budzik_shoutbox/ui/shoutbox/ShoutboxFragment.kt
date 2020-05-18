@@ -25,8 +25,8 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.*
-import kotlin.concurrent.scheduleAtFixedRate
+import java.util.concurrent.Executors
+import java.util.concurrent.TimeUnit
 
 class ShoutboxFragment : Fragment(), CustomListAdapter.OnItemClickListener {
 
@@ -36,9 +36,10 @@ class ShoutboxFragment : Fragment(), CustomListAdapter.OnItemClickListener {
     private lateinit var messagesData: Array<MyMessage>
     private val baseUrl: String = "http://tgryl.pl/"
     private lateinit var login: String
-    val timer = Timer("schedule", true);
     private lateinit var jsonPlaceholderAPI: JsonPlaceholderAPI
     private lateinit var retrofit: Retrofit
+
+    val thread = Executors.newSingleThreadScheduledExecutor()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -84,7 +85,6 @@ class ShoutboxFragment : Fragment(), CustomListAdapter.OnItemClickListener {
     }
 
     fun getAndShowData(jsonPlaceholderAPI: JsonPlaceholderAPI) {
-
         val call = jsonPlaceholderAPI.getMessageArray()
         call!!.enqueue(object : Callback<Array<MyMessage>?> {
             override fun onResponse(
@@ -140,11 +140,9 @@ class ShoutboxFragment : Fragment(), CustomListAdapter.OnItemClickListener {
         infoToast.show()
     }
 
-    override fun onItemClick(
-        item: MyMessage,
-        position: Int
-    ) {//dzialanie edycji - klikniecia na cokolwiek z listy wiadomosci
-        timer.cancel()
+    override fun onItemClick(//dzialanie edycji - klikniecia na cokolwiek z listy wiadomosci
+        item: MyMessage, position: Int
+    ) {
         if (login == item.login) {
             val bundle = Bundle()
             bundle.putString("login", item.login)
@@ -164,13 +162,13 @@ class ShoutboxFragment : Fragment(), CustomListAdapter.OnItemClickListener {
     }
 
     fun beginRefreshing() {
-        timer.scheduleAtFixedRate(0, 5000) {
+        thread.scheduleAtFixedRate({
             if (checkNetworkConnection()) {
                 getAndShowData(jsonPlaceholderAPI)
-                Log.d("Timer: ", "Odswiezono wiadomosci")
+                Log.d("Executors thread: ", "Odswiezono wiadomosci")
             } else {
-                Log.d("Timer: ", "Brak polaczenia z internetem")
+                Log.d("Executors thread: ", "Brak polaczenia z internetem")
             }
-        }
+        }, 0, 2, TimeUnit.SECONDS)
     }
 }
