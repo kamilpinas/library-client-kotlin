@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity() {
         )
 
         navView.setupWithNavController(navController)
+        navView.setCheckedItem(R.id.nav_shoutbox)
     }
 
     override fun onSupportNavigateUp(): Boolean {

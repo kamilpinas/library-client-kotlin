@@ -7,21 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import androidx.core.view.get
-import androidx.core.view.iterator
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.fragment.findNavController
 import com.example.ppsm_budzik_shoutbox.R
 import com.example.ppsm_budzik_shoutbox.ui.shoutbox.ShoutboxFragment
-import com.example.ppsm_budzik_shoutbox.ui.shoutbox.ShoutboxViewModel
-import kotlinx.android.synthetic.main.activity_main.*
 
 class SettingsFragment : Fragment() {
 
     private lateinit var settingsViewModel: SettingsViewModel
-    private lateinit var editText: EditText
+    private lateinit var loginInput: EditText
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,14 +29,16 @@ class SettingsFragment : Fragment() {
             ViewModelProviders.of(this).get(SettingsViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_settings, container, false)
         val button = root.findViewById<Button>(R.id.loginButton)
+        loginInput = root.findViewById(R.id.loginInput)
 
-        editText = root.findViewById<EditText>(R.id.loginInput)
         loadLogin()
+
 
         button.setOnClickListener {
             saveLogin()
+
             val bundle = Bundle()
-            bundle.putString("login", editText.text.toString())
+            bundle.putString("login", loginInput.text.toString())
             val fragment: Fragment = ShoutboxFragment()
             fragment.arguments = bundle
 
@@ -55,7 +53,7 @@ class SettingsFragment : Fragment() {
     private fun saveLogin() {
         val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return
         with(sharedPref.edit()) {
-            putString(getString(R.string.saved_login), editText.text.toString())
+            putString(getString(R.string.saved_login), loginInput.text.toString())
             commit()
         }
     }
@@ -63,6 +61,6 @@ class SettingsFragment : Fragment() {
     private fun loadLogin() {
         val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return
         val defaultValue = resources.getString(R.string.login)
-        editText.setText(sharedPref.getString(getString(R.string.saved_login), defaultValue))
+        loginInput.setText(sharedPref.getString(getString(R.string.saved_login), defaultValue))
     }
 }
