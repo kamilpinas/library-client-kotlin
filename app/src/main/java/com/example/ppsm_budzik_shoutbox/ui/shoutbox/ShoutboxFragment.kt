@@ -57,7 +57,6 @@ class ShoutboxFragment : Fragment(), CustomListAdapter.OnItemClickListener {
             )
             .build()
         jsonPlaceholderAPI = retrofit.create(JsonPlaceholderAPI::class.java)
-        //getAndShowData(jsonPlaceholderAPI)
         ////json
         login = arguments?.getString("login").toString()
         beginRefreshing()
@@ -76,7 +75,7 @@ class ShoutboxFragment : Fragment(), CustomListAdapter.OnItemClickListener {
     }
 
     fun updateData() {
-        if(recyclerView!=null) {
+        if (recyclerView != null) {
             messagesData.reverse();
             recyclerView.adapter = CustomListAdapter(messagesData, this)
             recyclerView.layoutManager = LinearLayoutManager(context)
@@ -144,7 +143,7 @@ class ShoutboxFragment : Fragment(), CustomListAdapter.OnItemClickListener {
     override fun onItemClick(
         item: MyMessage,
         position: Int
-    ) {//dzialanie edycji - klikniecia na cokolwiek z listy
+    ) {//dzialanie edycji - klikniecia na cokolwiek z listy wiadomosci
         timer.cancel()
         if (login == item.login) {
             val bundle = Bundle()
@@ -157,6 +156,7 @@ class ShoutboxFragment : Fragment(), CustomListAdapter.OnItemClickListener {
             val fragmentManager: FragmentManager? = fragmentManager
             fragmentManager?.beginTransaction()
                 ?.replace(R.id.nav_host_fragment, fragment)
+                ?.remove(this)
                 ?.commit()
         } else {
             makeToast("You can only edit your own messages!!!")
