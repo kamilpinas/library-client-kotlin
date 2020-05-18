@@ -12,12 +12,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.example.lab9_f.JsonPlaceholderAPI
+import com.example.ppsm_budzik_shoutbox.JsonPlaceholderAPI
 import com.example.ppsm_budzik_shoutbox.CustomListAdapter
-import com.example.ppsm_budzik_shoutbox.Message
+import com.example.ppsm_budzik_shoutbox.MyMessage
 import com.example.ppsm_budzik_shoutbox.R
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_shoutbox.*
@@ -30,12 +31,14 @@ import java.util.*
 import kotlin.concurrent.scheduleAtFixedRate
 
 
-class ShoutboxFragment : Fragment() {
+class ShoutboxFragment : Fragment(), CustomListAdapter.OnItemClickListener{
 
     private lateinit var shoutboxViewModel: ShoutboxViewModel
     private lateinit var swipeRefresh: SwipeRefreshLayout
     private lateinit var infoToast: Toast
+    private  lateinit var messagesData:Array<MyMessage>
     private val baseUrl: String = "http://tgryl.pl/"
+    private lateinit var login:String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -56,7 +59,7 @@ class ShoutboxFragment : Fragment() {
         val jsonPlaceholderAPI = retrofit.create(JsonPlaceholderAPI::class.java)
         //getAndShowData(jsonPlaceholderAPI)
         ////json
-
+        login = arguments?.getString("login").toString()
 
         var swipeRefresh: SwipeRefreshLayout = root.findViewById(R.id.swipeRefresh)
         swipeRefresh.setOnRefreshListener {
@@ -85,6 +88,13 @@ class ShoutboxFragment : Fragment() {
         return root
     }
 
+    fun updateData(){
+        messagesData.reverse();
+        recyclerView.adapter = CustomListAdapter(messagesData, this)
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.setHasFixedSize(true)
+    }
+
     fun openCloseNavigationDrawer(view: View) {
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
             drawer_layout.closeDrawer(GravityCompat.START)
@@ -95,26 +105,22 @@ class ShoutboxFragment : Fragment() {
 
     fun getAndShowData(jsonPlaceholderAPI: JsonPlaceholderAPI) {
         val call = jsonPlaceholderAPI.getMessageArray()
-        call!!.enqueue(object : Callback<Array<Message>?> {
+        call!!.enqueue(object : Callback<Array<MyMessage>?> {
             override fun onResponse(
-                call: Call<Array<Message>?>,
-                response: Response<Array<Message>?>
+                call: Call<Array<MyMessage>?>,
+                response: Response<Array<MyMessage>?>
             ) {
                 if (!response.isSuccessful) {
                     println("Code: " + response.code())
                     return
                 }
-                val messagesData = response.body()!!
-                messagesData.reverse();
-                recyclerView.adapter = CustomListAdapter(messagesData)
-                recyclerView.layoutManager = LinearLayoutManager(context)
-                recyclerView.setHasFixedSize(true)
-                //LinearLayoutManager(context).apply{stackFromEnd = true}
-                //LinearLayoutManager(context).apply{reverseLayout= true}
+                messagesData = response.body()!!
+                updateData()
+
             }
 
             override fun onFailure(
-                call: Call<Array<Message>?>,
+                call: Call<Array<MyMessage>?>,
                 t: Throwable
             ) {
                 println(t.message)
@@ -153,4 +159,25 @@ class ShoutboxFragment : Fragment() {
         infoToast.setGravity(Gravity.TOP, 0, 200)
         infoToast.show()
     }
+
+    override fun onItemClick(item: MyMessage, position: Int) {
+        if(login == item.login){
+            val bundle = Bundle()
+            bundle.putString("login", item.login)
+            bundle.putString("id", item.id)
+            bundle.putString("date_hour", item.date)
+            bundle.putString("content",item.content)
+            val fragment: Fragment = EditFragment()
+            fragment.arguments = bundle
+            val fragmentManager: FragmentManager? = fragmentManager
+            fragmentManager?.beginTransaction()
+                ?.replace(R.id.nav_host_fragment, fragment)
+                ?.commit()
+        }
+        else {
+            makeToast("You can only edit your own messages!!!")
+        }
+    }
+
+
 }
