@@ -7,21 +7,21 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.list_layout.view.*
 
-class CustomListAdapter(private var myList: Array<MyMessage>, var clickListener: OnItemClickListener) : RecyclerView.Adapter<CustomListAdapter.ExampleViewHolder>() {
+class CustomListAdapter(
+    private var myList: Array<MyMessage>,
+    var clickListener: OnItemClickListener
+) : RecyclerView.Adapter<CustomListAdapter.ExampleViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExampleViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate( R.layout.list_layout,
-            parent, false)
+        val itemView = LayoutInflater.from(parent.context).inflate(
+            R.layout.list_layout,
+            parent, false
+        )
 
         return ExampleViewHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: ExampleViewHolder, position: Int) {
-        val currentItem = myList[position]
-      //  holder.textContent.text = currentItem.content
-       // holder.textLogin.text = currentItem.login
-       // holder.textDate.text = currentItem.date.toString().substring(0, 10)
-       // holder.textTime.text = currentItem.date.toString().substring(11, 19)
-    holder.initialize(myList[position], clickListener)
+        holder.initialize(myList[position], clickListener)
     }
 
     override fun getItemCount() = myList.size
@@ -46,16 +46,4 @@ class CustomListAdapter(private var myList: Array<MyMessage>, var clickListener:
     interface OnItemClickListener {
         fun onItemClick(item: MyMessage, position: Int)
     }
-/*        class ExampleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-            val textContent: TextView = itemView.contentTextView;
-            val textLogin: TextView = itemView.loginTextView;
-            val textDate: TextView = itemView.dateTextView;
-            val textTime: TextView = itemView.timeTextView;
-        }*/
-
-
-
-
-
-
-    }
+}

@@ -10,7 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProviders
@@ -20,7 +19,6 @@ import com.example.ppsm_budzik_shoutbox.JsonPlaceholderAPI
 import com.example.ppsm_budzik_shoutbox.CustomListAdapter
 import com.example.ppsm_budzik_shoutbox.MyMessage
 import com.example.ppsm_budzik_shoutbox.R
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_shoutbox.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -30,15 +28,17 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.*
 import kotlin.concurrent.scheduleAtFixedRate
 
-
-class ShoutboxFragment : Fragment(), CustomListAdapter.OnItemClickListener{
+class ShoutboxFragment : Fragment(), CustomListAdapter.OnItemClickListener {
 
     private lateinit var shoutboxViewModel: ShoutboxViewModel
     private lateinit var swipeRefresh: SwipeRefreshLayout
     private lateinit var infoToast: Toast
-    private  lateinit var messagesData:Array<MyMessage>
+    private lateinit var messagesData: Array<MyMessage>
     private val baseUrl: String = "http://tgryl.pl/"
-    private lateinit var login:String
+    private lateinit var login: String
+    val timer = Timer("schedule", true);
+    private lateinit var jsonPlaceholderAPI: JsonPlaceholderAPI
+    private lateinit var retrofit: Retrofit
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,16 +50,17 @@ class ShoutboxFragment : Fragment(), CustomListAdapter.OnItemClickListener{
         val root = inflater.inflate(R.layout.fragment_shoutbox, container, false)
 
         //////////json
-        val retrofit = Retrofit.Builder().baseUrl(baseUrl)
+        retrofit = Retrofit.Builder().baseUrl(baseUrl)
             .addConverterFactory(
                 GsonConverterFactory
                     .create()
             )
             .build()
-        val jsonPlaceholderAPI = retrofit.create(JsonPlaceholderAPI::class.java)
+        jsonPlaceholderAPI = retrofit.create(JsonPlaceholderAPI::class.java)
         //getAndShowData(jsonPlaceholderAPI)
         ////json
         login = arguments?.getString("login").toString()
+        beginRefreshing()
 
         var swipeRefresh: SwipeRefreshLayout = root.findViewById(R.id.swipeRefresh)
         swipeRefresh.setOnRefreshListener {
@@ -71,39 +72,20 @@ class ShoutboxFragment : Fragment(), CustomListAdapter.OnItemClickListener{
                 makeToast("Brak polaczenia z internetem")
             }
         }
-
-        val timer = Timer("schedule", true);
-        timer.scheduleAtFixedRate(0, 5000) {
-            Log.d("wiadomosc:", "BLABLA")
-            if (checkNetworkConnection()) {
-                getAndShowData(jsonPlaceholderAPI)
-               Log.d("Timer: ", "Odswiezono wiadomosci")
-            } else {
-                Log.d("Timer: ","Brak polaczenia z internetem")
-            }
-        }
-
-
-
         return root
     }
 
-    fun updateData(){
-        messagesData.reverse();
-        recyclerView.adapter = CustomListAdapter(messagesData, this)
-        recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.setHasFixedSize(true)
-    }
-
-    fun openCloseNavigationDrawer(view: View) {
-        if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
-            drawer_layout.closeDrawer(GravityCompat.START)
-        } else {
-            drawer_layout.openDrawer(GravityCompat.START)
+    fun updateData() {
+        if(recyclerView!=null) {
+            messagesData.reverse();
+            recyclerView.adapter = CustomListAdapter(messagesData, this)
+            recyclerView.layoutManager = LinearLayoutManager(context)
+            recyclerView.setHasFixedSize(true)
         }
     }
 
     fun getAndShowData(jsonPlaceholderAPI: JsonPlaceholderAPI) {
+
         val call = jsonPlaceholderAPI.getMessageArray()
         call!!.enqueue(object : Callback<Array<MyMessage>?> {
             override fun onResponse(
@@ -116,7 +98,6 @@ class ShoutboxFragment : Fragment(), CustomListAdapter.OnItemClickListener{
                 }
                 messagesData = response.body()!!
                 updateData()
-
             }
 
             override fun onFailure(
@@ -160,24 +141,36 @@ class ShoutboxFragment : Fragment(), CustomListAdapter.OnItemClickListener{
         infoToast.show()
     }
 
-    override fun onItemClick(item: MyMessage, position: Int) {
-        if(login == item.login){
+    override fun onItemClick(
+        item: MyMessage,
+        position: Int
+    ) {//dzialanie edycji - klikniecia na cokolwiek z listy
+        timer.cancel()
+        if (login == item.login) {
             val bundle = Bundle()
             bundle.putString("login", item.login)
             bundle.putString("id", item.id)
             bundle.putString("date_hour", item.date)
-            bundle.putString("content",item.content)
+            bundle.putString("content", item.content)
             val fragment: Fragment = EditFragment()
             fragment.arguments = bundle
             val fragmentManager: FragmentManager? = fragmentManager
             fragmentManager?.beginTransaction()
                 ?.replace(R.id.nav_host_fragment, fragment)
                 ?.commit()
-        }
-        else {
+        } else {
             makeToast("You can only edit your own messages!!!")
         }
     }
 
-
+    fun beginRefreshing() {
+        timer.scheduleAtFixedRate(0, 5000) {
+            if (checkNetworkConnection()) {
+                getAndShowData(jsonPlaceholderAPI)
+                Log.d("Timer: ", "Odswiezono wiadomosci")
+            } else {
+                Log.d("Timer: ", "Brak polaczenia z internetem")
+            }
+        }
+    }
 }

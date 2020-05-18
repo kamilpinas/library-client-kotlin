@@ -1,11 +1,9 @@
 package com.example.ppsm_budzik_shoutbox
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
-import androidx.core.view.get
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -13,8 +11,6 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
-import java.util.*
-import kotlin.concurrent.scheduleAtFixedRate
 
 class MainActivity : AppCompatActivity() {
 
@@ -38,8 +34,6 @@ class MainActivity : AppCompatActivity() {
 
         navView.setupWithNavController(navController)
         navView.setCheckedItem(R.id.nav_shoutbox)
-
-
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -54,6 +48,4 @@ class MainActivity : AppCompatActivity() {
             drawer_layout.openDrawer(GravityCompat.START)
         }
     }
-
-
 }

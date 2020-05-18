@@ -12,19 +12,19 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProviders
 import com.example.ppsm_budzik_shoutbox.R
 import com.example.ppsm_budzik_shoutbox.ui.shoutbox.ShoutboxFragment
+import java.util.*
 
 class SettingsFragment : Fragment() {
-
     private lateinit var settingsViewModel: SettingsViewModel
     private lateinit var loginInput: EditText
-
+    val timer = Timer("schedule", true);
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-
     ): View? {
+        timer.cancel()
         settingsViewModel =
             ViewModelProviders.of(this).get(SettingsViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_settings, container, false)
@@ -32,7 +32,6 @@ class SettingsFragment : Fragment() {
         loginInput = root.findViewById(R.id.loginInput)
 
         loadLogin()
-
 
         button.setOnClickListener {
             saveLogin()

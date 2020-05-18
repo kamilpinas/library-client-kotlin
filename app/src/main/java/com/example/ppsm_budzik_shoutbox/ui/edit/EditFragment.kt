@@ -5,7 +5,6 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Bundle
 import android.util.Log
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,9 +30,9 @@ class EditFragment : Fragment() {
 
     private lateinit var editViewModel: EditViewModel
     private lateinit var jsonPlaceholderAPI: JsonPlaceholderAPI
+    private val baseUrl: String = "http://tgryl.pl/"
     private lateinit var infoToast: Toast
     private lateinit var button: Button
-    private val baseUrl: String = "http://tgryl.pl/"
     private lateinit var textLogin: TextView
     private lateinit var textDate: TextView
     private lateinit var textTime: TextView
@@ -43,7 +42,6 @@ class EditFragment : Fragment() {
     private lateinit var date: String
     private lateinit var content: String
     private lateinit var id: String
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -59,7 +57,6 @@ class EditFragment : Fragment() {
         textDate = root.findViewById(R.id.dateEditTextView)
         textTime = root.findViewById(R.id.timeEditTextView)
         button = root.findViewById(R.id.editButton)
-
 
         login = arguments?.getString("login").toString()
         date = arguments?.getString("date_hour").toString()
@@ -78,10 +75,11 @@ class EditFragment : Fragment() {
                     .create()
             )
             .build()
-
-        //json
         jsonPlaceholderAPI = retrofit.create(JsonPlaceholderAPI::class.java)
+        //json
+
         button.setOnClickListener {
+            //dzialanie przycisku save edit
             content = editTextContent.text.toString()
             putData()
             val bundle = Bundle()
@@ -93,8 +91,6 @@ class EditFragment : Fragment() {
                 ?.replace(R.id.nav_host_fragment, fragment)
                 ?.commit()
         }
-        ////json
-
 
         return root
     }
@@ -129,16 +125,6 @@ class EditFragment : Fragment() {
         return false
     }
 
-    fun makeToast(myToastText: String) {
-        infoToast = Toast.makeText(
-            context,
-            myToastText,
-            Toast.LENGTH_SHORT
-        )
-        infoToast.setGravity(Gravity.TOP, 0, 200)
-        infoToast.show()
-    }
-
     private fun putData() {
         val message = MyMessage(login, content)
 
@@ -163,5 +149,4 @@ class EditFragment : Fragment() {
             }
         })
     }
-
 }
