@@ -67,9 +67,9 @@ class ShoutboxFragment : Fragment(), CustomListAdapter.OnItemClickListener {
             if (checkNetworkConnection()) {
                 getAndShowData(jsonPlaceholderAPI)
                 swipeRefresh.isRefreshing = false
-                makeToast("Odswiezono wiadomosci")
+                makeToast("Messages refreshed")
             } else {
-                makeToast("Brak polaczenia z internetem")
+                makeToast("Cant refresh messages - no internet connection!")
             }
         }
         return root
@@ -165,9 +165,9 @@ class ShoutboxFragment : Fragment(), CustomListAdapter.OnItemClickListener {
         thread.scheduleAtFixedRate({
             if (checkNetworkConnection()) {
                 getAndShowData(jsonPlaceholderAPI)
-                Log.d("Executors thread: ", "Odswiezono wiadomosci")
+                Log.d("Executors thread: ", "Messages refreshed automatically ")
             } else {
-                Log.d("Executors thread: ", "Brak polaczenia z internetem")
+                Log.d("Executors thread: ", "Cant automatically refresh messages - no internet connection!")
             }
         }, 0, 2, TimeUnit.SECONDS)
     }
