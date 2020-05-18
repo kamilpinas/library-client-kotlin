@@ -7,8 +7,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.list_layout.view.*
 
-class CustomAdapter(private val exampleList: Array<Message>) :
-    RecyclerView.Adapter<CustomAdapter.ExampleViewHolder>() {
+class CustomListAdapter(private val exampleList: Array<Message>) :
+    RecyclerView.Adapter<CustomListAdapter.ExampleViewHolder>() {
     class ExampleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val textContent: TextView = itemView.contentTextView;
         val textLogin: TextView = itemView.loginTextView;
