@@ -29,8 +29,11 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.*
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
+import kotlin.concurrent.schedule
+import kotlin.concurrent.scheduleAtFixedRate
 
 
 class ShoutboxFragment : Fragment() {
@@ -57,7 +60,7 @@ class ShoutboxFragment : Fragment() {
             )
             .build()
         val jsonPlaceholderAPI = retrofit.create(JsonPlaceholderAPI::class.java)
-        getAndShowData(jsonPlaceholderAPI)
+        //getAndShowData(jsonPlaceholderAPI)
         ////json
 
 
@@ -65,31 +68,25 @@ class ShoutboxFragment : Fragment() {
         swipeRefresh.setOnRefreshListener {
             if (checkNetworkConnection()) {
                 getAndShowData(jsonPlaceholderAPI)
-                swipeRefresh.isRefreshing=false
+                swipeRefresh.isRefreshing = false
                 makeToast("Odswiezono wiadomosci")
-            }else{
-              makeToast("Brak polaczenia z internetem")
+            } else {
+                makeToast("Brak polaczenia z internetem")
             }
         }
 
-        Log.d("wiadomosc:", "BLABLA")
-
-
-        fun scheduleUpdate(){
-
-            val e =
-                Executors.newSingleThreadScheduledExecutor()
-            e.scheduleAtFixedRate({
+        val timer = Timer("schedule", true);
+        timer.scheduleAtFixedRate(0, 5000) {
+            Log.d("wiadomosc:", "BLABLA")
+            if (checkNetworkConnection()) {
                 getAndShowData(jsonPlaceholderAPI)
-            }, 0, 1, TimeUnit.SECONDS)
+               Log.d("Timer: ", "Odswiezono wiadomosci")
+            } else {
+                Log.d("Timer: ","Brak polaczenia z internetem")
+            }
         }
 
-        if (checkNetworkConnection()) {
-            scheduleUpdate()
-            makeToast("Odswiezono wiadomosci")
-        }else{
-            makeToast("Brak polaczenia z internetem")
-        }
+
 
         return root
     }
@@ -114,9 +111,12 @@ class ShoutboxFragment : Fragment() {
                     return
                 }
                 val messagesData = response.body()!!
+                messagesData.reverse();
                 recyclerView.adapter = CustomAdapter(messagesData)
                 recyclerView.layoutManager = LinearLayoutManager(context)
                 recyclerView.setHasFixedSize(true)
+                //LinearLayoutManager(context).apply{stackFromEnd = true}
+                //LinearLayoutManager(context).apply{reverseLayout= true}
             }
 
             override fun onFailure(
@@ -150,8 +150,9 @@ class ShoutboxFragment : Fragment() {
         return false
     }
 
-    fun makeToast(myToastText:String){
-        infoToast = Toast.makeText(context,
+    fun makeToast(myToastText: String) {
+        infoToast = Toast.makeText(
+            context,
             myToastText,
             Toast.LENGTH_SHORT
         )
