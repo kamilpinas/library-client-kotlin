@@ -169,6 +169,6 @@ class ShoutboxFragment : Fragment(), CustomListAdapter.OnItemClickListener {
             } else {
                 Log.d("Executors thread: ", "Cant automatically refresh messages - no internet connection!")
             }
-        }, 0, 2, TimeUnit.SECONDS)
+        }, 0, 30, TimeUnit.SECONDS)
     }
 }

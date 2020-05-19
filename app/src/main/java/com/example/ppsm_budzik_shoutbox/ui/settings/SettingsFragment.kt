@@ -14,7 +14,7 @@ import com.example.ppsm_budzik_shoutbox.R
 import com.example.ppsm_budzik_shoutbox.navView
 import com.example.ppsm_budzik_shoutbox.ui.shoutbox.ShoutboxFragment
 
-class SettingsFragment : Fragment() {
+class SettingsFragment : Fragment()  {
     private lateinit var settingsViewModel: SettingsViewModel
     private lateinit var loginInput: EditText
 
