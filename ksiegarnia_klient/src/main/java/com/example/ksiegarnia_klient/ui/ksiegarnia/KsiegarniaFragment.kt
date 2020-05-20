@@ -140,18 +140,18 @@ class KsiegarniaFragment : Fragment(), CustomBooksListAdapter.OnItemClickListene
     override fun onItemClick(//dzialanie edycji - klikniecia na cokolwiek z listy wiadomosci
         item: MyBooks, position: Int
     ) {
-            val bundle = Bundle()
-            bundle.putString("login", item.tytul)
-            bundle.putString("id", item.idKsiazki)// TODO:: ID JEST DO EDYCJI
-            bundle.putString("date_hour", item.rokWydania)
-            bundle.putString("content", item.opis)
-            val fragment: Fragment = EditFragment()
-            fragment.arguments = bundle
-            val fragmentManager: FragmentManager? = fragmentManager
-            fragmentManager?.beginTransaction()
-                ?.replace(R.id.nav_host_fragment, fragment)
-                ?.remove(this)
-                ?.commit()
+        val bundle = Bundle()
+        bundle.putString("login", item.tytul)
+        bundle.putString("id", item.idKsiazki)// TODO:: ID JEST DO EDYCJI
+        bundle.putString("date_hour", item.rokWydania)
+        bundle.putString("content", item.opis)
+        val fragment: Fragment = EditFragment()
+        fragment.arguments = bundle
+        val fragmentManager: FragmentManager? = fragmentManager
+        fragmentManager?.beginTransaction()
+            ?.replace(R.id.nav_host_fragment, fragment)
+            ?.remove(this)
+            ?.commit()
     }
 
     fun beginRefreshing() {
