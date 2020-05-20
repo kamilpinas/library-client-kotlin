@@ -47,9 +47,9 @@ class EditFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_edit, container, false)
 
         editTextContent = root.findViewById(R.id.editText)
-        textLogin = root.findViewById(R.id.loginEditTextView)
-        textDate = root.findViewById(R.id.dateEditTextView)
-        textTime = root.findViewById(R.id.timeEditTextView)
+        textLogin = root.findViewById(R.id.tytulTextView)
+        textDate = root.findViewById(R.id.autorTextView)
+        textTime = root.findViewById(R.id.wydawnictwoTextView)
         button = root.findViewById(R.id.editButton)
 
         login = arguments?.getString("login").toString()

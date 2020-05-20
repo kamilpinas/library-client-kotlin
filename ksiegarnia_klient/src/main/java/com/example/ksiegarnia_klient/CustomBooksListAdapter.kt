@@ -27,15 +27,15 @@ class CustomBooksListAdapter(
     override fun getItemCount() = myList.size
 
     class ExampleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var textText: TextView = itemView.contentTextView
-        var textLog: TextView = itemView.loginEditTextView
-        var textDate: TextView = itemView.dateEditTextView
-        var textHour: TextView = itemView.timeEditTextView
+        var opis: TextView = itemView.opisTextView
+        var tytul: TextView = itemView.tytulTextView
+        var autor: TextView = itemView.autorTextView
+        var wydawnictwo: TextView = itemView.wydawnictwoTextView
         fun initialize(item: MyBooks, action: OnItemClickListener) {
-            textText.text = item.opis
-            textLog.text = item.autor
-            textDate.text = item.tytul
-            textHour.text = item.wydawnictwo
+            opis.text = item.opis
+            tytul.text = item.tytul
+            autor.text = item.autor
+            wydawnictwo.text = item.wydawnictwo
 
             itemView.setOnClickListener {
                 action.onItemClick(item, adapterPosition)

@@ -141,7 +141,7 @@ class KsiegarniaFragment : Fragment(), CustomBooksListAdapter.OnItemClickListene
         item: MyBooks, position: Int
     ) {
             val bundle = Bundle()
-            bundle.putString("login", item.autor)
+            bundle.putString("login", item.tytul)
             bundle.putString("id", item.idKsiazki)// TODO:: ID JEST DO EDYCJI
             bundle.putString("date_hour", item.rokWydania)
             bundle.putString("content", item.opis)

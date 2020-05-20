@@ -46,7 +46,7 @@
             android:layout_margin="5dp">
 
             <TextView
-                android:id="@+id/loginEditTextView"
+                android:id="@+id/tytulTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
@@ -58,7 +58,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/dateEditTextView"
+                android:id="@+id/autorTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
@@ -70,7 +70,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/timeEditTextView"
+                android:id="@+id/wydawnictwoTextView"
                 android:layout_width="200px"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
@@ -79,7 +79,7 @@
                 android:textColor="#000000"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/dateEditTextView"
+                app:layout_constraintEnd_toStartOf="@+id/autorTextView"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
