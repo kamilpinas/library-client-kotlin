@@ -26,17 +26,7 @@
                 android:maxLines="1"
                 android:text="Tytuł książki"
                 android:textColor="#000000"
-                android:textSize="22sp" />
-
-            <TextView
-                android:id="@+id/wydawnictwoTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5sp"
-                android:layout_marginTop="10sp"
-                android:text="Nazwa wydawnictwa"
-                android:textColor="#828282"
-                android:textSize="18sp" />
+                android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/autorTextView"
@@ -44,6 +34,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5sp"
                 android:text="Imie i nazwisko autora"
+                android:textColor="#828282"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/wydawnictwoTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5sp"
+                android:text="Nazwa wydawnictwa"
                 android:textColor="#828282"
                 android:textSize="18sp" />
 
