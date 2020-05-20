@@ -4,8 +4,8 @@ import retrofit2.Call
 import retrofit2.http.*
 
 interface JsonPlaceholderAPI {
-    @GET("shoutbox/messages")
-    fun getMessageArray(): Call<Array<MyMessage>?>?
+    @GET("ksiegarnia/ksiazki")
+    fun getBookArray(): Call<Array<MyBooks>?>?
 
     @POST("shoutbox/message")
     fun createPost(@Body MyMessage: MyMessage): Call<MyMessage>

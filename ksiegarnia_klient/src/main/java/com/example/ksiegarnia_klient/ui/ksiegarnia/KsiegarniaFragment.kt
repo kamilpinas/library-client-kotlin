@@ -15,10 +15,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.example.ksiegarnia_klient.JsonPlaceholderAPI
-import com.example.ksiegarnia_klient.CustomListAdapter
-import com.example.ksiegarnia_klient.MyMessage
-import com.example.ksiegarnia_klient.R
+import com.example.ksiegarnia_klient.*
 import kotlinx.android.synthetic.main.fragment_ksiegarnia.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -28,13 +25,13 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 
-class KsiegarniaFragment : Fragment(), CustomListAdapter.OnItemClickListener {
+class KsiegarniaFragment : Fragment(), CustomBooksListAdapter.OnItemClickListener {
 
     private lateinit var ksiegarniaViewModel: KsiegarniaViewModel
     private lateinit var swipeRefresh: SwipeRefreshLayout
     private lateinit var infoToast: Toast
-    private lateinit var messagesData: Array<MyMessage>
-    private val baseUrl: String = "http://tgryl.pl/"
+    private lateinit var booksData: Array<MyBooks>
+    private val baseUrl: String = "http://192.168.0.106:8080/"
     private lateinit var login: String
     private lateinit var jsonPlaceholderAPI: JsonPlaceholderAPI
     private lateinit var retrofit: Retrofit
@@ -77,30 +74,30 @@ class KsiegarniaFragment : Fragment(), CustomListAdapter.OnItemClickListener {
 
     fun updateData() {
         if (recyclerView != null) {
-            messagesData.reverse();
-            recyclerView.adapter = CustomListAdapter(messagesData, this)
+            booksData.reverse();
+            recyclerView.adapter = CustomBooksListAdapter(booksData, this)
             recyclerView.layoutManager = LinearLayoutManager(context)
             recyclerView.setHasFixedSize(true)
         }
     }
 
     fun getAndShowData(jsonPlaceholderAPI: JsonPlaceholderAPI) {
-        val call = jsonPlaceholderAPI.getMessageArray()
-        call!!.enqueue(object : Callback<Array<MyMessage>?> {
+        val call = jsonPlaceholderAPI.getBookArray()
+        call!!.enqueue(object : Callback<Array<MyBooks>?> {
             override fun onResponse(
-                call: Call<Array<MyMessage>?>,
-                response: Response<Array<MyMessage>?>
+                call: Call<Array<MyBooks>?>,
+                response: Response<Array<MyBooks>?>
             ) {
                 if (!response.isSuccessful) {
                     println("Code: " + response.code())
                     return
                 }
-                messagesData = response.body()!!
+                booksData = response.body()!!
                 updateData()
             }
 
             override fun onFailure(
-                call: Call<Array<MyMessage>?>,
+                call: Call<Array<MyBooks>?>,
                 t: Throwable
             ) {
                 println(t.message)
@@ -141,14 +138,13 @@ class KsiegarniaFragment : Fragment(), CustomListAdapter.OnItemClickListener {
     }
 
     override fun onItemClick(//dzialanie edycji - klikniecia na cokolwiek z listy wiadomosci
-        item: MyMessage, position: Int
+        item: MyBooks, position: Int
     ) {
-        if (login == item.login) {
             val bundle = Bundle()
-            bundle.putString("login", item.login)
-            bundle.putString("id", item.id)
-            bundle.putString("date_hour", item.date)
-            bundle.putString("content", item.content)
+            bundle.putString("login", item.autor)
+            bundle.putString("id", item.idKsiazki)// TODO:: ID JEST DO EDYCJI
+            bundle.putString("date_hour", item.rokWydania)
+            bundle.putString("content", item.opis)
             val fragment: Fragment = EditFragment()
             fragment.arguments = bundle
             val fragmentManager: FragmentManager? = fragmentManager
@@ -156,9 +152,6 @@ class KsiegarniaFragment : Fragment(), CustomListAdapter.OnItemClickListener {
                 ?.replace(R.id.nav_host_fragment, fragment)
                 ?.remove(this)
                 ?.commit()
-        } else {
-            makeToast("You can only edit your own messages!!!")
-        }
     }
 
     fun beginRefreshing() {

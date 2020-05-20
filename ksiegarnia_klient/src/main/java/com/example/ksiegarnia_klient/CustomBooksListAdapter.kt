@@ -7,10 +7,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.list_layout.view.*
 
-class CustomListAdapter(
-    private var myList: Array<MyMessage>,
+class CustomBooksListAdapter(
+    private var myList: Array<MyBooks>,
     var clickListener: OnItemClickListener
-) : RecyclerView.Adapter<CustomListAdapter.ExampleViewHolder>() {
+) : RecyclerView.Adapter<CustomBooksListAdapter.ExampleViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExampleViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(
             R.layout.list_layout,
@@ -31,11 +31,11 @@ class CustomListAdapter(
         var textLog: TextView = itemView.loginEditTextView
         var textDate: TextView = itemView.dateEditTextView
         var textHour: TextView = itemView.timeEditTextView
-        fun initialize(item: MyMessage, action: OnItemClickListener) {
-            textText.text = item.content
-            textLog.text = item.login
-            textDate.text = item.date.toString().subSequence(0, 10)
-            textHour.text = item.date.toString().subSequence(11, 19)
+        fun initialize(item: MyBooks, action: OnItemClickListener) {
+            textText.text = item.opis
+            textLog.text = item.autor
+            textDate.text = item.tytul
+            textHour.text = item.wydawnictwo
 
             itemView.setOnClickListener {
                 action.onItemClick(item, adapterPosition)
@@ -44,6 +44,6 @@ class CustomListAdapter(
     }
 
     interface OnItemClickListener {
-        fun onItemClick(item: MyMessage, position: Int)
+        fun onItemClick(item: MyBooks, position: Int)
     }
 }

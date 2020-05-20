@@ -3,13 +3,19 @@ package com.example.ksiegarnia_klient
 import java.io.Serializable
 
 class MyBooks : Serializable {
-    var content: String? = null
-    var login: String? = null
-    var date: String? = null
-    var id: String? = null
+    var idKsiazki: String? = null
+    var tytul: String? = null
+    var autor: String? = null
+    var wydawnictwo: String? = null
+    var temat: String? = null
+    var jezykKsiazki: String? = null
+    var rokWydania: String? = null
+    var dostepnosc: String? = null
+    var opis: String? = null
 
-    constructor(login: String?, content: String?) {
+    /*
+    constructor(login: String?, content: String?) {TODO:: DO PUT
         this.login = login
         this.content = content
-    }
+    }*/
 }
