@@ -62,8 +62,7 @@
                 <ImageView
                     android:id="@+id/okladkaImageView"
                     android:layout_width="100sp"
-                    android:layout_height="150sp"
-                    app:srcCompat="@drawable/okladka_przykladowa" />
+                    android:layout_height="150sp" />
 
             </LinearLayout>
 

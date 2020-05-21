@@ -165,6 +165,6 @@ class KsiegarniaFragment : Fragment(), CustomBooksListAdapter.OnItemClickListene
                     "Cant automatically refresh messages - no internet connection!"
                 )
             }
-        }, 0, 30, TimeUnit.SECONDS)
+        }, 0, 10, TimeUnit.SECONDS)
     }
 }
