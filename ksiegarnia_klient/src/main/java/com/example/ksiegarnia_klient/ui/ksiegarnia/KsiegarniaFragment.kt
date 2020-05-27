@@ -64,9 +64,9 @@ class KsiegarniaFragment : Fragment(), CustomBooksListAdapter.OnItemClickListene
             if (checkNetworkConnection()) {
                 getAndShowData(jsonPlaceholderAPI)
                 swipeRefresh.isRefreshing = false
-                makeToast("Messages refreshed")
+                makeToast("Books refreshed")
             } else {
-                makeToast("Cant refresh messages - no internet connection!")
+                makeToast("Cant refresh books - no internet connection!")
             }
         }
         return root
@@ -93,6 +93,7 @@ class KsiegarniaFragment : Fragment(), CustomBooksListAdapter.OnItemClickListene
                     return
                 }
                 booksData = response.body()!!
+                booksData.reverse()
                 updateData()
             }
 
@@ -158,11 +159,11 @@ class KsiegarniaFragment : Fragment(), CustomBooksListAdapter.OnItemClickListene
         thread.scheduleAtFixedRate({
             if (checkNetworkConnection()) {
                 getAndShowData(jsonPlaceholderAPI)
-                Log.d("Executors thread: ", "Messages refreshed automatically ")
+                Log.d("Executors thread: ", "Books refreshed automatically ")
             } else {
                 Log.d(
                     "Executors thread: ",
-                    "Cant automatically refresh messages - no internet connection!"
+                    "Cant automatically refresh books  - no internet connection!"
                 )
             }
         }, 0, 10, TimeUnit.SECONDS)

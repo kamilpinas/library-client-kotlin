@@ -30,16 +30,18 @@ class CustomBooksListAdapter(
     override fun getItemCount() = myList.size
 
     class ExampleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        var id: TextView = itemView.idKsiazkiTextView
         var opis: TextView = itemView.opisTextView
         var tytul: TextView = itemView.tytulTextView
         var autor: TextView = itemView.autorTextView
         var wydawnictwo: TextView = itemView.wydawnictwoTextView
         var okladka: ImageView = itemView.okladkaImageView
-        var iconUrl: String="https://scontent-waw1-1.xx.fbcdn.net/v/t1.0-1/93844876_3010798028984687_7710575402904715264_n.jpg?_nc_cat=102&_nc_sid=dbb9e7&_nc_ohc=kyouP1EEFqsAX-O3SKu&_nc_ht=scontent-waw1-1.xx&oh=e423360529fbdffbfe4549e3815cf944&oe=5EED3304"
         fun initialize(item: MyBooks, action: OnItemClickListener) {
             opis.text = item.opis
             tytul.text = item.tytul
             autor.text = item.autor
+            id.text=item.idKsiazki
+            var iconUrl: String = "http:/192.168.0.106:8080/ksiegarnia/image/" + id.text.toString()
             wydawnictwo.text = item.wydawnictwo
             Picasso.get().load(iconUrl).into(okladka)
 
