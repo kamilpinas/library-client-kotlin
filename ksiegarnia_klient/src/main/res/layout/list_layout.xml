@@ -57,18 +57,6 @@
                         android:textColor="#828282"
                         android:textSize="16sp" />
 
-                    <TextView
-                        android:id="@+id/idKsiazkiTextView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="5sp"
-                        android:ellipsize="end"
-                        android:maxLines="2"
-                        android:text="id:"
-                        android:textColor="#000000"
-                        android:textSize="26sp"
-                        android:visibility="gone" />
-
                 </LinearLayout>
 
                 <ImageView

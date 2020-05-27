@@ -28,7 +28,6 @@ import java.util.concurrent.TimeUnit
 class KsiegarniaFragment : Fragment(), CustomBooksListAdapter.OnItemClickListener {
 
     private lateinit var ksiegarniaViewModel: KsiegarniaViewModel
-    private lateinit var swipeRefresh: SwipeRefreshLayout
     private lateinit var infoToast: Toast
     private lateinit var booksData: Array<MyBooks>
     private val baseUrl: String = "http://192.168.0.106:8080/"
@@ -138,16 +137,21 @@ class KsiegarniaFragment : Fragment(), CustomBooksListAdapter.OnItemClickListene
         bundle.putString("idKsiazki", item.idKsiazki)// TODO:: ID JEST DO EDYCJI
         bundle.putString("rokWydania", item.rokWydania)
         bundle.putString("opis", item.opis)
+        bundle.putString("temat", item.temat)
+        bundle.putString("jezykKsiazki", item.jezykKsiazki)
+        bundle.putString("rokWydania", item.rokWydania)
+        bundle.putString("dostepnosc", item.dostepnosc)
         bundle.putString("autor", item.autor)
         bundle.putString("wydawnictwo", item.wydawnictwo)
         bundle.putString("dostepnosc", item.dostepnosc)
-        bundle.putString("dostepnosc", item.jezykKsiazki)
+
         val fragment: Fragment = BookDetailsFragment()
         fragment.arguments = bundle
         val fragmentManager: FragmentManager? = fragmentManager
         fragmentManager?.beginTransaction()
             ?.replace(R.id.nav_host_fragment, fragment)
-            ?.remove(this)
+            ?.addToBackStack(this.toString())
+            // ?.remove(this)
             ?.commit()
     }
 
@@ -162,6 +166,6 @@ class KsiegarniaFragment : Fragment(), CustomBooksListAdapter.OnItemClickListene
                     "Cant automatically refresh books  - no internet connection!"
                 )
             }
-        }, 0, 10, TimeUnit.SECONDS)
+        }, 0, 1, TimeUnit.HOURS)// TODO:::NA RAZIE NIE XDDD
     }
 }

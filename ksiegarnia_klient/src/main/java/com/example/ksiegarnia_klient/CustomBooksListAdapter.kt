@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.list_layout.view.*
 
-
 class CustomBooksListAdapter(
     private var myList: Array<MyBooks>,
     var clickListener: OnItemClickListener
@@ -30,18 +29,18 @@ class CustomBooksListAdapter(
     override fun getItemCount() = myList.size
 
     class ExampleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var id: TextView = itemView.idKsiazkiTextView
-        var opis: TextView = itemView.opisTextView
+        var id: String = ""
         var tytul: TextView = itemView.tytulTextView
         var autor: TextView = itemView.autorTextView
         var wydawnictwo: TextView = itemView.wydawnictwoTextView
+        var opis: TextView = itemView.opisTextView
         var okladka: ImageView = itemView.okladkaImageView
         fun initialize(item: MyBooks, action: OnItemClickListener) {
             opis.text = item.opis
             tytul.text = item.tytul
             autor.text = item.autor
-            id.text=item.idKsiazki
-            var iconUrl: String = "http:/192.168.0.106:8080/ksiegarnia/image/" + id.text.toString()
+            id = item.idKsiazki.toString()
+            var iconUrl: String = "http:/192.168.0.106:8080/ksiegarnia/image/" + id
             wydawnictwo.text = item.wydawnictwo
             Picasso.get().load(iconUrl).into(okladka)
 
