@@ -149,7 +149,7 @@ class KsiegarniaFragment : Fragment(), CustomBooksListAdapter.OnItemClickListene
         fragment.arguments = bundle
         val fragmentManager: FragmentManager? = fragmentManager
         fragmentManager?.beginTransaction()
-            ?.replace(R.id.nav_host_fragment, fragment)
+            ?.add(R.id.nav_host_fragment, fragment)//TODO::: TROCHE PRYMITYWNIE XD?
             ?.addToBackStack(this.toString())
             // ?.remove(this)
             ?.commit()
@@ -166,6 +166,6 @@ class KsiegarniaFragment : Fragment(), CustomBooksListAdapter.OnItemClickListene
                     "Cant automatically refresh books  - no internet connection!"
                 )
             }
-        }, 0, 1, TimeUnit.HOURS)// TODO:::NA RAZIE NIE XDDD
+        }, 0, 1, TimeUnit.HOURS)// TODO:::NA RAZIE NIE DZIALA - crashuje jak zmieni sie fragment?
     }
 }

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
@@ -87,7 +88,19 @@ class BookDetailsFragment : Fragment() {
                   ?.commit()
           }*/
 
+        wypozyczButton.setOnClickListener {
+            Log.d("Button::", "ID KSIAZKI TO:" + idKsiazki)
+        }
+
         return root
+        val callback = requireActivity().onBackPressedDispatcher.addCallback(this) {
+            val fragmentManager: FragmentManager?
+            if (fragmentManager != null) {
+                remove()//TODO:: CZY TO WGL DZIALA?
+                fragmentManager.popBackStack()//TODO:: TO JEST NA RAZIE ZBEDNE BO w ksiegarniafragment jest   ?.addToBackStack(this.toString())
+            }
+        }
+
     }
 
 
