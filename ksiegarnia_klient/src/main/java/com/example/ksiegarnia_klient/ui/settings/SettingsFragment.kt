@@ -26,12 +26,12 @@ class SettingsFragment : Fragment()  {
         settingsViewModel =
             ViewModelProviders.of(this).get(SettingsViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_settings, container, false)
-        val button = root.findViewById<Button>(R.id.loginButton)
+        val loginAsGuestButton = root.findViewById<Button>(R.id.loginAsGuestButton)
         loginInput = root.findViewById(R.id.loginInput)
 
         loadLogin()
 
-        button.setOnClickListener {
+        loginAsGuestButton.setOnClickListener {
             saveLogin()
             navView.setCheckedItem(R.id.nav_shoutbox)
 
