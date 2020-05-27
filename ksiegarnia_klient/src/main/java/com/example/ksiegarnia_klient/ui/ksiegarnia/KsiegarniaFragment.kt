@@ -62,7 +62,7 @@ class KsiegarniaFragment : Fragment(), CustomBooksListAdapter.OnItemClickListene
         var swipeRefresh: SwipeRefreshLayout = root.findViewById(R.id.swipeRefresh)
         swipeRefresh.setOnRefreshListener {
             if (checkNetworkConnection()) {
-                getAndShowData(jsonPlaceholderAPI)
+                getAndShowData()
                 swipeRefresh.isRefreshing = false
                 makeToast("Books refreshed")
             } else {
@@ -72,16 +72,7 @@ class KsiegarniaFragment : Fragment(), CustomBooksListAdapter.OnItemClickListene
         return root
     }
 
-    fun updateData() {
-        if (recyclerView != null) {
-            booksData.reverse();
-            recyclerView.adapter = CustomBooksListAdapter(booksData, this)
-            recyclerView.layoutManager = LinearLayoutManager(context)
-            recyclerView.setHasFixedSize(true)
-        }
-    }
-
-    fun getAndShowData(jsonPlaceholderAPI: JsonPlaceholderAPI) {
+    fun getAndShowData() {
         val call = jsonPlaceholderAPI.getBookArray()
         call!!.enqueue(object : Callback<Array<MyBooks>?> {
             override fun onResponse(
@@ -93,8 +84,9 @@ class KsiegarniaFragment : Fragment(), CustomBooksListAdapter.OnItemClickListene
                     return
                 }
                 booksData = response.body()!!
-                booksData.reverse()
-                updateData()
+                // booksData.reverse()
+                recyclerView.adapter = CustomBooksListAdapter(booksData, this@KsiegarniaFragment)
+                recyclerView.layoutManager = LinearLayoutManager(context)
             }
 
             override fun onFailure(
@@ -142,11 +134,15 @@ class KsiegarniaFragment : Fragment(), CustomBooksListAdapter.OnItemClickListene
         item: MyBooks, position: Int
     ) {
         val bundle = Bundle()
-        bundle.putString("login", item.tytul)
-        bundle.putString("id", item.idKsiazki)// TODO:: ID JEST DO EDYCJI
-        bundle.putString("date_hour", item.rokWydania)
-        bundle.putString("content", item.opis)
-        val fragment: Fragment = EditFragment()
+        bundle.putString("tytul", item.tytul)
+        bundle.putString("idKsiazki", item.idKsiazki)// TODO:: ID JEST DO EDYCJI
+        bundle.putString("rokWydania", item.rokWydania)
+        bundle.putString("opis", item.opis)
+        bundle.putString("autor", item.autor)
+        bundle.putString("wydawnictwo", item.wydawnictwo)
+        bundle.putString("dostepnosc", item.dostepnosc)
+        bundle.putString("dostepnosc", item.jezykKsiazki)
+        val fragment: Fragment = BookDetailsFragment()
         fragment.arguments = bundle
         val fragmentManager: FragmentManager? = fragmentManager
         fragmentManager?.beginTransaction()
@@ -158,7 +154,7 @@ class KsiegarniaFragment : Fragment(), CustomBooksListAdapter.OnItemClickListene
     fun beginRefreshing() {
         thread.scheduleAtFixedRate({
             if (checkNetworkConnection()) {
-                getAndShowData(jsonPlaceholderAPI)
+                getAndShowData()
                 Log.d("Executors thread: ", "Books refreshed automatically ")
             } else {
                 Log.d(
