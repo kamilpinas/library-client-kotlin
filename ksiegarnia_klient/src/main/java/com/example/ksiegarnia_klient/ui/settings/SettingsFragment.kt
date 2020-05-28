@@ -7,14 +7,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_LOCKED_CLOSED
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProviders
 import com.example.ksiegarnia_klient.R
 import com.example.ksiegarnia_klient.navView
 import com.example.ksiegarnia_klient.ui.ksiegarnia.KsiegarniaFragment
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.view.*
+import java.util.concurrent.locks.Lock
 
-class SettingsFragment : Fragment()  {
+class SettingsFragment : Fragment() {
     private lateinit var settingsViewModel: SettingsViewModel
     private lateinit var loginInput: EditText
 
@@ -29,14 +33,16 @@ class SettingsFragment : Fragment()  {
         val loginAsGuestButton = root.findViewById<Button>(R.id.loginAsGuestButton)
         loginInput = root.findViewById(R.id.loginInput)
 
-        loadLogin()
 
         loginAsGuestButton.setOnClickListener {
-            saveLogin()
+
             navView.setCheckedItem(R.id.nav_shoutbox)
 
+
             val bundle = Bundle()
-            bundle.putString("login", loginInput.text.toString())
+            bundle.putString("login", "gość")
+
+            //bundle.putString("login", loginInput.text.toString()) KOPIA
             val fragment: Fragment = KsiegarniaFragment()
             fragment.arguments = bundle
 
@@ -47,18 +53,5 @@ class SettingsFragment : Fragment()  {
         }
         return root
     }
-
-    private fun saveLogin() {
-        val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return
-        with(sharedPref.edit()) {
-            putString(getString(R.string.saved_login), loginInput.text.toString())
-            commit()
-        }
-    }
-
-    private fun loadLogin() {
-        val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return
-        val defaultValue = resources.getString(R.string.login)
-        loginInput.setText(sharedPref.getString(getString(R.string.saved_login), defaultValue))
-    }
 }
+

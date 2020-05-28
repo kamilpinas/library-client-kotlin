@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.ksiegarnia_klient.*
 import kotlinx.android.synthetic.main.fragment_ksiegarnia.*
+import kotlinx.android.synthetic.main.nav_header_main.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -28,6 +29,7 @@ import java.util.concurrent.TimeUnit
 class KsiegarniaFragment : Fragment(), CustomBooksListAdapter.OnItemClickListener {
 
     private lateinit var ksiegarniaViewModel: KsiegarniaViewModel
+    private lateinit var userLogin: String
     private lateinit var infoToast: Toast
     private lateinit var booksData: Array<MyBooks>
     private val baseUrl: String = "http://192.168.0.106:8080/"
@@ -55,7 +57,9 @@ class KsiegarniaFragment : Fragment(), CustomBooksListAdapter.OnItemClickListene
             .build()
         jsonPlaceholderAPI = retrofit.create(JsonPlaceholderAPI::class.java)
         ////json
-        login = arguments?.getString("login").toString()
+        loadLogin()
+        makeToast("login to:" + userLogin)
+
         beginRefreshing()
 
         var swipeRefresh: SwipeRefreshLayout = root.findViewById(R.id.swipeRefresh)
@@ -167,5 +171,11 @@ class KsiegarniaFragment : Fragment(), CustomBooksListAdapter.OnItemClickListene
                 )
             }
         }, 0, 1, TimeUnit.HOURS)// TODO:::NA RAZIE NIE DZIALA - crashuje jak zmieni sie fragment?
+    }
+
+    private fun loadLogin() {
+        val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return
+        val defaultValue = resources.getString(R.string.user_login)
+        userLogin =   sharedPref.getString(getString(R.string.user_login), defaultValue).toString()
     }
 }

@@ -4,17 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.settings.SettingsFragment">
+    tools:context=".StartScreenActivity">
 
-    <TextView
-        android:id="@+id/loginHintTextView"
-        android:layout_width="wrap_content"
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/loginInput2"
+        style="@style/inputStyle"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Masz juz konto?"
-        android:textColor="#000000"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/loginButton"
-        app:layout_constraintStart_toStartOf="@+id/loginButton" />
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:hint="imie"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/passwordInput" />
 
     <Button
         android:id="@+id/loginButton"
@@ -22,14 +25,27 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="228dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/button_background"
-        android:text="LOGOWANIE"
+        android:text="Zarejestruj"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordInput" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/loginInput3"
+        style="@style/inputStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:hint="nazwisko"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginInput2" />
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/loginInput"
@@ -56,56 +72,6 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginInput" />
-
-    <TextView
-        android:id="@+id/registerHintTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Chcesz założyć konto?"
-        android:textColor="#000000"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/registerButton"
-        app:layout_constraintStart_toStartOf="@+id/registerButton" />
-
-    <Button
-        android:id="@+id/registerButton"
-        style="@style/buttonStyle"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/button_background"
-        android:text="REJESTRACJA"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginButton" />
-
-    <TextView
-        android:id="@+id/guestHintTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Chcesz tylko przeglądac?"
-        android:textColor="#000000"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/loginAsGuestButton"
-        app:layout_constraintStart_toStartOf="@+id/loginAsGuestButton" />
-
-    <Button
-        android:id="@+id/loginAsGuestButton"
-        style="@style/buttonStyle"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/button_background"
-        android:text="Zaloguj jako gość"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registerButton" />
 
     <ImageView
         android:id="@+id/imageView2"
