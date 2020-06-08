@@ -74,8 +74,8 @@ class BookDetailsFragment : Fragment() {
         jsonPlaceholderAPI = retrofit.create(JsonPlaceholderAPI::class.java)
         //json
 
-        /*  button.setOnClickListener {
-              //dzialanie przycisku save edit
+        /*  wypozyczButton.setOnClickListener {
+              //dzialanie przycisku wypozycz
               content = editTextContent.text.toString()
               putData()
               val bundle = Bundle()
@@ -97,10 +97,9 @@ class BookDetailsFragment : Fragment() {
             val fragmentManager: FragmentManager?
             if (fragmentManager != null) {
                 remove()//TODO:: CZY TO WGL DZIALA?
-                fragmentManager.popBackStack()//TODO:: TO JEST NA RAZIE ZBEDNE BO w ksiegarniafragment jest   ?.addToBackStack(this.toString())
+               // fragmentManager.popBackStack()//TODO:: TO JEST NA RAZIE ZBEDNE BO w ksiegarniafragment jest   ?.addToBackStack(this.toString())
             }
         }
-
     }
 
 

@@ -6,13 +6,35 @@
     android:layout_height="match_parent"
     tools:context=".StartScreenActivity">
 
+    <TextView
+        android:id="@+id/emptyLoginHint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Login nie może być pusty!"
+        android:textColor="#A63636"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/loginInput"
+        app:layout_constraintStart_toStartOf="@+id/loginInput" />
+
+    <TextView
+        android:id="@+id/wrongLoginOrPasswordHint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="Hasło lub login się nie zgadza!"
+        android:textColor="#A63636"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/loginInput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/emptyLoginHint" />
+
     <Button
         android:id="@+id/loginButton"
         style="@style/buttonStyle"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="48dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/button_background"
         android:text="Zaloguj"
@@ -40,8 +62,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
         android:hint="hasło"
+        android:inputType="textWebPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -58,5 +82,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/book_icon" />
+
+    <TextView
+        android:id="@+id/emptyPasswordHint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hasło nie może być puste!"
+        android:textColor="#A63636"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/passwordInput"
+        app:layout_constraintStart_toStartOf="@+id/passwordInput" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

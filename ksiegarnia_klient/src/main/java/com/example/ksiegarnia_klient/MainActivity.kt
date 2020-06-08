@@ -28,8 +28,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
-
         navView = findViewById(R.id.nav_view)
         headerView = navView.getHeaderView(0)
 
@@ -72,6 +70,5 @@ class MainActivity : AppCompatActivity() {
     private fun loadData() {
         val sharedPreferences = getSharedPreferences("shared preferences", Context.MODE_PRIVATE)
         userLogin = sharedPreferences.getString("user_login", "gość")!!
-
     }
 }
