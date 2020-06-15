@@ -42,12 +42,12 @@ class LoginActivity : AppCompatActivity() {
         loginButton.setOnClickListener {//TODO:: jak login i hasloo puste to pokazuje tyko login pusty XD
             emptyPasswordHint.setVisible(false)
             emptyLoginHint.setVisible(false)
-            if (loginInput.text.toString() == "") {
+            if (loginInput.text.toString() == "" && passwordInput.text.toString() == "") {
                 emptyLoginHint.setVisible(true)
+                emptyPasswordHint.setVisible(true)
             } else if (passwordInput.text.toString() == "") {
                 emptyPasswordHint.setVisible(true)
-            } else if (passwordInput.text.toString() == "" && loginInput.text.toString() == "") {
-                emptyPasswordHint.setVisible(true)
+            } else if (loginInput.text.toString() == "") {
                 emptyLoginHint.setVisible(true)
             } else {
                 login = loginInput.text.toString()
