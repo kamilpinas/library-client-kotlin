@@ -1,6 +1,7 @@
 package com.example.ksiegarnia_klient
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -86,7 +87,7 @@ class LoginActivity : AppCompatActivity() {
                 call: Call<MyLogin>,
                 response: Response<MyLogin>
             ) {
-                finish() // przeniesienie do fragmentu ksiazii
+                finish()// przeniesienie do fragmentu ksiazii
                 if (!response.isSuccessful) {
                     println("Code: " + response.code())
                     return
@@ -101,5 +102,11 @@ class LoginActivity : AppCompatActivity() {
         } else {
             View.GONE
         }
+    }
+
+    override fun onBackPressed() {
+        val intent = Intent(this@LoginActivity, StartScreenActivity::class.java)
+        finish()
+        startActivity(intent)
     }
 }
