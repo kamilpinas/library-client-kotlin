@@ -22,7 +22,7 @@ class StartScreenActivity : AppCompatActivity() {
             finish()
         }
 
-        loginButton.setOnClickListener {
+        registerButton.setOnClickListener {
             val intent = Intent(this@StartScreenActivity, LoginActivity::class.java)
             finish()//zamknij start screen activity
             startActivity(intent)

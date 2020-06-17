@@ -6,77 +6,25 @@
     android:layout_height="match_parent"
     tools:context=".StartScreenActivity">
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/loginInput2"
-        style="@style/inputStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:hint="imie"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordInput" />
-
     <Button
-        android:id="@+id/loginButton"
+        android:id="@+id/registerButton"
         style="@style/buttonStyle"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="228dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/button_background"
         android:text="Zarejestruj"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordInput" />
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/loginInput3"
-        style="@style/inputStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:hint="nazwisko"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginInput2" />
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/loginInput"
-        style="@style/inputStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:hint="login"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/passwordInput"
-        style="@style/inputStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:hint="hasło"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginInput" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="372dp"
-        android:layout_height="294dp"
+        android:layout_width="252dp"
+        android:layout_height="147dp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:src="@drawable/book_icon"
@@ -84,5 +32,87 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/book_icon" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="402dp"
+        android:layout_height="478dp"
+        android:orientation="vertical"
+        android:layout_margin="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        tools:layout_editor_absoluteX="1dp">
+
+        <EditText
+            android:id="@+id/editTextLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="login" />
+
+        <EditText
+            android:id="@+id/editTextPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPassword"
+            android:text="haslo" />
+
+        <EditText
+            android:id="@+id/editTextImie"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Imię" />
+
+        <EditText
+            android:id="@+id/editTextNazwisko"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Nazwisko" />
+
+        <EditText
+            android:id="@+id/editTextMiejscowosc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Miejscowosc" />
+
+        <EditText
+            android:id="@+id/editTextKodPocztowy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Kod Pocztowy" />
+
+        <EditText
+            android:id="@+id/editTextTelefon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Telefon" />
+
+        <EditText
+            android:id="@+id/editTextUlica"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Ulica" />
+
+        <EditText
+            android:id="@+id/editTextNrDomu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Numer Domu" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

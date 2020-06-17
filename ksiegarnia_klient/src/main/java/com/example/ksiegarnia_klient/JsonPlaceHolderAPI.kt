@@ -10,6 +10,9 @@ interface JsonPlaceholderAPI {
     @POST("ksiegarnia/login")
     fun createPost(@Body MyLogin: MyLogin): Call<MyLogin>
 
+    @POST("ksiegarnia/register")
+    fun createPost(@Body MyRegister: MyRegister): Call<MyRegister>
+
     @PUT("shoutbox/message/{id}")
     fun createPut(
         @Path("id") id: String,

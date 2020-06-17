@@ -32,7 +32,7 @@ class KsiegarniaFragment : Fragment(), CustomBooksListAdapter.OnItemClickListene
     private lateinit var userLogin: String
     private lateinit var infoToast: Toast
     private lateinit var booksData: Array<MyBooks>
-    private val baseUrl: String = "http://192.168.0.106:8080/"
+    private val baseUrl: String = "http://192.168.7.168:8080/"
     private lateinit var login: String
     private lateinit var jsonPlaceholderAPI: JsonPlaceholderAPI
     private lateinit var retrofit: Retrofit
