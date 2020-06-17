@@ -38,81 +38,81 @@
         android:layout_width="402dp"
         android:layout_height="478dp"
         android:orientation="vertical"
-        android:layout_margin="20dp"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2"
-        tools:layout_editor_absoluteX="1dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2">
 
         <EditText
             android:id="@+id/editTextLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:text="login" />
+            android:hint="login"
+            android:inputType="textPersonName" />
 
         <EditText
             android:id="@+id/editTextPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPassword"
-            android:text="haslo" />
+            android:hint="haslo"
+            android:inputType="textPassword" />
 
         <EditText
             android:id="@+id/editTextImie"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Imię" />
+            android:hint="Imię"
+            android:inputType="textPersonName" />
 
         <EditText
             android:id="@+id/editTextNazwisko"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Nazwisko" />
+            android:hint="Nazwisko"
+            android:inputType="textPersonName" />
 
         <EditText
             android:id="@+id/editTextMiejscowosc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Miejscowosc" />
+            android:hint="Miejscowosc"
+            android:inputType="textPersonName" />
 
         <EditText
             android:id="@+id/editTextKodPocztowy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Kod Pocztowy" />
+            android:hint="Kod Pocztowy"
+            android:inputType="textPersonName" />
 
         <EditText
             android:id="@+id/editTextTelefon"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Telefon" />
+            android:hint="Telefon"
+            android:inputType="textPersonName" />
 
         <EditText
             android:id="@+id/editTextUlica"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Ulica" />
+            android:hint="Ulica"
+            android:inputType="textPersonName" />
 
         <EditText
             android:id="@+id/editTextNrDomu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Numer Domu" />
+            android:hint="Numer Domu"
+            android:inputType="textPersonName" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
