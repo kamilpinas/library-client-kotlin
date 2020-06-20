@@ -10,6 +10,11 @@ interface JsonPlaceholderAPI {
     @POST("ksiegarnia/login")
     fun createPost(@Body MyLogin: MyLogin): Call<MyLogin>
 
+    @POST("ksiegarnia/loginAdmin")
+    fun createPostAdmin(@Body MyLogin: MyLogin): Call<MyLogin>
+
+
+
     @POST("ksiegarnia/register")
     fun createPost(@Body MyRegister: MyRegister): Call<MyRegister>
 

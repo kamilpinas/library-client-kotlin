@@ -13,9 +13,10 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+var isAdmin: Boolean = false
 
 class LoginActivity : AppCompatActivity() {
-   // private val baseUrl: String = "http://192.168.7.168:8080/" //TODO:: PINAS
+    // private val baseUrl: String = "http://192.168.7.168:8080/" //TODO:: PINAS
     private val baseUrl: String = "http://192.168.0.106:8080/" //TODO:: BUDZICZEK
     private lateinit var loginInput: EditText
     private lateinit var passwordInput: EditText
@@ -23,6 +24,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var retrofit: Retrofit
     private lateinit var login: String
     private lateinit var password: String
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +41,8 @@ class LoginActivity : AppCompatActivity() {
         jsonPlaceholderAPI = retrofit.create(JsonPlaceholderAPI::class.java)
         ////json
 
-        loginButton.setOnClickListener {//TODO:: jak login i hasloo puste to pokazuje tyko login pusty XD
+        loginButton.setOnClickListener {
+            //TODO:: jak login i hasloo puste to pokazuje tyko login pusty XD
             emptyPasswordHint.setVisible(false)
             emptyLoginHint.setVisible(false)
             if (loginInput.text.toString() == "" && passwordInput.text.toString() == "") {
@@ -56,7 +59,6 @@ class LoginActivity : AppCompatActivity() {
                 Log.d("wpisane haslo to: ", password)
                 val newLogin = MyLogin(login, password)
 
-                navView.setCheckedItem(R.id.nav_ksiegarnia)
                 val sharedPreferences =
                     getSharedPreferences("shared preferences", Context.MODE_PRIVATE)
                 val editor = sharedPreferences.edit()
@@ -64,7 +66,7 @@ class LoginActivity : AppCompatActivity() {
                 editor.putString(
                     "user_login",
                     default_login
-                )//TODO:: nie dziala zapisywanie loginu - zawsze pokazuje gość
+                )
                 editor.apply()
                 sendLogin(newLogin)
             }
@@ -73,27 +75,69 @@ class LoginActivity : AppCompatActivity() {
 
     private fun sendLogin(MyLogin: MyLogin) {
         val call = jsonPlaceholderAPI.createPost(MyLogin)
-        call.enqueue(object : Callback<MyLogin> {
+        val callAdmin = jsonPlaceholderAPI.createPostAdmin(MyLogin)
+
+        var notAdminCheckClient: Boolean
+        notAdminCheckClient = false
+        callAdmin.enqueue(object : Callback<MyLogin> {
             override fun onFailure(
                 call: Call<MyLogin>,
                 t: Throwable
             ) {
-                Log.d("LOGOWANIE:",  "Login i haslo zle" )                //TODO:: to jest prymitywnie  bo teraz jak login i haslo sie nie zgadzaja to server zwraca null XD- jakby zrobic on bad http response ( w serverze na api controller - return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-               wrongLoginOrPasswordHint.setVisible(true)
+                notAdminCheckClient = true
+                Log.d("DUIPA", notAdminCheckClient.toString())
+                isAdmin=false
+                return
             }
 
             override fun onResponse(
                 call: Call<MyLogin>,
                 response: Response<MyLogin>
             ) {
+                isAdmin=true
                 saveLogin()
+                val intent = Intent(this@LoginActivity, DrawerActivity::class.java)
+                startActivity(intent)
+                Log.d("Jestes adminem lol", "!!!!")
                 finish()// przeniesienie do fragmentu ksiazii
+
                 if (!response.isSuccessful) {
                     println("Code: " + response.code())
                     return
                 }
             }
         })
+
+        //if (notAdminCheckClient) {
+            call.enqueue(object : Callback<MyLogin> {
+                override fun onFailure(
+                    call: Call<MyLogin>,
+                    t: Throwable
+                ) {
+                    Log.d(
+                        "LOGOWANIE:",
+                        "Login i haslo zle"
+                    )                //TODO:: to jest prymitywnie  bo teraz jak login i haslo sie nie zgadzaja to server zwraca null XD- jakby zrobic on bad http response ( w serverze na api controller - return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+                    wrongLoginOrPasswordHint.setVisible(true)
+                }
+
+                override fun onResponse(
+                    call: Call<MyLogin>,
+                    response: Response<MyLogin>
+                ) {
+                    Log.d("jestes klientem lol", "!!!!!!!!!!!!!!!!!!!!!")
+                    saveLogin()
+                    val intent = Intent(this@LoginActivity, DrawerActivity::class.java)
+                    startActivity(intent)
+                    finish()// przeniesienie do fragmentu ksiazii
+
+                    if (!response.isSuccessful) {
+                        println("Code: " + response.code())
+                        return
+                    }
+                }
+            })
+      //  }
     }
 
     fun View.setVisible(visible: Boolean) {
@@ -117,4 +161,6 @@ class LoginActivity : AppCompatActivity() {
         editor.putString("user_login", login)
         editor.apply()
     }
+
+
 }
