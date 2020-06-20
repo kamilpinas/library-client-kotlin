@@ -24,6 +24,7 @@ class BookDetailsFragment : Fragment() {
     private lateinit var bookDetailsViewModel: BookDetailsViewModel
     private lateinit var jsonPlaceholderAPI: JsonPlaceholderAPI
     private val baseUrl: String = "http://192.168.0.106:8080/"
+
     private lateinit var wypozyczButton: Button
     private lateinit var tytulTextView: TextView
     private lateinit var autorTextView: TextView

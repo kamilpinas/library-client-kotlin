@@ -32,7 +32,8 @@ class KsiegarniaFragment : Fragment(), CustomBooksListAdapter.OnItemClickListene
     private lateinit var userLogin: String
     private lateinit var infoToast: Toast
     private lateinit var booksData: Array<MyBooks>
-    private val baseUrl: String = "http://192.168.7.168:8080/"
+    private val baseUrl: String = "http://192.168.0.106:8080/"
+    //private val baseUrl: String = "http://192.168.7.168:8080/" //TODO:: PINAS
     private lateinit var login: String
     private lateinit var jsonPlaceholderAPI: JsonPlaceholderAPI
     private lateinit var retrofit: Retrofit
@@ -58,7 +59,6 @@ class KsiegarniaFragment : Fragment(), CustomBooksListAdapter.OnItemClickListene
         jsonPlaceholderAPI = retrofit.create(JsonPlaceholderAPI::class.java)
         ////json
         loadLogin()
-        makeToast("login to:" + userLogin)
 
         beginRefreshing()
 
@@ -174,8 +174,8 @@ class KsiegarniaFragment : Fragment(), CustomBooksListAdapter.OnItemClickListene
     }
 
     private fun loadLogin() {
-        val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return
-        val defaultValue = resources.getString(R.string.user_login)
-        userLogin =   sharedPref.getString(getString(R.string.user_login), defaultValue).toString()
+        val sharedPref = requireActivity().getPreferences(Context.MODE_PRIVATE) ?: return
+        val defaultValue = "default_login"
+        login = sharedPref.getString("user_login", defaultValue).toString()
     }
 }

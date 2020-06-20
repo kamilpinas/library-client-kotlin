@@ -15,7 +15,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class LoginActivity : AppCompatActivity() {
-    private val baseUrl: String = "http://192.168.7.168:8080/"
+   // private val baseUrl: String = "http://192.168.7.168:8080/" //TODO:: PINAS
+    private val baseUrl: String = "http://192.168.0.106:8080/" //TODO:: BUDZICZEK
     private lateinit var loginInput: EditText
     private lateinit var passwordInput: EditText
     private lateinit var jsonPlaceholderAPI: JsonPlaceholderAPI
@@ -53,13 +54,13 @@ class LoginActivity : AppCompatActivity() {
                 password = passwordInput.text.toString()
                 Log.d("wpisany login to: ", login)
                 Log.d("wpisane haslo to: ", password)
-                val newLogin = MyLogin(login, password, false)
+                val newLogin = MyLogin(login, password)
 
-                navView.setCheckedItem(R.id.nav_shoutbox)
+                navView.setCheckedItem(R.id.nav_ksiegarnia)
                 val sharedPreferences =
                     getSharedPreferences("shared preferences", Context.MODE_PRIVATE)
                 val editor = sharedPreferences.edit()
-                val default_login = "gość"
+                val default_login = "gosc_domyślny"
                 editor.putString(
                     "user_login",
                     default_login
@@ -85,6 +86,7 @@ class LoginActivity : AppCompatActivity() {
                 call: Call<MyLogin>,
                 response: Response<MyLogin>
             ) {
+                saveLogin()
                 finish()// przeniesienie do fragmentu ksiazii
                 if (!response.isSuccessful) {
                     println("Code: " + response.code())
@@ -106,5 +108,13 @@ class LoginActivity : AppCompatActivity() {
         val intent = Intent(this@LoginActivity, StartScreenActivity::class.java)
         finish()
         startActivity(intent)
+    }
+
+    fun saveLogin() {
+        val sharedPreferences = getSharedPreferences("shared preferences", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        val login = loginInput.text.toString()
+        editor.putString("user_login", login)
+        editor.apply()
     }
 }

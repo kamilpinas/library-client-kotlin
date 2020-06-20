@@ -18,7 +18,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class RegisterActivity : AppCompatActivity() {
-    private val baseUrl: String = "http://192.168.7.168:8080/"
+   // private val baseUrl: String = "http://192.168.7.168:8080/"
+    private val baseUrl: String = "http://192.168.0.106:8080/"
     private lateinit var jsonPlaceholderAPI: JsonPlaceholderAPI
     private lateinit var retrofit: Retrofit
     private var control:Int = 60
@@ -102,8 +103,10 @@ class RegisterActivity : AppCompatActivity() {
                 }
                 else
                 {
-                    Toast.makeText(this@RegisterActivity,"Zarejestrowano pomyślnie!",Toast.LENGTH_SHORT).show()
-                    finish()// przeniesienie do fragmentu ksiazii
+                    Toast.makeText(this@RegisterActivity,"Zarejestrowano pomyślnie! Teraz możesz się zalogować.",Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this@RegisterActivity, StartScreenActivity::class.java)
+                    finish()//zamknij start screen activity
+                    startActivity(intent)
                 }
 
             }

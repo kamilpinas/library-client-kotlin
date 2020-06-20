@@ -3,6 +3,8 @@ package com.example.ksiegarnia_klient
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -17,7 +19,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 lateinit var navView: NavigationView/// zeby w settings fragment tego uzyc do ustawienia odpowiedniego itemu w drawerze po kliknieciu login
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener{
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var userLogin: String
@@ -31,6 +33,8 @@ class MainActivity : AppCompatActivity() {
         navView = findViewById(R.id.nav_view)
         headerView = navView.getHeaderView(0)
 
+
+
         var drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         var currentUserTextView: TextView = headerView.findViewById(R.id.currentUserTextView)
 
@@ -39,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_ksiegarnia, R.id.nav_settings
+                R.id.nav_ksiegarnia
             ), drawerLayout
         )
         navView.setupWithNavController(navController)
@@ -48,7 +52,7 @@ class MainActivity : AppCompatActivity() {
             currentUserTextView.text = "Jesteś zalogowany jako: " + userLogin
         }
 
-
+        navView.setNavigationItemSelectedListener(this)
         val intent = Intent(this@MainActivity, StartScreenActivity::class.java)
         startActivity(intent)
 
@@ -67,8 +71,20 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.nav_wyloguj -> {
+                Log.d("LOL", "L:OPL")
+                val intent = Intent(this@MainActivity, StartScreenActivity::class.java)
+                startActivity(intent)
+            }
+        }
+        drawer_layout.closeDrawer(GravityCompat.START)
+        return true
+    }
+
     private fun loadData() {
         val sharedPreferences = getSharedPreferences("shared preferences", Context.MODE_PRIVATE)
-        userLogin = sharedPreferences.getString("user_login", "gość")!!
+        userLogin = sharedPreferences.getString("user_login", "gosc_domyslny")!!
     }
 }

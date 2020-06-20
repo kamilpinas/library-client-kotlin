@@ -11,9 +11,4 @@
         android:label="@string/menu_ksiegarnia"
         tools:layout="@layout/fragment_ksiegarnia"></fragment>
 
-    <fragment
-        android:id="@+id/nav_settings"
-        android:name="com.example.ksiegarnia_klient.ui.settings.SettingsFragment"
-        android:label="@string/menu_settings"
-        tools:layout="@layout/fragment_settings" />
 </navigation>

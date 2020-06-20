@@ -3,6 +3,8 @@
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">tgryl.pl</domain>
         <domain includeSubdomains="true">192.168.7.168</domain>
+        <domain includeSubdomains="true">192.168.0.106</domain>
+        <domain includeSubdomains="true"> 127.0.0.1</domain>
 
     </domain-config>
 </network-security-config>

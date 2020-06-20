@@ -13,7 +13,7 @@ class StartScreenActivity : AppCompatActivity() {
                 setContentView(R.layout.activity_start_screen)
 
         loginAsGuestButton.setOnClickListener {
-            navView.setCheckedItem(R.id.nav_shoutbox)
+            navView.setCheckedItem(R.id.nav_ksiegarnia)
             val sharedPreferences = getSharedPreferences("shared preferences", Context.MODE_PRIVATE)
             val editor = sharedPreferences.edit()
             val login = "gość"
@@ -22,7 +22,7 @@ class StartScreenActivity : AppCompatActivity() {
             finish()
         }
 
-        registerButton.setOnClickListener {
+        loginButton.setOnClickListener {
             val intent = Intent(this@StartScreenActivity, LoginActivity::class.java)
             finish()//zamknij start screen activity
             startActivity(intent)
@@ -31,6 +31,7 @@ class StartScreenActivity : AppCompatActivity() {
 
         registerButton.setOnClickListener {
             val intent = Intent(this@StartScreenActivity, RegisterActivity::class.java)
+            finish()
             startActivity(intent)
         }
     }
