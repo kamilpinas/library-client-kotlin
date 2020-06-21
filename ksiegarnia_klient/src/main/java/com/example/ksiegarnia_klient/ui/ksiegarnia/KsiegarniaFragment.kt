@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.ksiegarnia_klient.*
 import kotlinx.android.synthetic.main.fragment_ksiegarnia.*
-import kotlinx.android.synthetic.main.nav_header_main.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

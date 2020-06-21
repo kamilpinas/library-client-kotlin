@@ -10,6 +10,16 @@
             android:title="@string/menu_ksiegarnia" />
 
         <item
+            android:id="@+id/nav_wypozyczenia_klienta"
+            android:icon="@android:drawable/ic_menu_month"
+            android:title="Moje wypożyczenia" />
+
+        <item
+            android:id="@+id/nav_dane_klienta"
+            android:icon="@android:drawable/ic_menu_my_calendar"
+            android:title="Moje dane" />
+
+        <item
             android:id="@+id/nav_wyloguj"
             android:icon="@android:drawable/ic_menu_close_clear_cancel"
             android:title="Wyloguj" />
