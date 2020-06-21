@@ -10,10 +10,10 @@ import kotlinx.android.synthetic.main.activity_start_screen.*
 class StartScreenActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-                setContentView(R.layout.activity_start_screen)
+        setContentView(R.layout.activity_start_screen)
 
         loginAsGuestButton.setOnClickListener {
-            //navView.setCheckedItem(R.id.nav_ksiegarnia)
+            isAdmin = false
             val sharedPreferences = getSharedPreferences("shared preferences", Context.MODE_PRIVATE)
             val editor = sharedPreferences.edit()
             val login = "gość"
@@ -25,6 +25,7 @@ class StartScreenActivity : AppCompatActivity() {
         }
 
         loginButton.setOnClickListener {
+            isAdmin=false
             val intent = Intent(this@StartScreenActivity, LoginActivity::class.java)
             finish()//zamknij start screen activity
             startActivity(intent)
@@ -38,9 +39,9 @@ class StartScreenActivity : AppCompatActivity() {
         }
     }
 
-   override fun onBackPressed() {//TODO:: BEZ TEGO PRZENOSI DO BIALEGO EKRANU XD
-       /*val intent = Intent(this@StartScreenActivity, StartScreenActivity::class.java)
-       startActivity(intent)*/
-       return
-   }
+    override fun onBackPressed() {//TODO:: BEZ TEGO PRZENOSI DO BIALEGO EKRANU XD
+        /*val intent = Intent(this@StartScreenActivity, StartScreenActivity::class.java)
+        startActivity(intent)*/
+        return
+    }
 }

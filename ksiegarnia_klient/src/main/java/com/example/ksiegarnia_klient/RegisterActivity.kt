@@ -1,15 +1,12 @@
 package com.example.ksiegarnia_klient
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.afollestad.vvalidator.form
-import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_register.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -75,26 +72,26 @@ class RegisterActivity : AppCompatActivity() {
                 }
 
                 submitWith(R.id.registerButton){result ->
-                    val newRegister = MyRegister(editTextNazwisko.text.toString(),editTextImie.text.toString(),editTextKodPocztowy.text.toString(),editTextMiejscowosc.text.toString(),editTextUlica.text.toString(),editTextNrDomu.text.toString(),editTextTelefon.text.toString(),editTextLogin.text.toString(),editTextPassword.text.toString())
+                    val newRegister = ClientData(editTextNazwisko.text.toString(),editTextImie.text.toString(),editTextKodPocztowy.text.toString(),editTextMiejscowosc.text.toString(),editTextUlica.text.toString(),editTextNrDomu.text.toString(),editTextTelefon.text.toString(),editTextLogin.text.toString(),editTextPassword.text.toString())
                     sendRegister(newRegister)
                 }
             }
     }
 
 
-    private fun sendRegister(MyRegister: MyRegister) {
-        val call = jsonPlaceholderAPI.createPost(MyRegister)
-        call.enqueue(object : Callback<MyRegister> {
+    private fun sendRegister(ClientData: ClientData) {
+        val call = jsonPlaceholderAPI.createPost(ClientData)
+        call.enqueue(object : Callback<ClientData> {
             override fun onFailure(
-                call: Call<MyRegister>,
+                call: Call<ClientData>,
                 t: Throwable
             ) {
                 Toast.makeText(this@RegisterActivity,"Brak połączenia!",Toast.LENGTH_SHORT).show()
                 Log.d("rejestracja:",  " error" )
             }
             override fun onResponse(
-                call: Call<MyRegister>,
-                response: Response<MyRegister>
+                call: Call<ClientData>,
+                response: Response<ClientData>
             ) {
                 if (!response.isSuccessful) {
                     Toast.makeText(this@RegisterActivity,"Podany login istnieje!",Toast.LENGTH_SHORT).show()

@@ -13,6 +13,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+
 var isAdmin: Boolean = false
 
 class LoginActivity : AppCompatActivity() {
@@ -42,7 +43,6 @@ class LoginActivity : AppCompatActivity() {
         ////json
 
         loginButton.setOnClickListener {
-            //TODO:: jak login i hasloo puste to pokazuje tyko login pusty XD
             emptyPasswordHint.setVisible(false)
             emptyLoginHint.setVisible(false)
             if (loginInput.text.toString() == "" && passwordInput.text.toString() == "") {
@@ -77,16 +77,11 @@ class LoginActivity : AppCompatActivity() {
         val call = jsonPlaceholderAPI.createPost(MyLogin)
         val callAdmin = jsonPlaceholderAPI.createPostAdmin(MyLogin)
 
-        var notAdminCheckClient: Boolean
-        notAdminCheckClient = false
         callAdmin.enqueue(object : Callback<MyLogin> {
             override fun onFailure(
                 call: Call<MyLogin>,
                 t: Throwable
             ) {
-                notAdminCheckClient = true
-                Log.d("DUIPA", notAdminCheckClient.toString())
-                isAdmin=false
                 return
             }
 
@@ -94,11 +89,10 @@ class LoginActivity : AppCompatActivity() {
                 call: Call<MyLogin>,
                 response: Response<MyLogin>
             ) {
-                isAdmin=true
+                isAdmin = true
                 saveLogin()
                 val intent = Intent(this@LoginActivity, DrawerActivity::class.java)
                 startActivity(intent)
-                Log.d("Jestes adminem lol", "!!!!")
                 finish()// przeniesienie do fragmentu ksiazii
 
                 if (!response.isSuccessful) {
@@ -108,24 +102,22 @@ class LoginActivity : AppCompatActivity() {
             }
         })
 
-        //if (notAdminCheckClient) {
+
+        if (!isAdmin) {
             call.enqueue(object : Callback<MyLogin> {
                 override fun onFailure(
                     call: Call<MyLogin>,
                     t: Throwable
                 ) {
-                    Log.d(
-                        "LOGOWANIE:",
-                        "Login i haslo zle"
-                    )                //TODO:: to jest prymitywnie  bo teraz jak login i haslo sie nie zgadzaja to server zwraca null XD- jakby zrobic on bad http response ( w serverze na api controller - return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-                    wrongLoginOrPasswordHint.setVisible(true)
+                    //TODO:: to jest prymitywnie  bo teraz jak login i haslo sie nie zgadzaja to server zwraca null XD- jakby zrobic on bad http response ( w serverze na api controller - return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+                    Log.d("isadmin:",isAdmin.toString())
+                       wrongLoginOrPasswordHint.setVisible(true)
                 }
 
                 override fun onResponse(
                     call: Call<MyLogin>,
                     response: Response<MyLogin>
                 ) {
-                    Log.d("jestes klientem lol", "!!!!!!!!!!!!!!!!!!!!!")
                     saveLogin()
                     val intent = Intent(this@LoginActivity, DrawerActivity::class.java)
                     startActivity(intent)
@@ -137,7 +129,7 @@ class LoginActivity : AppCompatActivity() {
                     }
                 }
             })
-      //  }
+        }
     }
 
     fun View.setVisible(visible: Boolean) {

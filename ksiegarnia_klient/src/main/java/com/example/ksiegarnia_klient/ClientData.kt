@@ -2,7 +2,7 @@ package com.example.ksiegarnia_klient
 
 import java.io.Serializable
 
-class MyRegister(
+class ClientData(
     var nazwisko: String?,
     var imie: String?,
     var kodPocztowy: String?,
@@ -14,5 +14,4 @@ class MyRegister(
     var haslo: String?
 ) : Serializable {
     var idKlienta: String? = null
-
 }
