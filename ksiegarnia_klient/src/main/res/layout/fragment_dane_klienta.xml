@@ -62,7 +62,7 @@
                 <LinearLayout
                     android:id="@+id/linearLayout"
                     android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
+                    android:layout_height="498dp"
                     android:orientation="vertical"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -139,7 +139,15 @@
                         android:ems="10"
                         android:hint="Numer Domu"
                         android:inputType="textPersonName" />
+
+                    <Button
+                        android:id="@+id/updateButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Aktualizuj" />
+
                 </LinearLayout>
+
             </androidx.cardview.widget.CardView>
         </LinearLayout>
     </ScrollView>

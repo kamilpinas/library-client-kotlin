@@ -9,7 +9,7 @@ interface JsonPlaceholderAPI {
     fun getBookArray(): Call<Array<MyBooks>?>?
 
     @GET("ksiegarnia/klient")//TODO ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    fun getClientArray(): Call<Array<ClientData>?>?
+    fun getClientArray(@Query("login")login:String,@Query("password")password:String): Call<Array<ClientData>?>?
 
     @POST("ksiegarnia/login")
     fun createPost(@Body MyLogin: MyLogin): Call<MyLogin>
@@ -19,6 +19,9 @@ interface JsonPlaceholderAPI {
 
     @POST("ksiegarnia/register")
     fun createPost(@Body ClientData: ClientData): Call<ClientData>
+
+    @PUT("ksiegarnia/update")
+    fun createPut(@Body ClientData: ClientData): Call<ClientData>
 
     @PUT("shoutbox/message/{id}")
     fun createPut(

@@ -15,16 +15,14 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class RegisterActivity : AppCompatActivity() {
-   // private val baseUrl: String = "http://192.168.7.168:8080/"
-    private val baseUrl: String = "http://192.168.0.106:8080/"
+    private val baseUrl: String = "http://192.168.7.168:8080/"
+//    private val baseUrl: String = "http://192.168.0.106:8080/"
     private lateinit var jsonPlaceholderAPI: JsonPlaceholderAPI
     private lateinit var retrofit: Retrofit
-    private var control:Int = 60
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
-
 
         retrofit = Retrofit.Builder().baseUrl(baseUrl)
             .addConverterFactory(

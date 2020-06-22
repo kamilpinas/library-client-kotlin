@@ -17,8 +17,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 var isAdmin: Boolean = false
 
 class LoginActivity : AppCompatActivity() {
-    // private val baseUrl: String = "http://192.168.7.168:8080/" //TODO:: PINAS
-    private val baseUrl: String = "http://192.168.0.106:8080/" //TODO:: BUDZICZEK
+     private val baseUrl: String = "http://192.168.7.168:8080/" //TODO:: PINAS
+//    private val baseUrl: String = "http://192.168.0.106:8080/" //TODO:: BUDZICZEK
     private lateinit var loginInput: EditText
     private lateinit var passwordInput: EditText
     private lateinit var jsonPlaceholderAPI: JsonPlaceholderAPI
@@ -150,7 +150,9 @@ class LoginActivity : AppCompatActivity() {
         val sharedPreferences = getSharedPreferences("shared preferences", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         val login = loginInput.text.toString()
+        val pass = passwordInput.text.toString()
         editor.putString("user_login", login)
+        editor.putString("user_password", pass)
         editor.apply()
     }
 

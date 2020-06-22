@@ -34,6 +34,7 @@ class KsiegarniaFragment : Fragment(), CustomBooksListAdapter.OnItemClickListene
     private val baseUrl: String = "http://192.168.0.106:8080/"
     //private val baseUrl: String = "http://192.168.7.168:8080/" //TODO:: PINAS
     private lateinit var login: String
+    private lateinit var pass: String
     private lateinit var jsonPlaceholderAPI: JsonPlaceholderAPI
     private lateinit var retrofit: Retrofit
 
@@ -176,5 +177,6 @@ class KsiegarniaFragment : Fragment(), CustomBooksListAdapter.OnItemClickListene
         val sharedPref = requireActivity().getPreferences(Context.MODE_PRIVATE) ?: return
         val defaultValue = "default_login"
         login = sharedPref.getString("user_login", defaultValue).toString()
+        pass = sharedPref.getString("user_password", defaultValue).toString()
     }
 }
