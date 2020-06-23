@@ -30,6 +30,6 @@ interface JsonPlaceholderAPI {
     ): Call<MyLogin>
 
     @DELETE("ksiegarnia/klient/usunkonto")
-    fun deleteClient(@Query("login") login: String, @Query("password") password: String):  Call<Array<MyLogin>?>?
+    fun deleteClient(@Query("login") login: String, @Query("password") password: String): Call<MyLogin>
 
 }

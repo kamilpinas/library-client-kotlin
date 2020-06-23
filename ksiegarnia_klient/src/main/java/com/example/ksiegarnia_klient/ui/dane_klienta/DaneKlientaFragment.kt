@@ -4,16 +4,16 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
-import android.transition.Slide
-import android.transition.TransitionManager
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.Button
+import android.widget.EditText
+import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.afollestad.vvalidator.form
@@ -221,42 +221,32 @@ class DaneKlientaFragment : Fragment() {
 
 
     fun deleteClient() {
-        val call = jsonPlaceholderAPI.deleteClient(
-            currentUserLogin,
-            currentUserPassowrd
-        )
-
-        call!!.enqueue(object : Callback<Array<MyLogin>?> {
-            override fun onResponse(
-                call: Call<Array<ClientData>?>,
-                response: Response<Array<ClientData>?>
+        val call = jsonPlaceholderAPI.deleteClient(currentUserLogin, currentUserPassowrd)
+        call.enqueue(object : Callback<MyLogin> {
+            override fun onFailure(
+                call: Call<MyLogin>,
+                t: Throwable
             ) {
+                //blad jakis lol
+                return
+
+            }
+
+            override fun onResponse(
+                call: Call<MyLogin>,
+                response: Response<MyLogin>
+            ) {
+                makeToast("Pomyślnie skasowano konto!")
+                getActivity()?.finishAffinity();
+                val intent = Intent(getActivity(), StartScreenActivity::class.java)
+                startActivity(intent)
                 if (!response.isSuccessful) {
                     println("Code: " + response.code())
                     return
                 }
-                clientData = response.body()!!
-                editTextLogin.setText(clientData.get(0).login.toString())
-                editTextPassword.setText(clientData.get(0).haslo.toString())
-                editTextImie.setText(clientData.get(0).imie.toString())
-                editTextNazwisko.setText(clientData.get(0).nazwisko.toString())
-                editTextTelefon.setText(clientData.get(0).telefon.toString())
-                editTextKodPocztowy.setText(clientData.get(0).kodPocztowy.toString())
-                editTextMiejscowosc.setText(clientData.get(0).miejscowosc.toString())
-                editTextNrDomu.setText(clientData.get(0).nrDomu.toString())
-                editTextUlica.setText(clientData.get(0).ulica.toString())
-            }
-
-            override fun onFailure(
-                call: Call<Array<ClientData>?>,
-                t: Throwable
-            ) {
-                println(t.message)
             }
         })
     }
-
-
 
 
     fun makeToast(myToastText: String) {
@@ -274,12 +264,12 @@ class DaneKlientaFragment : Fragment() {
         dialogBuilder.setMessage("Czy na pewno chcesz nieodwracalnie skasować konto?")
         dialogBuilder.setPositiveButton("Tak",
             DialogInterface.OnClickListener { dialog, whichButton ->
-                Log.d("ELO", "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+                deleteClient()
+
             }
         )
         dialogBuilder.setNegativeButton("Nie",
             DialogInterface.OnClickListener { dialog, whichButton ->
-                Log.d("ELO", "CZXCZXCCCZ")
             })
         val b = dialogBuilder.create()
         if (b.toString() == "tak") {

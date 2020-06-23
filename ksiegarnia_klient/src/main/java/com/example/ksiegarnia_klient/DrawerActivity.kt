@@ -137,9 +137,6 @@ class DrawerActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         //  var currentFragment = supportFragmentManager.findFragmentByTag("KSIEGARNIA")
         var currentFragment = supportFragmentManager.fragments.last()
 
-        //currentFragment = supportFragmentManager.findFragmentByTag("nazwa")
-
-
         if (currentFragment != null) {
             if (currentFragment.tag == "KSIEGARNIA") {
                 finish()
@@ -150,25 +147,4 @@ class DrawerActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
             }
         }
     }
-}/*
-            } else if (currentFragment.tag == "nazwa") {
-                Log.d("DD", "12dasdasas")
-                currentFragment = supportFragmentManager.fragments.last()
-                fragmentManager.popBackStack()
-            } else {
-                // fragmentManager.popBackStack()
-                Log.d("DD", "12")
-                val fragment: Fragment = KsiegarniaFragment()
-
-                fragmentManager.beginTransaction()
-                    ?.replace(R.id.nav_host_fragment, fragment, "KSIEGARNIA")
-                    ?.commit()
-            }
-        }else{
-            Log.d("DD", "NULL")
-            finish()
-            finishAffinity()
-        }
-        return
-    }*/
-
+}

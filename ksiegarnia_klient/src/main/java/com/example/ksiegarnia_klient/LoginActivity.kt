@@ -92,20 +92,23 @@ class LoginActivity : AppCompatActivity() {
                 call: Call<MyLogin>,
                 response: Response<MyLogin>
             ) {
-                isAdmin = true
-                isGuest = false
-                saveLogin()
-                val intent = Intent(this@LoginActivity, DrawerActivity::class.java)
-                startActivity(intent)
-                finish()// przeniesienie do fragmentu ksiazii
 
                 if (!response.isSuccessful) {
                     println("Code: " + response.code())
+                    isAdmin = false
                     return
+                }
+                if (response.isSuccessful) {
+                    isAdmin = true
+                    isGuest = false
+                    saveLogin()
+                    val intent = Intent(this@LoginActivity, DrawerActivity::class.java)
+                    startActivity(intent)
+                    wrongLoginOrPasswordHint.setText("Jesteś administratorem")
+                    finish()// przeniesienie do fragmentu ksiazii
                 }
             }
         })
-
 
         if (!isAdmin) {
             call.enqueue(object : Callback<MyLogin> {
@@ -113,23 +116,28 @@ class LoginActivity : AppCompatActivity() {
                     call: Call<MyLogin>,
                     t: Throwable
                 ) {
-                    Log.d("isadmin:", isAdmin.toString())
-                    wrongLoginOrPasswordHint.setVisible(true)
+
                 }
 
                 override fun onResponse(
                     call: Call<MyLogin>,
                     response: Response<MyLogin>
                 ) {
-                    isAdmin=false
-                    isGuest = false
-                    saveLogin()
-                    val intent = Intent(this@LoginActivity, DrawerActivity::class.java)
-                    startActivity(intent)
-                    finish()// przeniesienie do fragmentu ksiazii
-
                     if (!response.isSuccessful) {
                         println("Code: " + response.code())
+                        Log.d("isadmin:", isAdmin.toString())
+                        wrongLoginOrPasswordHint.setVisible(true)
+                        return
+                    }
+
+                    if (response.isSuccessful) {
+                        println("Code: " + response.code())
+                        isAdmin = false
+                        isGuest = false
+                        saveLogin()
+                        val intent = Intent(this@LoginActivity, DrawerActivity::class.java)
+                        startActivity(intent)
+                        finish()// przeniesienie do fragmentu ksiazii
                         return
                     }
                 }
