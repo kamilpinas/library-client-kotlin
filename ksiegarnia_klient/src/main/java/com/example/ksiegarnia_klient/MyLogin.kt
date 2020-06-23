@@ -2,12 +2,12 @@ package com.example.ksiegarnia_klient
 
 import java.io.Serializable
 
-class MyLogin : Serializable {
+/*class MyLogin : Serializable {
     var login: String? = null
     var password: String? = null
+}*/
 
-    constructor(login: String?, password: String?) {
-        this.login = login
-        this.password = password
-    }
-}
+class MyLogin(
+    var login: String?,
+    var haslo: String?
+) : Serializable

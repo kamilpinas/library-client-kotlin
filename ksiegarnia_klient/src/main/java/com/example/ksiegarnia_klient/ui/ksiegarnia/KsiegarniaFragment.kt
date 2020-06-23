@@ -16,6 +16,8 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.ksiegarnia_klient.*
+import com.example.ksiegarnia_klient.ui.wypozyczenia_klienta.WypozyczeniaKlientaFragment
+import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.fragment_ksiegarnia.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -31,8 +33,6 @@ class KsiegarniaFragment : Fragment(), CustomBooksListAdapter.OnItemClickListene
     private lateinit var userLogin: String
     private lateinit var infoToast: Toast
     private lateinit var booksData: Array<MyBooks>
-    private val baseUrl: String = "http://192.168.0.106:8080/"
-    //private val baseUrl: String = "http://192.168.7.168:8080/" //TODO:: PINAS
     private lateinit var login: String
     private lateinit var pass: String
     private lateinit var jsonPlaceholderAPI: JsonPlaceholderAPI
@@ -133,7 +133,7 @@ class KsiegarniaFragment : Fragment(), CustomBooksListAdapter.OnItemClickListene
         infoToast.show()
     }
 
-    override fun onItemClick(//dzialanie edycji - klikniecia na cokolwiek z listy wiadomosci
+    override fun onItemClick(//dzialanie edycji - klikniecia na cokolwiek z listy ksiazek
         item: MyBooks, position: Int
     ) {
         val bundle = Bundle()
@@ -151,11 +151,13 @@ class KsiegarniaFragment : Fragment(), CustomBooksListAdapter.OnItemClickListene
 
         val fragment: Fragment = BookDetailsFragment()
         fragment.arguments = bundle
+
         val fragmentManager: FragmentManager? = fragmentManager
         fragmentManager?.beginTransaction()
-            ?.add(R.id.nav_host_fragment, fragment)//TODO::: TROCHE PRYMITYWNIE XD?
+            ?.add(R.id.nav_host_fragment, fragment, "nazwa")//TODO::: TROCHE PRYMITYWNIE XD?
             ?.addToBackStack(this.toString())
             // ?.remove(this)
+
             ?.commit()
     }
 

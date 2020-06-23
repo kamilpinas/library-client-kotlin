@@ -15,10 +15,15 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 var isAdmin: Boolean = false
+var isGuest: Boolean = false
+
+var currentUserLogin: String = ""
+var currentUserPassowrd: String = ""
+
+val baseUrl: String = "http://192.168.0.106:8080/" //TODO:: BUDZICZEK
+//private val baseUrl: String = "http://192.168.7.168:8080/" //TODO:: PINAS
 
 class LoginActivity : AppCompatActivity() {
-     private val baseUrl: String = "http://192.168.7.168:8080/" //TODO:: PINAS
-//    private val baseUrl: String = "http://192.168.0.106:8080/" //TODO:: BUDZICZEK
     private lateinit var loginInput: EditText
     private lateinit var passwordInput: EditText
     private lateinit var jsonPlaceholderAPI: JsonPlaceholderAPI
@@ -55,8 +60,6 @@ class LoginActivity : AppCompatActivity() {
             } else {
                 login = loginInput.text.toString()
                 password = passwordInput.text.toString()
-                Log.d("wpisany login to: ", login)
-                Log.d("wpisane haslo to: ", password)
                 val newLogin = MyLogin(login, password)
 
                 val sharedPreferences =
@@ -90,6 +93,7 @@ class LoginActivity : AppCompatActivity() {
                 response: Response<MyLogin>
             ) {
                 isAdmin = true
+                isGuest = false
                 saveLogin()
                 val intent = Intent(this@LoginActivity, DrawerActivity::class.java)
                 startActivity(intent)
@@ -109,15 +113,16 @@ class LoginActivity : AppCompatActivity() {
                     call: Call<MyLogin>,
                     t: Throwable
                 ) {
-                    //TODO:: to jest prymitywnie  bo teraz jak login i haslo sie nie zgadzaja to server zwraca null XD- jakby zrobic on bad http response ( w serverze na api controller - return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-                    Log.d("isadmin:",isAdmin.toString())
-                       wrongLoginOrPasswordHint.setVisible(true)
+                    Log.d("isadmin:", isAdmin.toString())
+                    wrongLoginOrPasswordHint.setVisible(true)
                 }
 
                 override fun onResponse(
                     call: Call<MyLogin>,
                     response: Response<MyLogin>
                 ) {
+                    isAdmin=false
+                    isGuest = false
                     saveLogin()
                     val intent = Intent(this@LoginActivity, DrawerActivity::class.java)
                     startActivity(intent)
@@ -151,10 +156,10 @@ class LoginActivity : AppCompatActivity() {
         val editor = sharedPreferences.edit()
         val login = loginInput.text.toString()
         val pass = passwordInput.text.toString()
+        currentUserLogin = loginInput.text.toString()
+        currentUserPassowrd = passwordInput.text.toString()
         editor.putString("user_login", login)
         editor.putString("user_password", pass)
         editor.apply()
     }
-
-
 }

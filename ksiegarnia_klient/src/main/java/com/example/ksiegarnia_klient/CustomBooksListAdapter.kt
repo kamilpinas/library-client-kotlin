@@ -1,5 +1,6 @@
 package com.example.ksiegarnia_klient
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,20 +31,28 @@ class CustomBooksListAdapter(
 
     class ExampleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var id: String = ""
-        var tytul: TextView = itemView.tytulTextView
-        var autor: TextView = itemView.autorTextView
-        var wydawnictwo: TextView = itemView.wydawnictwoTextView
-        var opis: TextView = itemView.opisTextView
-        var okladka: ImageView = itemView.okladkaImageView
+        var tytulTextView: TextView = itemView.tytulTextView
+        var autorTextView: TextView = itemView.autorTextView
+        var dostepnoscTextView: TextView = itemView.dostepnoscTextView
+        var wydawnictwoTextView: TextView = itemView.wydawnictwoTextView
+        var opisTextView: TextView = itemView.opisTextView
+        var okladkaImageView: ImageView = itemView.okladkaImageView
         fun initialize(item: MyBooks, action: OnItemClickListener) {
-            opis.text = item.opis
-            tytul.text = item.tytul
-            autor.text = item.autor
+            if (item.dostepnosc.toString() == "t") {
+                dostepnoscTextView.setTextColor(Color.parseColor("#009900"));
+                dostepnoscTextView.text = "Dostępna"
+            } else {
+                dostepnoscTextView.setTextColor(Color.parseColor("#FF0000"));
+                dostepnoscTextView.text = "Niedostępna"
+            }
+            opisTextView.text = item.opis
+            tytulTextView.text = item.tytul
+            autorTextView.text = item.autor
             id = item.idKsiazki.toString()
             var iconUrl: String = "http:/192.168.0.106:8080/ksiegarnia/image/" + id
-           // var iconUrl: String = "http:/192.168.7.168:8080/ksiegarnia/image/" + id
-            wydawnictwo.text = item.wydawnictwo
-            Picasso.get().load(iconUrl).into(okladka)
+            // var iconUrl: String = "http:/192.168.7.168:8080/ksiegarnia/image/" + id
+            wydawnictwoTextView.text = item.wydawnictwo
+            Picasso.get().load(iconUrl).into(okladkaImageView)
 
             itemView.setOnClickListener {
                 action.onItemClick(item, adapterPosition)

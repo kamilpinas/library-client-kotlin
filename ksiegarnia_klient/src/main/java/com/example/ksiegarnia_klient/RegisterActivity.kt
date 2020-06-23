@@ -2,7 +2,6 @@ package com.example.ksiegarnia_klient
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -15,8 +14,6 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class RegisterActivity : AppCompatActivity() {
-    private val baseUrl: String = "http://192.168.7.168:8080/"
-//    private val baseUrl: String = "http://192.168.0.106:8080/"
     private lateinit var jsonPlaceholderAPI: JsonPlaceholderAPI
     private lateinit var retrofit: Retrofit
 
@@ -85,7 +82,6 @@ class RegisterActivity : AppCompatActivity() {
                 t: Throwable
             ) {
                 Toast.makeText(this@RegisterActivity,"Brak połączenia!",Toast.LENGTH_SHORT).show()
-                Log.d("rejestracja:",  " error" )
             }
             override fun onResponse(
                 call: Call<ClientData>,

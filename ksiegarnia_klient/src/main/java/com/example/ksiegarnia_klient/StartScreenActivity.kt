@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentManager
 import kotlinx.android.synthetic.main.activity_start_screen.*
 
 
@@ -14,6 +15,7 @@ class StartScreenActivity : AppCompatActivity() {
 
         loginAsGuestButton.setOnClickListener {
             isAdmin = false
+            isGuest = true
             val sharedPreferences = getSharedPreferences("shared preferences", Context.MODE_PRIVATE)
             val editor = sharedPreferences.edit()
             val login = "gość"
@@ -25,7 +27,7 @@ class StartScreenActivity : AppCompatActivity() {
         }
 
         loginButton.setOnClickListener {
-            isAdmin=false
+            isAdmin = false
             val intent = Intent(this@StartScreenActivity, LoginActivity::class.java)
             finish()//zamknij start screen activity
             startActivity(intent)
@@ -40,8 +42,15 @@ class StartScreenActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {//TODO:: BEZ TEGO PRZENOSI DO BIALEGO EKRANU XD
-        /*val intent = Intent(this@StartScreenActivity, StartScreenActivity::class.java)
-        startActivity(intent)*/
+        val fm: FragmentManager = supportFragmentManager
+        if (fm.backStackEntryCount == 0){
+            finish()
+            finishAffinity()
+
+        }
+        else {
+            fm.popBackStack()
+        }
         return
     }
 }

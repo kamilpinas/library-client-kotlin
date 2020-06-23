@@ -8,8 +8,8 @@ interface JsonPlaceholderAPI {
     @GET("ksiegarnia/ksiazki")
     fun getBookArray(): Call<Array<MyBooks>?>?
 
-    @GET("ksiegarnia/klient")//TODO ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    fun getClientArray(@Query("login")login:String,@Query("password")password:String): Call<Array<ClientData>?>?
+    @GET("ksiegarnia/klient")
+    fun getClientArray(@Query("login") login: String, @Query("password") password: String): Call<Array<ClientData>?>?
 
     @POST("ksiegarnia/login")
     fun createPost(@Body MyLogin: MyLogin): Call<MyLogin>
@@ -28,4 +28,8 @@ interface JsonPlaceholderAPI {
         @Path("id") id: String,
         @Body exampleItem: MyLogin
     ): Call<MyLogin>
+
+    @DELETE("ksiegarnia/klient/usunkonto")
+    fun deleteClient(@Query("login") login: String, @Query("password") password: String):  Call<Array<MyLogin>?>?
+
 }

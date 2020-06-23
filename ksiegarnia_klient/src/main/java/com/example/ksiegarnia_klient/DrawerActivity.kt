@@ -3,6 +3,7 @@ package com.example.ksiegarnia_klient
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
@@ -23,13 +24,13 @@ import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 
-lateinit var navView: NavigationView/// zeby w settings fragment tego uzyc do ustawienia odpowiedniego itemu w drawerze po kliknieciu login
 
 class DrawerActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var userLogin: String
     private lateinit var headerView: View
+    private lateinit var navView: NavigationView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -100,7 +101,7 @@ class DrawerActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
                         R.id.nav_host_fragment,
                         fragment
                     )
-                    ?.addToBackStack(this.toString())//TODO:: TE REPLACE NIE ZAMIENIAJA TYLKO DODAJA KOLEIJNY, BO fragmenty sa na sztywno w xml, trzeba frame layout?
+                    ?.addToBackStack(null)//TODO:: TE REPLACE NIE ZAMIENIAJA TYLKO DODAJA KOLEIJNY, BO fragmenty sa na sztywno w xml, trzeba frame layout?
                     ?.commit()
             }
 
@@ -108,8 +109,8 @@ class DrawerActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
                 val fragment: Fragment = KsiegarniaFragment()
                 val fragmentManager: FragmentManager = supportFragmentManager
                 fragmentManager.beginTransaction()
-                    ?.replace(R.id.nav_host_fragment, fragment)
-                    ?.addToBackStack(this.toString())
+                    ?.replace(R.id.nav_host_fragment, fragment, "KSIEGARNIA")
+                    ?.addToBackStack(null)
                     ?.commit()
             }
 
@@ -118,7 +119,7 @@ class DrawerActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
                 val fragmentManager: FragmentManager = supportFragmentManager
                 fragmentManager.beginTransaction()
                     ?.replace(R.id.nav_host_fragment, fragment)
-                    ?.addToBackStack(this.toString())
+                    ?.addToBackStack(null)
                     ?.commit()
             }
         }
@@ -131,4 +132,43 @@ class DrawerActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         userLogin = sharedPreferences.getString("user_login", "gosc_domyslny")!!
     }
 
-}
+    override fun onBackPressed() {//TODO:: BEZ TEGO PRZENOSI DO BIALEGO EKRANU XD
+        val fragmentManager: FragmentManager = supportFragmentManager
+        //  var currentFragment = supportFragmentManager.findFragmentByTag("KSIEGARNIA")
+        var currentFragment = supportFragmentManager.fragments.last()
+
+        //currentFragment = supportFragmentManager.findFragmentByTag("nazwa")
+
+
+        if (currentFragment != null) {
+            if (currentFragment.tag == "KSIEGARNIA") {
+                finish()
+                finishAffinity()
+                Log.d("DD", "1")
+            } else {
+                fragmentManager.popBackStack()
+            }
+        }
+    }
+}/*
+            } else if (currentFragment.tag == "nazwa") {
+                Log.d("DD", "12dasdasas")
+                currentFragment = supportFragmentManager.fragments.last()
+                fragmentManager.popBackStack()
+            } else {
+                // fragmentManager.popBackStack()
+                Log.d("DD", "12")
+                val fragment: Fragment = KsiegarniaFragment()
+
+                fragmentManager.beginTransaction()
+                    ?.replace(R.id.nav_host_fragment, fragment, "KSIEGARNIA")
+                    ?.commit()
+            }
+        }else{
+            Log.d("DD", "NULL")
+            finish()
+            finishAffinity()
+        }
+        return
+    }*/
+
