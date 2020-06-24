@@ -1,4 +1,4 @@
-package com.example.ksiegarnia_klient.ui.ksiegarnia
+package com.example.ksiegarnia_klient.drawer_ui.ksiegarnia
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

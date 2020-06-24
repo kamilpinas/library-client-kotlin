@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/nav_ksiegarnia"
-        android:name="com.example.ksiegarnia_klient.ui.ksiegarnia.KsiegarniaFragment"
+        android:name="com.example.ksiegarnia_klient.drawer_ui.ksiegarnia.KsiegarniaFragment"
         android:label="@string/menu_ksiegarnia"
         tools:layout="@layout/fragment_ksiegarnia" />
 
     <fragment
         android:id="@+id/nav_dane_klienta"
-        android:name="com.example.ksiegarnia_klient.ui.dane_klienta.DaneKlientaFragment"
+        android:name="com.example.ksiegarnia_klient.drawer_ui.dane_klienta.DaneKlientaFragment"
         android:label="Moje dane"
         tools:layout="@layout/fragment_dane_klienta" />
 
     <fragment
         android:id="@+id/nav_wypozyczenia_klienta"
-        android:name="com.example.ksiegarnia_klient.ui.wypozyczenia_klienta.WypozyczeniaKlientaFragment"
+        android:name="com.example.ksiegarnia_klient.drawer_ui.wypozyczenia_klienta.WypozyczeniaKlientaFragment"
         android:label="Moje wypożyczenia"
         tools:layout="@layout/fragment_wypozyczenia_klienta" />
 

@@ -1,10 +1,10 @@
-package com.example.ksiegarnia_klient.ui.wypozyczenia_klienta
+package com.example.ksiegarnia_klient.drawer_ui.ksiegarnia
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class WypozyczeniaKlientaViewModel : ViewModel() {
+class BookDetailsViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
         value = "This is home Fragment"

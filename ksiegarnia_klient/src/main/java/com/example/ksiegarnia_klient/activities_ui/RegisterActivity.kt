@@ -1,4 +1,4 @@
-package com.example.ksiegarnia_klient
+package com.example.ksiegarnia_klient.activities_ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.afollestad.vvalidator.form
+import com.example.ksiegarnia_klient.R
 import com.example.ksiegarnia_klient.api_adapters.JsonPlaceholderAPI
 import com.example.ksiegarnia_klient.api_data_structures.ClientData
 import kotlinx.android.synthetic.main.activity_register.*

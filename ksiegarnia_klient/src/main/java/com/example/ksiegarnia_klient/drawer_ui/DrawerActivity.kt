@@ -1,4 +1,4 @@
-package com.example.ksiegarnia_klient
+package com.example.ksiegarnia_klient.drawer_ui
 
 import android.content.Context
 import android.content.Intent
@@ -17,12 +17,15 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupWithNavController
-import com.example.ksiegarnia_klient.ui.dane_klienta.DaneKlientaFragment
-import com.example.ksiegarnia_klient.ui.dodaj_ksiazke.DodajKsiazkeFragment
-import com.example.ksiegarnia_klient.ui.dodaj_autora.DodajAutoraFragment
-import com.example.ksiegarnia_klient.ui.dodaj_wydawnictwo.DodajWydawnictwoFragment
-import com.example.ksiegarnia_klient.ui.ksiegarnia.KsiegarniaFragment
-import com.example.ksiegarnia_klient.ui.wypozyczenia_klienta.WypozyczeniaKlientaFragment
+import com.example.ksiegarnia_klient.R
+import com.example.ksiegarnia_klient.activities_ui.StartScreenActivity
+import com.example.ksiegarnia_klient.drawer_ui.dane_klienta.DaneKlientaFragment
+import com.example.ksiegarnia_klient.drawer_ui.dodaj_ksiazke.DodajKsiazkeFragment
+import com.example.ksiegarnia_klient.drawer_ui.dodaj_autora.DodajAutoraFragment
+import com.example.ksiegarnia_klient.drawer_ui.dodaj_wydawnictwo.DodajWydawnictwoFragment
+import com.example.ksiegarnia_klient.drawer_ui.ksiegarnia.KsiegarniaFragment
+import com.example.ksiegarnia_klient.drawer_ui.wypozyczenia_klienta.WypozyczeniaKlientaFragment
+import com.example.ksiegarnia_klient.activities_ui.isAdmin
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
@@ -103,7 +106,9 @@ class DrawerActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_ksiegarnia, R.id.nav_dane_klienta, R.id.nav_wypozyczenia_klienta
+                R.id.nav_ksiegarnia,
+                R.id.nav_dane_klienta,
+                R.id.nav_wypozyczenia_klienta
             ), drawerLayout
         )
         navView.setupWithNavController(navController)

@@ -1,4 +1,4 @@
-package com.example.ksiegarnia_klient.ui.wypozyczenia_klienta
+package com.example.ksiegarnia_klient.drawer_ui.ksiegarnia
 
 import android.content.Context
 import android.net.ConnectivityManager
@@ -11,37 +11,46 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.ksiegarnia_klient.*
-import com.example.ksiegarnia_klient.api_adapters.CustomWypozyczeniaListAdapter
+import com.example.ksiegarnia_klient.activities_ui.baseUrl
+import com.example.ksiegarnia_klient.api_adapters.CustomBooksListAdapter
 import com.example.ksiegarnia_klient.api_adapters.JsonPlaceholderAPI
-import com.example.ksiegarnia_klient.api_data_structures.MyWypozyczenia
+import com.example.ksiegarnia_klient.api_data_structures.MyBooks
 import kotlinx.android.synthetic.main.fragment_ksiegarnia.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.Executors
 
+class KsiegarniaFragment : Fragment(), CustomBooksListAdapter.OnItemClickListener {
 
-class WypozyczeniaKlientaFragment : Fragment(), CustomWypozyczeniaListAdapter.OnItemClickListener {
-    private lateinit var wypozyczeniaKlientaViewModel: WypozyczeniaKlientaViewModel
+    private lateinit var ksiegarniaViewModel: KsiegarniaViewModel
+    private lateinit var userLogin: String
+    private lateinit var booksData: Array<MyBooks>
+    private lateinit var login: String
+    private lateinit var pass: String
     private lateinit var jsonPlaceholderAPI: JsonPlaceholderAPI
     private lateinit var retrofit: Retrofit
     private lateinit var infoToast: Toast
-    private lateinit var wypozyczeniaData: Array<MyWypozyczenia>
 
+    val thread = Executors.newSingleThreadScheduledExecutor()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        wypozyczeniaKlientaViewModel =
-            ViewModelProviders.of(this).get(WypozyczeniaKlientaViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_wypozyczenia_klienta, container, false)
+        ksiegarniaViewModel =
+            ViewModelProviders.of(this).get(KsiegarniaViewModel::class.java)
+        val root = inflater.inflate(R.layout.fragment_ksiegarnia, container, false)
+
+        //////////json
         retrofit = Retrofit.Builder().baseUrl(baseUrl)
             .addConverterFactory(
                 GsonConverterFactory
@@ -49,55 +58,52 @@ class WypozyczeniaKlientaFragment : Fragment(), CustomWypozyczeniaListAdapter.On
             )
             .build()
         jsonPlaceholderAPI = retrofit.create(JsonPlaceholderAPI::class.java)
-        if (!isAdmin && !isGuest) {
+        ////json
+        loadLogin()
 
-            if (checkNetworkConnection()) {
-                getAndShowData()
-                makeToast("Odświeżono książki")
-            } else {
-                makeToast("Nie można odświeżyć ksiązek - brak połączenia!")
-            }
+        if (checkNetworkConnection()) {
+            getAndShowData()
+            makeToast("Odświeżono książki")
         } else {
-            Log.d("POBIERANIE WYPOZXYCZEN", "JESTES GOSCIEM LUB ADMINEM")
-            makeToast("Zaloguj się jako klient, aby zobaczyć swoje wypożyczenia")
+            makeToast("Nie można odświeżyć ksiązek - brak połączenia!")
         }
-
 
         var swipeRefresh: SwipeRefreshLayout = root.findViewById(R.id.swipeRefresh)
         swipeRefresh.setOnRefreshListener {
             if (checkNetworkConnection()) {
                 getAndShowData()
                 swipeRefresh.isRefreshing = false
-                makeToast("Odświeżono wypożyczenia")
+                makeToast("Odświeżono książki")
             } else {
-                makeToast("Nie można odświeżyć wypożyczeń - brak połączenia!")
+                makeToast("Nie można odświeżyć ksiązek - brak połączenia!")
             }
         }
         return root
     }
 
     fun getAndShowData() {
-        val call = jsonPlaceholderAPI.getWypozyczeniaArray(currentUserLogin, currentUserPassowrd)
-        call!!.enqueue(object : Callback<Array<MyWypozyczenia>?> {
+        val call = jsonPlaceholderAPI.getBookArray()
+        call!!.enqueue(object : Callback<Array<MyBooks>?> {
             override fun onResponse(
-                call: Call<Array<MyWypozyczenia>?>,
-                response: Response<Array<MyWypozyczenia>?>
+                call: Call<Array<MyBooks>?>,
+                response: Response<Array<MyBooks>?>
             ) {
                 if (!response.isSuccessful) {
                     println("Code: " + response.code())
                     return
                 }
-                wypozyczeniaData = response.body()!!
+                booksData = response.body()!!
+                // booksData.reverse()
                 recyclerView.adapter =
-                    CustomWypozyczeniaListAdapter(
-                        wypozyczeniaData,
-                        this@WypozyczeniaKlientaFragment
+                    CustomBooksListAdapter(
+                        booksData,
+                        this@KsiegarniaFragment
                     )
                 recyclerView.layoutManager = LinearLayoutManager(context)
             }
 
             override fun onFailure(
-                call: Call<Array<MyWypozyczenia>?>,
+                call: Call<Array<MyBooks>?>,
                 t: Throwable
             ) {
                 println(t.message)
@@ -138,7 +144,52 @@ class WypozyczeniaKlientaFragment : Fragment(), CustomWypozyczeniaListAdapter.On
     }
 
     override fun onItemClick(//dzialanie edycji - klikniecia na cokolwiek z listy ksiazek
-        item: MyWypozyczenia, position: Int
+        item: MyBooks, position: Int
     ) {
+        val bundle = Bundle()
+        bundle.putString("tytul", item.tytul)
+        bundle.putString("idKsiazki", item.idKsiazki)// TODO:: ID JEST DO EDYCJI
+        bundle.putString("rokWydania", item.rokWydania)
+        bundle.putString("opis", item.opis)
+        bundle.putString("temat", item.temat)
+        bundle.putString("jezykKsiazki", item.jezykKsiazki)
+        bundle.putString("rokWydania", item.rokWydania)
+        bundle.putString("dostepnosc", item.dostepnosc)
+        bundle.putString("autor", item.autor)
+        bundle.putString("wydawnictwo", item.wydawnictwo)
+        bundle.putString("dostepnosc", item.dostepnosc)
+
+        val fragment: Fragment = BookDetailsFragment()
+        fragment.arguments = bundle
+
+        val fragmentManager: FragmentManager? = fragmentManager
+        fragmentManager?.beginTransaction()
+            ?.add(R.id.nav_host_fragment, fragment, "nazwa")
+            ?.addToBackStack(this.toString())
+            // ?.remove(this)
+
+            ?.commit()
+    }
+
+    /*
+    fun beginRefreshing() {
+        thread.scheduleAtFixedRate({
+            if (checkNetworkConnection()) {
+                getAndShowData()
+                Log.d("Executors thread: ", "Books refreshed automatically ")
+            } else {
+                Log.d(
+                    "Executors thread: ",
+                    "Cant automatically refresh books  - no internet connection!"
+                )
+            }
+        }, 0, 1, TimeUnit.HOURS)// TODO:::NA RAZIE NIE DZIALA - crashuje jak zmieni sie fragment?
+    }*/
+
+    private fun loadLogin() {
+        val sharedPref = requireActivity().getPreferences(Context.MODE_PRIVATE) ?: return
+        val defaultValue = "default_login"
+        login = sharedPref.getString("user_login", defaultValue).toString()
+        pass = sharedPref.getString("user_password", defaultValue).toString()
     }
 }

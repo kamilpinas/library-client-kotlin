@@ -1,4 +1,4 @@
-package com.example.ksiegarnia_klient.ui.dodaj_autora
+package com.example.ksiegarnia_klient.drawer_ui.dodaj_wydawnictwo
 
 import android.app.Activity
 import android.app.AlertDialog
@@ -16,6 +16,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.ksiegarnia_klient.*
+import com.example.ksiegarnia_klient.activities_ui.baseUrl
 import com.example.ksiegarnia_klient.api_adapters.JsonPlaceholderAPI
 import com.example.ksiegarnia_klient.api_data_structures.ClientData
 import retrofit2.Call
@@ -24,41 +25,35 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class DodajAutoraFragment : Fragment() {
-    private lateinit var dodajAutoraViewModel: DodajAutoraViewModel
+class DodajWydawnictwoFragment : Fragment() {
+    private lateinit var dodajWydawnictwoViewModel: DodajWydawnictwoViewModel
     private lateinit var jsonPlaceholderAPI: JsonPlaceholderAPI
     private lateinit var retrofit: Retrofit
     private lateinit var clientData: Array<ClientData>
     var activity: Activity? = getActivity()
     private lateinit var infoToast: Toast
+    private lateinit var editTextNazwaWydawnictwa: EditText
+    private lateinit var editTextNazwaMiasta: EditText
+    private lateinit var alertDialog: AlertDialog
+    private lateinit var dodajWydawnictwoView: LinearLayout
+    private lateinit var dodajWydawnictwoButton: Button
 
-    private lateinit var editTextImie: EditText
-    private lateinit var editTextNazwisko: EditText
-    private lateinit var editTextJezyk: EditText
-    private lateinit var editTextNarodowosc: EditText
-    private lateinit var editTextOkresTworzenia: EditText
-    private lateinit var dodajAutoraButton: Button
-    private lateinit var dodajAutoraView: LinearLayout
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        dodajAutoraViewModel =
-            ViewModelProviders.of(this).get(DodajAutoraViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_dodaj_autora, container, false)
+        dodajWydawnictwoViewModel =
+            ViewModelProviders.of(this).get(DodajWydawnictwoViewModel::class.java)
+        val root = inflater.inflate(R.layout.fragment_dodaj_wydawnictwo, container, false)
 
-        editTextImie = root.findViewById(R.id.editTextImie)
-        editTextNazwisko = root.findViewById(R.id.editTextNazwisko)
-        editTextImie = root.findViewById(R.id.editTextImie)
-        editTextNarodowosc = root.findViewById(R.id.editTextNarodowosc)
-        editTextOkresTworzenia = root.findViewById(R.id.editTextOkresTworzenia)
-        editTextJezyk = root.findViewById(R.id.editTextJezyk)
+        editTextNazwaWydawnictwa = root.findViewById(R.id.editTextNazwaWydawnictwa)
+        editTextNazwaMiasta = root.findViewById(R.id.editTextNazwaMiasta)
 
-        dodajAutoraButton = root.findViewById(R.id.dodajWydawnictwoButton)
+        dodajWydawnictwoButton = root.findViewById(R.id.dodajWydawnictwoButton)
 
-        dodajAutoraView = root.findViewById(R.id.dodajAutoraView)
+        dodajWydawnictwoView = root.findViewById(R.id.dodajWydawnictwoView)
         retrofit = Retrofit.Builder().baseUrl(baseUrl)
             .addConverterFactory(
                 GsonConverterFactory
@@ -67,7 +62,7 @@ class DodajAutoraFragment : Fragment() {
             .build()
         jsonPlaceholderAPI = retrofit.create(JsonPlaceholderAPI::class.java)
 
-        dodajAutoraButton.setOnClickListener {
+        dodajWydawnictwoButton.setOnClickListener {
             showDialog()
         }
 
@@ -162,43 +157,7 @@ class DodajAutoraFragment : Fragment() {
             }
         })
     }
-/*
-    fun getAndShowClientData() {
-        val call = jsonPlaceholderAPI.getClientArray(
-            currentUserLogin,
-            currentUserPassowrd
-        )
 
-        call!!.enqueue(object : Callback<Array<ClientData>?> {
-            override fun onResponse(
-                call: Call<Array<ClientData>?>,
-                response: Response<Array<ClientData>?>
-            ) {
-                if (!response.isSuccessful) {
-                    println("Code: " + response.code())
-                    return
-                }
-                clientData = response.body()!!
-                editTextLogin.setText(clientData.get(0).login.toString())
-                editTextPassword.setText(clientData.get(0).haslo.toString())
-                editTextImie.setText(clientData.get(0).imie.toString())
-                editTextNazwisko.setText(clientData.get(0).nazwisko.toString())
-                editTextTelefon.setText(clientData.get(0).telefon.toString())
-                editTextKodPocztowy.setText(clientData.get(0).kodPocztowy.toString())
-                editTextMiejscowosc.setText(clientData.get(0).miejscowosc.toString())
-                editTextNrDomu.setText(clientData.get(0).nrDomu.toString())
-                editTextUlica.setText(clientData.get(0).ulica.toString())
-            }
-
-            override fun onFailure(
-                call: Call<Array<ClientData>?>,
-                t: Throwable
-            ) {
-                println(t.message)
-            }
-        })
-    }
-*/
 
     fun makeToast(myToastText: String) {
         infoToast = Toast.makeText(
@@ -215,7 +174,6 @@ class DodajAutoraFragment : Fragment() {
         dialogBuilder.setMessage("Czy na pewno chcesz nieodwracalnie skasować konto?")
         dialogBuilder.setPositiveButton("Tak",
             DialogInterface.OnClickListener { dialog, whichButton ->
-
             }
         )
         dialogBuilder.setNegativeButton("Nie",

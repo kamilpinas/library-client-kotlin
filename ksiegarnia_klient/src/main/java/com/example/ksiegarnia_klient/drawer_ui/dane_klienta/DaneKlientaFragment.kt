@@ -1,8 +1,9 @@
-package com.example.ksiegarnia_klient.ui.dodaj_wydawnictwo
+package com.example.ksiegarnia_klient.drawer_ui.dane_klienta
 
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
@@ -15,44 +16,61 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import com.afollestad.vvalidator.form
 import com.example.ksiegarnia_klient.*
+import com.example.ksiegarnia_klient.activities_ui.*
 import com.example.ksiegarnia_klient.api_adapters.JsonPlaceholderAPI
 import com.example.ksiegarnia_klient.api_data_structures.ClientData
+import com.example.ksiegarnia_klient.api_data_structures.MyLogin
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class DodajWydawnictwoFragment : Fragment() {
-    private lateinit var dodajWydawnictwoViewModel: DodajWydawnictwoViewModel
+class DaneKlientaFragment : Fragment() {
+    private lateinit var daneKlientaViewModel: DaneKlientaViewModel
     private lateinit var jsonPlaceholderAPI: JsonPlaceholderAPI
     private lateinit var retrofit: Retrofit
     private lateinit var clientData: Array<ClientData>
     var activity: Activity? = getActivity()
     private lateinit var infoToast: Toast
-    private lateinit var editTextNazwaWydawnictwa: EditText
-    private lateinit var editTextNazwaMiasta: EditText
+    private lateinit var editTextLogin: EditText
+    private lateinit var editTextPassword: EditText
+    private lateinit var editTextImie: EditText
+    private lateinit var editTextNazwisko: EditText
+    private lateinit var editTextKodPocztowy: EditText
+    private lateinit var editTextUlica: EditText
+    private lateinit var editTextMiejscowosc: EditText
+    private lateinit var editTextNrDomu: EditText
+    private lateinit var editTextTelefon: EditText
+    private lateinit var updateButton: Button
+    private lateinit var deleteButton: Button
     private lateinit var alertDialog: AlertDialog
-    private lateinit var dodajWydawnictwoView: LinearLayout
-    private lateinit var dodajWydawnictwoButton: Button
-
+    private lateinit var daneKlientaView: LinearLayout
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        dodajWydawnictwoViewModel =
-            ViewModelProviders.of(this).get(DodajWydawnictwoViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_dodaj_wydawnictwo, container, false)
+        daneKlientaViewModel =
+            ViewModelProviders.of(this).get(DaneKlientaViewModel::class.java)
+        val root = inflater.inflate(R.layout.fragment_dane_klienta, container, false)
 
-        editTextNazwaWydawnictwa = root.findViewById(R.id.editTextNazwaWydawnictwa)
-        editTextNazwaMiasta = root.findViewById(R.id.editTextNazwaMiasta)
+        editTextLogin = root.findViewById(R.id.editTextLogin)
+        editTextPassword = root.findViewById(R.id.editTextPassword)
+        editTextImie = root.findViewById(R.id.editTextImie)
+        editTextNazwisko = root.findViewById(R.id.editTextNazwisko)
+        editTextKodPocztowy = root.findViewById(R.id.editTextKodPocztowy)
+        editTextTelefon = root.findViewById(R.id.editTextTelefon)
+        editTextUlica = root.findViewById(R.id.editTextUlica)
+        editTextMiejscowosc = root.findViewById(R.id.editTextMiejscowosc)
+        editTextNrDomu = root.findViewById(R.id.editTextNrDomu)
+        updateButton = root.findViewById(R.id.dodajWydawnictwoButton)
+        deleteButton = root.findViewById(R.id.deleteButton)
 
-        dodajWydawnictwoButton = root.findViewById(R.id.dodajWydawnictwoButton)
-
-        dodajWydawnictwoView = root.findViewById(R.id.dodajWydawnictwoView)
+        daneKlientaView = root.findViewById(R.id.daneKlientaView)
         retrofit = Retrofit.Builder().baseUrl(baseUrl)
             .addConverterFactory(
                 GsonConverterFactory
@@ -61,11 +79,10 @@ class DodajWydawnictwoFragment : Fragment() {
             .build()
         jsonPlaceholderAPI = retrofit.create(JsonPlaceholderAPI::class.java)
 
-        dodajWydawnictwoButton.setOnClickListener {
+        deleteButton.setOnClickListener {
             showDialog()
         }
 
-/*
         if (!isAdmin && !isGuest) {
             getAndShowClientData() // pobieranie danych klienta
 
@@ -123,11 +140,12 @@ class DodajWydawnictwoFragment : Fragment() {
                 }
             }
         } else {
-
+            updateButton.visibility = View.GONE
+            deleteButton.visibility = View.GONE
 
             Log.d("POBIERANIE DANYCH:::", "JESTES GOSCIEM LUB ADMINEM")
             makeToast("Zaloguj się jako klient, aby zobaczyć i edytować swoje dane")
-        }*/
+        }
         return root
     }
 
@@ -157,6 +175,74 @@ class DodajWydawnictwoFragment : Fragment() {
         })
     }
 
+    fun getAndShowClientData() {
+        val call = jsonPlaceholderAPI.getClientArray(
+            currentUserLogin,
+            currentUserPassowrd
+        )
+
+        call!!.enqueue(object : Callback<Array<ClientData>?> {
+            override fun onResponse(
+                call: Call<Array<ClientData>?>,
+                response: Response<Array<ClientData>?>
+            ) {
+                if (!response.isSuccessful) {
+                    println("Code: " + response.code())
+                    return
+                }
+                clientData = response.body()!!
+                editTextLogin.setText(clientData.get(0).login.toString())
+                editTextPassword.setText(clientData.get(0).haslo.toString())
+                editTextImie.setText(clientData.get(0).imie.toString())
+                editTextNazwisko.setText(clientData.get(0).nazwisko.toString())
+                editTextTelefon.setText(clientData.get(0).telefon.toString())
+                editTextKodPocztowy.setText(clientData.get(0).kodPocztowy.toString())
+                editTextMiejscowosc.setText(clientData.get(0).miejscowosc.toString())
+                editTextNrDomu.setText(clientData.get(0).nrDomu.toString())
+                editTextUlica.setText(clientData.get(0).ulica.toString())
+            }
+
+            override fun onFailure(
+                call: Call<Array<ClientData>?>,
+                t: Throwable
+            ) {
+                println(t.message)
+            }
+        })
+    }
+
+    fun deleteClient() {
+        val call = jsonPlaceholderAPI.deleteClient(
+            currentUserLogin,
+            currentUserPassowrd
+        )
+        call.enqueue(object : Callback<MyLogin> {
+            override fun onFailure(
+                call: Call<MyLogin>,
+                t: Throwable
+            ) {
+                return
+            }
+
+            override fun onResponse(
+                call: Call<MyLogin>,
+                response: Response<MyLogin>
+            ) {
+
+                if (response.isSuccessful) {
+                    makeToast("Pomyślnie skasowano konto!")
+                    getActivity()?.finishAffinity();
+                    val intent = Intent(getActivity(), StartScreenActivity::class.java)
+                    startActivity(intent)
+                    return
+                }
+                if (!response.isSuccessful) {
+                    println("Code: " + response.code())
+                    return
+                }
+            }
+        })
+    }
 
     fun makeToast(myToastText: String) {
         infoToast = Toast.makeText(
@@ -173,6 +259,8 @@ class DodajWydawnictwoFragment : Fragment() {
         dialogBuilder.setMessage("Czy na pewno chcesz nieodwracalnie skasować konto?")
         dialogBuilder.setPositiveButton("Tak",
             DialogInterface.OnClickListener { dialog, whichButton ->
+                deleteClient()
+
             }
         )
         dialogBuilder.setNegativeButton("Nie",

@@ -1,10 +1,12 @@
-package com.example.ksiegarnia_klient
+package com.example.ksiegarnia_klient.activities_ui
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
+import com.example.ksiegarnia_klient.*
+import com.example.ksiegarnia_klient.drawer_ui.DrawerActivity
 import kotlinx.android.synthetic.main.activity_start_screen.*
 
 

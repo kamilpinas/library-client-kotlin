@@ -1,9 +1,9 @@
-package com.example.ksiegarnia_klient.ui.dodaj_autora
+package com.example.ksiegarnia_klient.drawer_ui.dodaj_wydawnictwo
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class DodajAutoraViewModel : ViewModel() {
+class DodajWydawnictwoViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
         value = "This is home Fragment"

@@ -1,10 +1,9 @@
-package com.example.ksiegarnia_klient.ui.dane_klienta
-
+package com.example.ksiegarnia_klient.drawer_ui.dodaj_ksiazke
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class DaneKlientaViewModel : ViewModel() {
+class DodajKsiazkeViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
         value = "This is home Fragment"

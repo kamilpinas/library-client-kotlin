@@ -1,4 +1,4 @@
-package com.example.ksiegarnia_klient
+package com.example.ksiegarnia_klient.activities_ui
 
 import android.content.Context
 import android.content.Intent
@@ -7,8 +7,10 @@ import android.util.Log
 import android.view.View
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
+import com.example.ksiegarnia_klient.R
 import com.example.ksiegarnia_klient.api_adapters.JsonPlaceholderAPI
 import com.example.ksiegarnia_klient.api_data_structures.MyLogin
+import com.example.ksiegarnia_klient.drawer_ui.DrawerActivity
 import kotlinx.android.synthetic.main.activity_login.*
 import retrofit2.Call
 import retrofit2.Callback

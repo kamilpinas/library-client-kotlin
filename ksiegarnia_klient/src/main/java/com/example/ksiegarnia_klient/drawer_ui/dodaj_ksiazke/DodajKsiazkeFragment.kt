@@ -1,4 +1,4 @@
-package com.example.ksiegarnia_klient.ui.dodaj_ksiazke
+package com.example.ksiegarnia_klient.drawer_ui.dodaj_ksiazke
 
 import android.app.Activity
 import android.app.AlertDialog
@@ -13,6 +13,7 @@ import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.ksiegarnia_klient.*
+import com.example.ksiegarnia_klient.activities_ui.baseUrl
 import com.example.ksiegarnia_klient.api_adapters.JsonPlaceholderAPI
 import com.example.ksiegarnia_klient.api_data_structures.ClientData
 import retrofit2.Call

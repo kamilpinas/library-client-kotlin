@@ -1,4 +1,4 @@
-package com.example.ksiegarnia_klient.ui.ksiegarnia
+package com.example.ksiegarnia_klient.drawer_ui.ksiegarnia
 
 import android.graphics.Color
 import android.os.Bundle
@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import com.example.ksiegarnia_klient.*
+import com.example.ksiegarnia_klient.activities_ui.*
 import com.example.ksiegarnia_klient.api_adapters.JsonPlaceholderAPI
 import com.example.ksiegarnia_klient.api_data_structures.MyLogin
 import com.squareup.picasso.Picasso
@@ -127,7 +128,9 @@ class BookDetailsFragment : Fragment() {
 
     fun wypozyczKsiazke() {
         val call =
-            jsonPlaceholderAPI.wypozyczKsiazke(currentUserLogin, currentUserPassowrd, idKsiazkiInt)
+            jsonPlaceholderAPI.wypozyczKsiazke(
+                currentUserLogin,
+                currentUserPassowrd, idKsiazkiInt)
         call.enqueue(object : Callback<MyLogin> {
             override fun onFailure(
                 call: Call<MyLogin>,

@@ -1,4 +1,4 @@
-package com.example.ksiegarnia_klient
+package com.example.ksiegarnia_klient.activities_ui
 
 import android.content.Intent
 import android.os.Bundle
