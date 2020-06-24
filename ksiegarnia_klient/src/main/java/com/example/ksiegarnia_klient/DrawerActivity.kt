@@ -17,6 +17,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupWithNavController
 import com.example.ksiegarnia_klient.ui.dane_klienta.DaneKlientaFragment
+import com.example.ksiegarnia_klient.ui.ksiegarnia.BookDetailsFragment
 import com.example.ksiegarnia_klient.ui.ksiegarnia.KsiegarniaFragment
 import com.example.ksiegarnia_klient.ui.wypozyczenia_klienta.WypozyczeniaKlientaFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -36,13 +37,43 @@ class DrawerActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val fab: FloatingActionButton = findViewById(R.id.fab)
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+        val fabDodajAutora: FloatingActionButton = findViewById(R.id.fabDodajAutora)
+        val fabDodajWydawnictwo: FloatingActionButton = findViewById(R.id.fabDodajWydawnictwo)
+        val fabDodajKsiazke: FloatingActionButton = findViewById(R.id.fabDodajKsiazke)
+
+        fabDodajAutora.setOnClickListener { view ->
+            val fragment: Fragment = DaneKlientaFragment()
+
+            val fragmentManager: FragmentManager = supportFragmentManager
+            fragmentManager?.beginTransaction()
+                ?.add(R.id.nav_host_fragment, fragment, "nazwaaa")
+                ?.addToBackStack(this.toString())
+                ?.commit()
         }
+        fabDodajWydawnictwo.setOnClickListener { view ->
+            val fragment: Fragment = DaneKlientaFragment()
+
+            val fragmentManager: FragmentManager = supportFragmentManager
+            fragmentManager?.beginTransaction()
+                ?.add(R.id.nav_host_fragment, fragment, "nazwaaa")
+                ?.addToBackStack(this.toString())
+                ?.commit()
+        }
+
+        fabDodajKsiazke.setOnClickListener { view ->
+            val fragment: Fragment = DaneKlientaFragment()
+
+            val fragmentManager: FragmentManager = supportFragmentManager
+            fragmentManager?.beginTransaction()
+                ?.add(R.id.nav_host_fragment, fragment, "nazwaaa")
+                ?.addToBackStack(this.toString())
+                ?.commit()
+        }
+
         if (isAdmin == true) {
-            fab.visibility = View.VISIBLE
+            fabDodajAutora.visibility = View.VISIBLE
+            fabDodajWydawnictwo.visibility = View.VISIBLE
+            fabDodajKsiazke.visibility = View.VISIBLE
         }
 
         navView = findViewById(R.id.nav_view)
