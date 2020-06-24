@@ -1,6 +1,5 @@
 package com.example.ksiegarnia_klient.ui.ksiegarnia
 
-import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -12,11 +11,12 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import com.example.ksiegarnia_klient.*
+import com.example.ksiegarnia_klient.api_adapters.JsonPlaceholderAPI
+import com.example.ksiegarnia_klient.api_data_structures.MyLogin
 import com.squareup.picasso.Picasso
 import retrofit2.Call
 import retrofit2.Callback

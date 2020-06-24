@@ -1,5 +1,9 @@
-package com.example.ksiegarnia_klient
+package com.example.ksiegarnia_klient.api_adapters
 
+import com.example.ksiegarnia_klient.api_data_structures.ClientData
+import com.example.ksiegarnia_klient.api_data_structures.MyBooks
+import com.example.ksiegarnia_klient.api_data_structures.MyLogin
+import com.example.ksiegarnia_klient.api_data_structures.MyWypozyczenia
 import retrofit2.Call
 import retrofit2.http.*
 

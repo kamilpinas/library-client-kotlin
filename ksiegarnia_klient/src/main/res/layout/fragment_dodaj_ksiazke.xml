@@ -58,13 +58,13 @@
 
             <androidx.cardview.widget.CardView
                 android:layout_width="fill_parent"
-                android:layout_height="478dp"
+                android:layout_height="450dp"
                 android:layout_margin="8dp">
 
                 <LinearLayout
                     android:id="@+id/linearLayout"
                     android:layout_width="fill_parent"
-                    android:layout_height="500dp"
+                    android:layout_height="450dp"
                     android:orientation="vertical"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -77,18 +77,18 @@
 
                         <TextView
                             android:id="@+id/loginLabel"
-                            android:layout_width="70sp"
+                            android:layout_width="90sp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:layout_marginEnd="5dp"
-                            android:text="Login:" />
+                            android:text="Tytuł:" />
 
                         <EditText
-                            android:id="@+id/editTextLogin"
+                            android:id="@+id/editTextTytulKsiazki"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:ems="10"
-                            android:hint="login"
+                            android:hint="Tytuł ksiązki"
                             android:inputType="textPersonName"
                             android:singleLine="false" />
 
@@ -102,18 +102,18 @@
 
                         <TextView
                             android:id="@+id/passwordLabel"
-                            android:layout_width="70sp"
+                            android:layout_width="90sp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:layout_marginEnd="5dp"
-                            android:text="Hasło:" />
+                            android:text="Temat:" />
 
                         <EditText
-                            android:id="@+id/editTextPassword"
+                            android:id="@+id/editTextTematKsiazki"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:ems="10"
-                            android:hint="haslo"
+                            android:hint="Temat książki"
                             android:inputType="textPassword" />
 
                     </LinearLayout>
@@ -126,18 +126,18 @@
 
                         <TextView
                             android:id="@+id/passWordLabel"
-                            android:layout_width="70sp"
+                            android:layout_width="90sp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:layout_marginEnd="5dp"
-                            android:text="Imię:" />
+                            android:text="Język książki: " />
 
                         <EditText
-                            android:id="@+id/editTextImie"
+                            android:id="@+id/editTextJezykKsiazki"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:ems="10"
-                            android:hint="Imię"
+                            android:hint="Język w którym książka jest napisana"
                             android:inputType="textPersonName" />
 
                     </LinearLayout>
@@ -150,18 +150,18 @@
 
                         <TextView
                             android:id="@+id/passWordLabel"
-                            android:layout_width="70sp"
+                            android:layout_width="90sp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:layout_marginEnd="5dp"
-                            android:text="Nazwisko:" />
+                            android:text="Rok wydania" />
 
                         <EditText
-                            android:id="@+id/editTextNazwisko"
+                            android:id="@+id/editTextRokWydania"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:ems="10"
-                            android:hint="Nazwisko"
+                            android:hint="Rok tego wydania"
                             android:inputType="textPersonName" />
 
                     </LinearLayout>
@@ -174,18 +174,19 @@
 
                         <TextView
                             android:id="@+id/passWordLabel"
-                            android:layout_width="70sp"
+                            android:layout_width="90sp"
                             android:layout_height="fill_parent"
                             android:layout_marginStart="5dp"
                             android:layout_marginEnd="5dp"
-                            android:text="Miejscowość:" />
+                            android:gravity="center_vertical"
+                            android:text="Opis:" />
 
                         <EditText
-                            android:id="@+id/editTextMiejscowosc"
+                            android:id="@+id/editTextOpisKsiazki"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:ems="10"
-                            android:hint="Miejscowosc"
+                            android:hint="Opis książki"
                             android:inputType="textPersonName" />
 
                     </LinearLayout>
@@ -193,96 +194,67 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="16dp"
                         android:orientation="horizontal">
 
                         <TextView
                             android:id="@+id/passWordLabel"
-                            android:layout_width="70sp"
+                            android:layout_width="90sp"
                             android:layout_height="fill_parent"
                             android:layout_marginStart="5dp"
                             android:layout_marginEnd="5dp"
-                            android:text="Kod pocztowy:" />
+                            android:text="Dostępnosc" />
 
-                        <EditText
-                            android:id="@+id/editTextKodPocztowy"
-                            android:layout_width="match_parent"
+                        <CheckBox
+                            android:id="@+id/dostepnoscCheckBox"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:ems="10"
-                            android:hint="Kod Pocztowy"
-                            android:inputType="textPersonName" />
+                            android:layout_weight="1"
+                            android:text="CheckBox" />
 
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="16dp"
                         android:orientation="horizontal">
 
                         <TextView
                             android:id="@+id/passWordLabel"
-                            android:layout_width="70sp"
+                            android:layout_width="90sp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:layout_marginEnd="5dp"
-                            android:text="Telefon:" />
+                            android:text="Autor:" />
 
-                        <EditText
-                            android:id="@+id/editTextTelefon"
+                        <Spinner
+                            android:id="@+id/spinnerAutor"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:ems="10"
-                            android:hint="Telefon"
-                            android:inputType="textPersonName" />
+                            android:layout_weight="1" />
 
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="50dp"
                         android:layout_marginTop="8dp"
                         android:orientation="horizontal">
 
                         <TextView
                             android:id="@+id/passWordLabel"
-                            android:layout_width="70sp"
+                            android:layout_width="95sp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:layout_marginEnd="5dp"
-                            android:text="Ulica:" />
+                            android:text="Wydawnictwo:" />
 
-                        <EditText
-                            android:id="@+id/editTextUlica"
+                        <Spinner
+                            android:id="@+id/spinnerWydawnictwo"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:ems="10"
-                            android:hint="Ulica"
-                            android:inputType="textPersonName" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/passWordLabel"
-                            android:layout_width="70sp"
-                            android:layout_height="fill_parent"
-                            android:layout_marginStart="5dp"
-                            android:layout_marginEnd="5dp"
-                            android:text="Numer domu" />
-
-                        <EditText
-                            android:id="@+id/editTextNrDomu"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:ems="10"
-                            android:hint="Numer Domu"
-                            android:inputType="textPersonName" />
+                            android:layout_weight="1" />
 
                     </LinearLayout>
 
@@ -291,22 +263,14 @@
             </androidx.cardview.widget.CardView>
 
             <Button
-                android:id="@+id/updateButton"
+                android:id="@+id/dodajWydawnictwoButton"
                 android:layout_width="300dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="4dp"
                 android:background="@drawable/button_background"
-                android:text="Aktualizuj" />
+                android:text="Dodaj książkę" />
 
-            <Button
-                android:id="@+id/deleteButton"
-                android:layout_width="300dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/button_background_red"
-                android:text="Skasuj konto" />
         </LinearLayout>
     </ScrollView>
 

@@ -1,12 +1,13 @@
-package com.example.ksiegarnia_klient
+package com.example.ksiegarnia_klient.api_adapters
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.ksiegarnia_klient.R
+import com.example.ksiegarnia_klient.api_data_structures.MyWypozyczenia
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.list_layout_wypozyczenia.view.*
 
@@ -20,7 +21,9 @@ class CustomWypozyczeniaListAdapter(
             parent, false
         )
 
-        return ExampleViewHolder(itemView)
+        return ExampleViewHolder(
+            itemView
+        )
     }
 
     override fun onBindViewHolder(holder: ExampleViewHolder, position: Int) {

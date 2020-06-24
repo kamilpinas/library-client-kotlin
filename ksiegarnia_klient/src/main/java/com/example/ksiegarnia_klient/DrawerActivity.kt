@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
@@ -16,6 +17,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupWithNavController
+import com.example.ksiegarnia_klient.ui.dane_klienta.DaneKlientaFragment
 import com.example.ksiegarnia_klient.ui.dodaj_ksiazke.DodajKsiazkeFragment
 import com.example.ksiegarnia_klient.ui.dodaj_autora.DodajAutoraFragment
 import com.example.ksiegarnia_klient.ui.dodaj_wydawnictwo.DodajWydawnictwoFragment
@@ -40,6 +42,12 @@ class DrawerActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         val fabDodajAutora: FloatingActionButton = findViewById(R.id.fabDodajAutora)
         val fabDodajWydawnictwo: FloatingActionButton = findViewById(R.id.fabDodajWydawnictwo)
         val fabDodajKsiazke: FloatingActionButton = findViewById(R.id.fabDodajKsiazke)
+
+
+        val DodajAutoraTextView: TextView = findViewById(R.id.dodajAutoraTextView)
+        val DodajKsiazkeTextView: TextView = findViewById(R.id.dodajKsiazkeTextView)
+        val DodajWydawnictwoTextView: TextView = findViewById(R.id.dodajWydawnictwoTextView)
+        val adminPanelBackground: ConstraintLayout = findViewById(R.id.adminPanelBackground)
 
         fabDodajAutora.setOnClickListener { view ->
             val fragment: Fragment = DodajAutoraFragment()
@@ -75,6 +83,12 @@ class DrawerActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
             fabDodajAutora.visibility = View.VISIBLE
             fabDodajWydawnictwo.visibility = View.VISIBLE
             fabDodajKsiazke.visibility = View.VISIBLE
+
+            DodajAutoraTextView.visibility = View.VISIBLE
+            DodajKsiazkeTextView.visibility = View.VISIBLE
+
+            DodajWydawnictwoTextView.visibility = View.VISIBLE
+            adminPanelBackground.visibility = View.VISIBLE
         }
 
         navView = findViewById(R.id.nav_view)
@@ -126,7 +140,7 @@ class DrawerActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
                 startActivity(intent)
             }
             R.id.nav_dane_klienta -> {
-                val fragment: Fragment = DodajAutoraFragment()
+                val fragment: Fragment = DaneKlientaFragment()
                 val fragmentManager: FragmentManager = supportFragmentManager
                 fragmentManager.beginTransaction()
                     ?.replace(

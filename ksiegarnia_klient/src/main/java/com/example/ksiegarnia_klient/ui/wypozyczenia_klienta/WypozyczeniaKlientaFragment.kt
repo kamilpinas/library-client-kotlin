@@ -11,12 +11,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.ksiegarnia_klient.*
-import com.example.ksiegarnia_klient.ui.ksiegarnia.BookDetailsFragment
+import com.example.ksiegarnia_klient.api_adapters.CustomWypozyczeniaListAdapter
+import com.example.ksiegarnia_klient.api_adapters.JsonPlaceholderAPI
+import com.example.ksiegarnia_klient.api_data_structures.MyWypozyczenia
 import kotlinx.android.synthetic.main.fragment_ksiegarnia.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -87,10 +88,11 @@ class WypozyczeniaKlientaFragment : Fragment(), CustomWypozyczeniaListAdapter.On
                     return
                 }
                 wypozyczeniaData = response.body()!!
-                recyclerView.adapter = CustomWypozyczeniaListAdapter(
-                    wypozyczeniaData,
-                    this@WypozyczeniaKlientaFragment
-                )
+                recyclerView.adapter =
+                    CustomWypozyczeniaListAdapter(
+                        wypozyczeniaData,
+                        this@WypozyczeniaKlientaFragment
+                    )
                 recyclerView.layoutManager = LinearLayoutManager(context)
             }
 

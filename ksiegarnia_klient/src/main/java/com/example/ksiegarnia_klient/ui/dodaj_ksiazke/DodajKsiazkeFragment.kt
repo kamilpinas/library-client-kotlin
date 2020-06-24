@@ -3,22 +3,18 @@ package com.example.ksiegarnia_klient.ui.dodaj_ksiazke
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.DialogInterface
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.LinearLayout
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
-import com.afollestad.vvalidator.form
 import com.example.ksiegarnia_klient.*
-import com.example.ksiegarnia_klient.ui.dodaj_ksiazke.DodajKsiazkeViewModel
+import com.example.ksiegarnia_klient.api_adapters.JsonPlaceholderAPI
+import com.example.ksiegarnia_klient.api_data_structures.ClientData
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -32,18 +28,16 @@ class DodajKsiazkeFragment : Fragment() {
     private lateinit var clientData: Array<ClientData>
     var activity: Activity? = getActivity()
     private lateinit var infoToast: Toast
-    private lateinit var editTextLogin: EditText
-    private lateinit var editTextPassword: EditText
-    private lateinit var editTextImie: EditText
-    private lateinit var editTextNazwisko: EditText
-    private lateinit var editTextKodPocztowy: EditText
-    private lateinit var editTextUlica: EditText
-    private lateinit var editTextMiejscowosc: EditText
-    private lateinit var editTextNrDomu: EditText
-    private lateinit var editTextTelefon: EditText
-    private lateinit var updateButton: Button
-    private lateinit var deleteButton: Button
-    private lateinit var alertDialog: AlertDialog
+
+    private lateinit var editTextTytulKsiazki: EditText
+    private lateinit var editTextTematKsiazki: EditText
+    private lateinit var editTextJezykKsiazki: EditText
+    private lateinit var editTextRokWydania: EditText
+    private lateinit var editTextOpisKsiazki: EditText
+    private lateinit var dostepnoscCheckBox: CheckBox
+    private lateinit var spinnerAutor: Spinner
+    private lateinit var spinnerWydawnictwo: Spinner
+    private lateinit var dodajKsiazkeButton: Button
     private lateinit var dodajKsiazkeView: LinearLayout
 
     override fun onCreateView(
@@ -55,17 +49,15 @@ class DodajKsiazkeFragment : Fragment() {
             ViewModelProviders.of(this).get(DodajKsiazkeViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_dodaj_ksiazke, container, false)
 
-        editTextLogin = root.findViewById(R.id.editTextLogin)
-        editTextPassword = root.findViewById(R.id.editTextPassword)
-        editTextImie = root.findViewById(R.id.editTextImie)
-        editTextNazwisko = root.findViewById(R.id.editTextNazwisko)
-        editTextKodPocztowy = root.findViewById(R.id.editTextKodPocztowy)
-        editTextTelefon = root.findViewById(R.id.editTextTelefon)
-        editTextUlica = root.findViewById(R.id.editTextUlica)
-        editTextMiejscowosc = root.findViewById(R.id.editTextMiejscowosc)
-        editTextNrDomu = root.findViewById(R.id.editTextNrDomu)
-        updateButton = root.findViewById(R.id.updateButton)
-        deleteButton = root.findViewById(R.id.deleteButton)
+        editTextTytulKsiazki = root.findViewById(R.id.editTextTytulKsiazki)
+        editTextTematKsiazki = root.findViewById(R.id.editTextTematKsiazki)
+        editTextJezykKsiazki = root.findViewById(R.id.editTextJezykKsiazki)
+        editTextRokWydania = root.findViewById(R.id.editTextRokWydania)
+        editTextOpisKsiazki = root.findViewById(R.id.editTextOpisKsiazki)
+        dostepnoscCheckBox = root.findViewById(R.id.dostepnoscCheckBox)
+        spinnerAutor = root.findViewById(R.id.spinnerAutor)
+        spinnerWydawnictwo = root.findViewById(R.id.spinnerWydawnictwo)
+        dodajKsiazkeButton = root.findViewById(R.id.dodajWydawnictwoButton)
 
         dodajKsiazkeView = root.findViewById(R.id.dodajKsiazkeView)
         retrofit = Retrofit.Builder().baseUrl(baseUrl)
@@ -76,21 +68,19 @@ class DodajKsiazkeFragment : Fragment() {
             .build()
         jsonPlaceholderAPI = retrofit.create(JsonPlaceholderAPI::class.java)
 
-        deleteButton.setOnClickListener {
+        dodajKsiazkeButton.setOnClickListener {
             showDialog()
         }
-        updateButton.visibility = View.VISIBLE
-        deleteButton.visibility = View.VISIBLE
-
+/*
         if (!isAdmin && !isGuest) {
             getAndShowClientData() // pobieranie danych klienta
 
             form {
-                input(editTextLogin, name = "login") {
+                input(editTextTytulKsiazki, name = "login") {
                     isNotEmpty().description("Podaj login !")
                     length().atLeast(6).description("Login musi zawierac minimum 6 znaków")
                 }
-                input(editTextPassword, name = "haslo") {
+                input(editTextTematKsiazki, name = "haslo") {
                     isNotEmpty().description("Podaj hasło !")
                     length().atLeast(6).description("Hasło musi zawierac minimum 6 znaków")
                 }
@@ -123,17 +113,18 @@ class DodajKsiazkeFragment : Fragment() {
                 }
 
                 submitWith(updateButton) { result ->
-                    val updateData = ClientData(
-                        editTextNazwisko.text.toString(),
-                        editTextImie.text.toString(),
-                        editTextKodPocztowy.text.toString(),
-                        editTextMiejscowosc.text.toString(),
-                        editTextUlica.text.toString(),
-                        editTextNrDomu.text.toString(),
-                        editTextTelefon.text.toString(),
-                        editTextLogin.text.toString(),
-                        editTextPassword.text.toString()
-                    )
+                    val updateData =
+                        ClientData(
+                            editTextNazwisko.text.toString(),
+                            editTextImie.text.toString(),
+                            editTextKodPocztowy.text.toString(),
+                            editTextMiejscowosc.text.toString(),
+                            editTextUlica.text.toString(),
+                            editTextNrDomu.text.toString(),
+                            editTextTelefon.text.toString(),
+                            editTextTytulKsiazki.text.toString(),
+                            editTextTematKsiazki.text.toString()
+                        )
                     sendUpdate(updateData)
                 }
             }
@@ -142,7 +133,7 @@ class DodajKsiazkeFragment : Fragment() {
 
             Log.d("POBIERANIE DANYCH:::", "JESTES GOSCIEM LUB ADMINEM")
             makeToast("Zaloguj się jako klient, aby zobaczyć i edytować swoje dane")
-        }
+        }*/
         return root
     }
 
@@ -172,72 +163,43 @@ class DodajKsiazkeFragment : Fragment() {
         })
     }
 
-    fun getAndShowClientData() {
-        val call = jsonPlaceholderAPI.getClientArray(
-            currentUserLogin,
-            currentUserPassowrd
-        )
+    /*
+        fun getAndShowClientData() {
+            val call = jsonPlaceholderAPI.getClientArray(
+                currentUserLogin,
+                currentUserPassowrd
+            )
 
-        call!!.enqueue(object : Callback<Array<ClientData>?> {
-            override fun onResponse(
-                call: Call<Array<ClientData>?>,
-                response: Response<Array<ClientData>?>
-            ) {
-                if (!response.isSuccessful) {
-                    println("Code: " + response.code())
-                    return
+            call!!.enqueue(object : Callback<Array<ClientData>?> {
+                override fun onResponse(
+                    call: Call<Array<ClientData>?>,
+                    response: Response<Array<ClientData>?>
+                ) {
+                    if (!response.isSuccessful) {
+                        println("Code: " + response.code())
+                        return
+                    }
+                    clientData = response.body()!!
+                    editTextTytulKsiazki.setText(clientData.get(0).login.toString())
+                    editTextTematKsiazki.setText(clientData.get(0).haslo.toString())
+                    editTextImie.setText(clientData.get(0).imie.toString())
+                    editTextNazwisko.setText(clientData.get(0).nazwisko.toString())
+                    editTextTelefon.setText(clientData.get(0).telefon.toString())
+                    editTextKodPocztowy.setText(clientData.get(0).kodPocztowy.toString())
+                    editTextMiejscowosc.setText(clientData.get(0).miejscowosc.toString())
+                    editTextNrDomu.setText(clientData.get(0).nrDomu.toString())
+                    editTextUlica.setText(clientData.get(0).ulica.toString())
                 }
-                clientData = response.body()!!
-                editTextLogin.setText(clientData.get(0).login.toString())
-                editTextPassword.setText(clientData.get(0).haslo.toString())
-                editTextImie.setText(clientData.get(0).imie.toString())
-                editTextNazwisko.setText(clientData.get(0).nazwisko.toString())
-                editTextTelefon.setText(clientData.get(0).telefon.toString())
-                editTextKodPocztowy.setText(clientData.get(0).kodPocztowy.toString())
-                editTextMiejscowosc.setText(clientData.get(0).miejscowosc.toString())
-                editTextNrDomu.setText(clientData.get(0).nrDomu.toString())
-                editTextUlica.setText(clientData.get(0).ulica.toString())
-            }
 
-            override fun onFailure(
-                call: Call<Array<ClientData>?>,
-                t: Throwable
-            ) {
-                println(t.message)
-            }
-        })
-    }
-
-    fun deleteClient() {
-        val call = jsonPlaceholderAPI.deleteClient(currentUserLogin, currentUserPassowrd)
-        call.enqueue(object : Callback<MyLogin> {
-            override fun onFailure(
-                call: Call<MyLogin>,
-                t: Throwable
-            ) {
-                return
-            }
-
-            override fun onResponse(
-                call: Call<MyLogin>,
-                response: Response<MyLogin>
-            ) {
-
-                if (response.isSuccessful) {
-                    makeToast("Pomyślnie skasowano konto!")
-                    getActivity()?.finishAffinity();
-                    val intent = Intent(getActivity(), StartScreenActivity::class.java)
-                    startActivity(intent)
-                    return
+                override fun onFailure(
+                    call: Call<Array<ClientData>?>,
+                    t: Throwable
+                ) {
+                    println(t.message)
                 }
-                if (!response.isSuccessful) {
-                    println("Code: " + response.code())
-                    return
-                }
-            }
-        })
-    }
-
+            })
+        }
+    */
     fun makeToast(myToastText: String) {
         infoToast = Toast.makeText(
             context,
@@ -253,7 +215,6 @@ class DodajKsiazkeFragment : Fragment() {
         dialogBuilder.setMessage("Czy na pewno chcesz nieodwracalnie skasować konto?")
         dialogBuilder.setPositiveButton("Tak",
             DialogInterface.OnClickListener { dialog, whichButton ->
-                deleteClient()
 
             }
         )

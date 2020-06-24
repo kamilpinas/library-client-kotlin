@@ -18,6 +18,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.afollestad.vvalidator.form
 import com.example.ksiegarnia_klient.*
+import com.example.ksiegarnia_klient.api_adapters.JsonPlaceholderAPI
+import com.example.ksiegarnia_klient.api_data_structures.ClientData
+import com.example.ksiegarnia_klient.api_data_structures.MyLogin
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -63,7 +66,7 @@ class DaneKlientaFragment : Fragment() {
         editTextUlica = root.findViewById(R.id.editTextUlica)
         editTextMiejscowosc = root.findViewById(R.id.editTextMiejscowosc)
         editTextNrDomu = root.findViewById(R.id.editTextNrDomu)
-        updateButton = root.findViewById(R.id.updateButton)
+        updateButton = root.findViewById(R.id.dodajWydawnictwoButton)
         deleteButton = root.findViewById(R.id.deleteButton)
 
         daneKlientaView = root.findViewById(R.id.daneKlientaView)
@@ -120,17 +123,18 @@ class DaneKlientaFragment : Fragment() {
                 }
 
                 submitWith(updateButton) { result ->
-                    val updateData = ClientData(
-                        editTextNazwisko.text.toString(),
-                        editTextImie.text.toString(),
-                        editTextKodPocztowy.text.toString(),
-                        editTextMiejscowosc.text.toString(),
-                        editTextUlica.text.toString(),
-                        editTextNrDomu.text.toString(),
-                        editTextTelefon.text.toString(),
-                        editTextLogin.text.toString(),
-                        editTextPassword.text.toString()
-                    )
+                    val updateData =
+                        ClientData(
+                            editTextNazwisko.text.toString(),
+                            editTextImie.text.toString(),
+                            editTextKodPocztowy.text.toString(),
+                            editTextMiejscowosc.text.toString(),
+                            editTextUlica.text.toString(),
+                            editTextNrDomu.text.toString(),
+                            editTextTelefon.text.toString(),
+                            editTextLogin.text.toString(),
+                            editTextPassword.text.toString()
+                        )
                     sendUpdate(updateData)
                 }
             }

@@ -18,20 +18,42 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|left"
-        android:layout_margin="@dimen/fab_margin"
+        android:layout_margin="6dp"
         android:visibility="invisible"
-        app:backgroundTint="#C8C4C4"
-        app:srcCompat="@android:drawable/ic_menu_myplaces" />
+        app:backgroundTint="#016a73" />
+
+    <TextView
+        android:id="@+id/dodajAutoraTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="6dp"
+        android:text="+Autor"
+        android:textColor="#fff"
+        android:textSize="12dp"
+        android:visibility="invisible"
+        app:layout_anchor="@id/fabDodajAutora"
+        app:layout_anchorGravity="center" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabDodajWydawnictwo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center_horizontal"
-        android:layout_margin="@dimen/fab_margin"
+        android:layout_margin="6dp"
         android:visibility="invisible"
-        app:backgroundTint="#C8C4C4"
-        app:srcCompat="@android:drawable/ic_menu_mapmode" />
+        app:backgroundTint="#016a73" />
+
+    <TextView
+        android:id="@+id/dodajWydawnictwoTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="6dp"
+        android:text="+Wydawn."
+        android:textColor="#fff"
+        android:textSize="12dp"
+        android:visibility="invisible"
+        app:layout_anchor="@id/fabDodajWydawnictwo"
+        app:layout_anchorGravity="center" />
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -39,11 +61,39 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
+        android:layout_margin="6dp"
         android:visibility="invisible"
-        app:backgroundTint="#C8C4C4"
-        app:srcCompat="@drawable/add_book" />
+        app:backgroundTint="#016a73" />
 
+    <TextView
+        android:id="@+id/dodajKsiazkeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="6dp"
+        android:text="+Książka"
+        android:textColor="#fff"
+        android:textSize="12dp"
+        android:visibility="invisible"
+        app:layout_anchor="@id/fabDodajKsiazke"
+        app:layout_anchorGravity="center" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/adminPanelBackground"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:visibility="invisible">
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="753dp"
+            android:layout_height="64dp"
+            android:layout_margin="8dp"
+            android:background="@drawable/toolbar_background"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

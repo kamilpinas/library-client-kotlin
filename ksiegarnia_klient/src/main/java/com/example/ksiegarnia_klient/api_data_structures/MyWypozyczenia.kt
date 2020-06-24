@@ -1,4 +1,4 @@
-package com.example.ksiegarnia_klient
+package com.example.ksiegarnia_klient.api_data_structures
 
 import java.io.Serializable
 

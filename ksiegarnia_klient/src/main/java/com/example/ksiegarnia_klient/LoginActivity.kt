@@ -7,6 +7,8 @@ import android.util.Log
 import android.view.View
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
+import com.example.ksiegarnia_klient.api_adapters.JsonPlaceholderAPI
+import com.example.ksiegarnia_klient.api_data_structures.MyLogin
 import kotlinx.android.synthetic.main.activity_login.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -60,7 +62,11 @@ class LoginActivity : AppCompatActivity() {
             } else {
                 login = loginInput.text.toString()
                 password = passwordInput.text.toString()
-                val newLogin = MyLogin(login, password)
+                val newLogin =
+                    MyLogin(
+                        login,
+                        password
+                    )
 
                 val sharedPreferences =
                     getSharedPreferences("shared preferences", Context.MODE_PRIVATE)

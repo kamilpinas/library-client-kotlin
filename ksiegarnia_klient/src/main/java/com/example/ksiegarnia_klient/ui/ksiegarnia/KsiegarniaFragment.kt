@@ -16,8 +16,9 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.ksiegarnia_klient.*
-import com.example.ksiegarnia_klient.ui.wypozyczenia_klienta.WypozyczeniaKlientaFragment
-import kotlinx.android.synthetic.main.content_main.*
+import com.example.ksiegarnia_klient.api_adapters.CustomBooksListAdapter
+import com.example.ksiegarnia_klient.api_adapters.JsonPlaceholderAPI
+import com.example.ksiegarnia_klient.api_data_structures.MyBooks
 import kotlinx.android.synthetic.main.fragment_ksiegarnia.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -25,7 +26,6 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.Executors
-import java.util.concurrent.TimeUnit
 
 class KsiegarniaFragment : Fragment(), CustomBooksListAdapter.OnItemClickListener {
 
@@ -93,7 +93,11 @@ class KsiegarniaFragment : Fragment(), CustomBooksListAdapter.OnItemClickListene
                 }
                 booksData = response.body()!!
                 // booksData.reverse()
-                recyclerView.adapter = CustomBooksListAdapter(booksData, this@KsiegarniaFragment)
+                recyclerView.adapter =
+                    CustomBooksListAdapter(
+                        booksData,
+                        this@KsiegarniaFragment
+                    )
                 recyclerView.layoutManager = LinearLayoutManager(context)
             }
 

@@ -6,6 +6,8 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.afollestad.vvalidator.form
+import com.example.ksiegarnia_klient.api_adapters.JsonPlaceholderAPI
+import com.example.ksiegarnia_klient.api_data_structures.ClientData
 import kotlinx.android.synthetic.main.activity_register.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -67,17 +69,18 @@ class RegisterActivity : AppCompatActivity() {
             }
 
             submitWith(R.id.registerButton) { result ->
-                val newRegister = ClientData(
-                    editTextNazwisko.text.toString(),
-                    editTextImie.text.toString(),
-                    editTextKodPocztowy.text.toString(),
-                    editTextMiejscowosc.text.toString(),
-                    editTextUlica.text.toString(),
-                    editTextNrDomu.text.toString(),
-                    editTextTelefon.text.toString(),
-                    editTextLogin.text.toString(),
-                    editTextPassword.text.toString()
-                )
+                val newRegister =
+                    ClientData(
+                        editTextNazwisko.text.toString(),
+                        editTextImie.text.toString(),
+                        editTextKodPocztowy.text.toString(),
+                        editTextMiejscowosc.text.toString(),
+                        editTextUlica.text.toString(),
+                        editTextNrDomu.text.toString(),
+                        editTextTelefon.text.toString(),
+                        editTextLogin.text.toString(),
+                        editTextPassword.text.toString()
+                    )
                 sendRegister(newRegister)
             }
         }
