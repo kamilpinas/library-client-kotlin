@@ -8,6 +8,9 @@ interface JsonPlaceholderAPI {
     @GET("ksiegarnia/ksiazki")
     fun getBookArray(): Call<Array<MyBooks>?>?
 
+    @GET("ksiegarnia/klient/wypozyczeniaKlienta")
+    fun getWypozyczeniaArray(@Query("login") login: String, @Query("password") password: String): Call<Array<MyWypozyczenia>?>?
+
     @GET("ksiegarnia/klient")
     fun getClientArray(@Query("login") login: String, @Query("password") password: String): Call<Array<ClientData>?>?
 
@@ -31,5 +34,8 @@ interface JsonPlaceholderAPI {
 
     @DELETE("ksiegarnia/klient/usunkonto")
     fun deleteClient(@Query("login") login: String, @Query("password") password: String): Call<MyLogin>
+
+    @POST("ksiegarnia/ksiazki/wypozycz")
+    fun wypozyczKsiazke(@Query("login") login: String, @Query("password") password: String, @Query("idKsiazki") idKsiazki: Integer): Call<MyLogin>
 
 }

@@ -1,18 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#FFFFFF"
+    android:background="#F6EFEF"
     android:orientation="vertical">
-
-    <Button
-        android:id="@+id/wypozyczButton"
-        android:layout_width="300dp"
-        android:layout_height="40dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="8sp"
-        android:background="@drawable/button_background"
-        android:text="Wypożycz" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -29,6 +22,16 @@
                 android:layout_height="400sp"
                 android:layout_gravity="center"
                 android:layout_marginTop="8dp" />
+
+            <Button
+                android:id="@+id/wypozyczButton"
+                android:layout_width="300dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="8sp"
+                android:background="@drawable/button_background"
+                android:text="Wypożycz"
+                android:textColor="#FFFFFF" />
 
             <androidx.cardview.widget.CardView
                 android:layout_width="fill_parent"
@@ -131,7 +134,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="5dp"
-                        android:layout_marginTop="20dp">
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="50dp">
 
                         <TextView
                             android:id="@+id/opisTextView"
@@ -142,7 +146,6 @@
                             android:text="Lorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit amet"
                             android:textColor="#828282"
                             android:textSize="16sp" />
-
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </LinearLayout>

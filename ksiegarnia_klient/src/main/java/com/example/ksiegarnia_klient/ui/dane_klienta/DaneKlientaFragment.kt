@@ -24,7 +24,6 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-
 class DaneKlientaFragment : Fragment() {
     private lateinit var daneKlientaViewModel: DaneKlientaViewModel
     private lateinit var jsonPlaceholderAPI: JsonPlaceholderAPI
@@ -32,7 +31,6 @@ class DaneKlientaFragment : Fragment() {
     private lateinit var clientData: Array<ClientData>
     var activity: Activity? = getActivity()
     private lateinit var infoToast: Toast
-
     private lateinit var editTextLogin: EditText
     private lateinit var editTextPassword: EditText
     private lateinit var editTextImie: EditText
@@ -45,9 +43,7 @@ class DaneKlientaFragment : Fragment() {
     private lateinit var updateButton: Button
     private lateinit var deleteButton: Button
     private lateinit var alertDialog: AlertDialog
-
     private lateinit var daneKlientaView: LinearLayout
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -57,9 +53,6 @@ class DaneKlientaFragment : Fragment() {
         daneKlientaViewModel =
             ViewModelProviders.of(this).get(DaneKlientaViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_dane_klienta, container, false)
-
-
-
 
         editTextLogin = root.findViewById(R.id.editTextLogin)
         editTextPassword = root.findViewById(R.id.editTextPassword)
@@ -81,12 +74,6 @@ class DaneKlientaFragment : Fragment() {
             )
             .build()
         jsonPlaceholderAPI = retrofit.create(JsonPlaceholderAPI::class.java)
-
-        deleteButton.setOnClickListener {
-
-        }
-
-
 
         deleteButton.setOnClickListener {
             showDialog()
@@ -219,7 +206,6 @@ class DaneKlientaFragment : Fragment() {
         })
     }
 
-
     fun deleteClient() {
         val call = jsonPlaceholderAPI.deleteClient(currentUserLogin, currentUserPassowrd)
         call.enqueue(object : Callback<MyLogin> {
@@ -227,19 +213,21 @@ class DaneKlientaFragment : Fragment() {
                 call: Call<MyLogin>,
                 t: Throwable
             ) {
-                //blad jakis lol
                 return
-
             }
 
             override fun onResponse(
                 call: Call<MyLogin>,
                 response: Response<MyLogin>
             ) {
-                makeToast("Pomyślnie skasowano konto!")
-                getActivity()?.finishAffinity();
-                val intent = Intent(getActivity(), StartScreenActivity::class.java)
-                startActivity(intent)
+
+                if (response.isSuccessful) {
+                    makeToast("Pomyślnie skasowano konto!")
+                    getActivity()?.finishAffinity();
+                    val intent = Intent(getActivity(), StartScreenActivity::class.java)
+                    startActivity(intent)
+                    return
+                }
                 if (!response.isSuccessful) {
                     println("Code: " + response.code())
                     return
@@ -247,7 +235,6 @@ class DaneKlientaFragment : Fragment() {
             }
         })
     }
-
 
     fun makeToast(myToastText: String) {
         infoToast = Toast.makeText(
@@ -277,7 +264,5 @@ class DaneKlientaFragment : Fragment() {
         }
         b.show()
     }
-
-
 }
 

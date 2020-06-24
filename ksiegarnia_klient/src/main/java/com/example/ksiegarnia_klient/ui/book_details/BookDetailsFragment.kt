@@ -1,22 +1,26 @@
 package com.example.ksiegarnia_klient.ui.ksiegarnia
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
-import com.example.ksiegarnia_klient.JsonPlaceholderAPI
-import com.example.ksiegarnia_klient.R
-import com.example.ksiegarnia_klient.baseUrl
+import com.example.ksiegarnia_klient.*
 import com.squareup.picasso.Picasso
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -29,13 +33,14 @@ class BookDetailsFragment : Fragment() {
     private lateinit var tytulTextView: TextView
     private lateinit var autorTextView: TextView
     private lateinit var dostepnoscTextView: TextView
-
+    private lateinit var infoToast: Toast
     private lateinit var wydawnictwoTextView: TextView
     private lateinit var opisTextView: TextView
     private lateinit var rokWydania: TextView
     private lateinit var temat: TextView
     private lateinit var okladka: ImageView
     private lateinit var idKsiazki: String
+    lateinit var idKsiazkiInt: Integer
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -62,6 +67,7 @@ class BookDetailsFragment : Fragment() {
         } else {
             dostepnoscTextView.setTextColor(Color.parseColor("#FF0000"));
             dostepnoscTextView.text = "Niedostępna"
+            wypozyczButton.visibility = View.GONE
         }
         tytulTextView.text = arguments?.getString("tytul").toString()
         autorTextView.text = arguments?.getString("autor").toString()
@@ -70,6 +76,7 @@ class BookDetailsFragment : Fragment() {
         rokWydania.text = "Rok wydania: " + arguments?.getString("rokWydania").toString()
         temat.text = "Temat: " + arguments?.getString("temat").toString()
         idKsiazki = arguments?.getString("idKsiazki").toString()
+        idKsiazkiInt = Integer(idKsiazki)
 
         var iconUrl: String = "http:/192.168.0.106:8080/ksiegarnia/image/" + idKsiazki
         Picasso.get().load(iconUrl).into(okladka)
@@ -82,59 +89,80 @@ class BookDetailsFragment : Fragment() {
             )
             .build()
         jsonPlaceholderAPI = retrofit.create(JsonPlaceholderAPI::class.java)
-        //json
 
-        /*  wypozyczButton.setOnClickListener {
-              //dzialanie przycisku wypozycz
-              content = editTextContent.text.toString()
-              putData()
-              val bundle = Bundle()
-            //  bundle.putString("login", login)
-              val fragment: Fragment = KsiegarniaFragment()
-              fragment.arguments = bundle
-              val fragmentManager: FragmentManager? = fragmentManager
-              fragmentManager?.beginTransaction()
-                  ?.replace(R.id.nav_host_fragment, fragment)
-                  ?.commit()
-          }*/
+        if (!isAdmin && !isGuest) {
+            wypozyczButton.isEnabled
+        } else {
+            wypozyczButton.text = "Aby wypożyczyć książkę,\n zaloguj się jako klient"
+            wypozyczButton.isClickable = false
+            wypozyczButton.isEnabled = false
+        }
+        //json
 
         wypozyczButton.setOnClickListener {
             Log.d("Button::", "ID KSIAZKI TO:" + idKsiazki)
+            wypozyczKsiazke()
         }
 
         return root
-        /*val callback = requireActivity().onBackPressedDispatcher.addCallback(this) {
-            val fragmentManager: FragmentManager?
-            if (fragmentManager != null) {
-                remove()//TODO:: CZY TO WGL DZIALA?
-                // fragmentManager.popBackStack()//TODO:: TO JEST NA RAZIE ZBEDNE BO w ksiegarniafragment jest   ?.addToBackStack(this.toString())
-            }
-        }*/
     }
 
+    fun View.setVisible(visible: Boolean) {
+        visibility = if (visible) {
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
+    }
 
-    /*private fun putData() {
-        val message = MyMessage(login, content)
+    fun makeToast(myToastText: String) {
+        infoToast = Toast.makeText(
+            context,
+            myToastText,
+            Toast.LENGTH_SHORT
+        )
+        infoToast.setGravity(Gravity.TOP, 0, 200)
+        infoToast.show()
+    }
 
-        val call = jsonPlaceholderAPI.createPut(id, message)
-
-        call.enqueue(object : Callback<MyMessage> {
-            override fun onResponse(
-                call: Call<MyMessage>,
-                response: Response<MyMessage>
+    fun wypozyczKsiazke() {
+        val call =
+            jsonPlaceholderAPI.wypozyczKsiazke(currentUserLogin, currentUserPassowrd, idKsiazkiInt)
+        call.enqueue(object : Callback<MyLogin> {
+            override fun onFailure(
+                call: Call<MyLogin>,
+                t: Throwable
             ) {
+                return
+            }
+
+            override fun onResponse(
+                call: Call<MyLogin>,
+                response: Response<MyLogin>
+            ) {
+
+                if (response.isSuccessful) {
+                    makeToast("Wypozyczono książkę!")
+
+                    val fragmentManager: FragmentManager? = fragmentManager
+                    val fragment: Fragment = KsiegarniaFragment()
+
+                    fragmentManager?.beginTransaction()
+                        ?.add(
+                            R.id.nav_host_fragment,
+                            fragment,
+                            "nazwa"
+                        )
+                        ?.addToBackStack(this.toString())
+                        ?.commit()
+                    return
+                }
                 if (!response.isSuccessful) {
                     println("Code: " + response.code())
                     return
                 }
             }
-
-            override fun onFailure(
-                call: Call<MyMessage>,
-                t: Throwable
-            ) {
-                println(t.message)
-            }
         })
-    }*/
+    }
+
 }

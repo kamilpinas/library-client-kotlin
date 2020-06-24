@@ -8,15 +8,15 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.list_layout_books.view.*
+import kotlinx.android.synthetic.main.list_layout_wypozyczenia.view.*
 
-class CustomBooksListAdapter(
-    private var myList: Array<MyBooks>,
+class CustomWypozyczeniaListAdapter(
+    private var myList: Array<MyWypozyczenia>,
     var clickListener: OnItemClickListener
-) : RecyclerView.Adapter<CustomBooksListAdapter.ExampleViewHolder>() {
+) : RecyclerView.Adapter<CustomWypozyczeniaListAdapter.ExampleViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExampleViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(
-            R.layout.list_layout_books,
+            R.layout.list_layout_wypozyczenia,
             parent, false
         )
 
@@ -32,26 +32,17 @@ class CustomBooksListAdapter(
     class ExampleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var id: String = ""
         var tytulTextView: TextView = itemView.tytulTextView
-        var autorTextView: TextView = itemView.autorTextView
-        var dostepnoscTextView: TextView = itemView.dostepnoscTextView
-        var wydawnictwoTextView: TextView = itemView.wydawnictwoTextView
-        var opisTextView: TextView = itemView.opisTextView
+        var dataWypozyczenia: TextView = itemView.dataWypozyczeniaTextView
+        var dataZwrotu: TextView = itemView.dataZwrotuTextView
         var okladkaImageView: ImageView = itemView.okladkaImageView
-        fun initialize(item: MyBooks, action: OnItemClickListener) {
-            if (item.dostepnosc.toString() == "t") {
-                dostepnoscTextView.setTextColor(Color.parseColor("#009900"));
-                dostepnoscTextView.text = "Dostępna"
-            } else {
-                dostepnoscTextView.setTextColor(Color.parseColor("#FF0000"));
-                dostepnoscTextView.text = "Niedostępna"
-            }
-            opisTextView.text = item.opis
-            tytulTextView.text = item.tytul
-            autorTextView.text = item.autor
+
+        fun initialize(item: MyWypozyczenia, action: OnItemClickListener) {
+            tytulTextView.text = "Tytuł: " +item.tytulKsiazki
+            dataWypozyczenia.text="Data wypożyczenia: "+ item.dataWypozyczenia
+            dataZwrotu.text="Data zwrotu: "+ item.dataZwrotu
             id = item.idKsiazki.toString()
             var iconUrl: String = "http:/192.168.0.106:8080/ksiegarnia/image/" + id
             // var iconUrl: String = "http:/192.168.7.168:8080/ksiegarnia/image/" + id
-            wydawnictwoTextView.text = item.wydawnictwo
             Picasso.get().load(iconUrl).into(okladkaImageView)
 
             itemView.setOnClickListener {
@@ -61,6 +52,6 @@ class CustomBooksListAdapter(
     }
 
     interface OnItemClickListener {
-        fun onItemClick(item: MyBooks, position: Int)
+        fun onItemClick(item: MyWypozyczenia, position: Int)
     }
 }

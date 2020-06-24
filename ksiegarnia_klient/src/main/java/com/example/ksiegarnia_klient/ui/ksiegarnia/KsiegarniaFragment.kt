@@ -31,12 +31,12 @@ class KsiegarniaFragment : Fragment(), CustomBooksListAdapter.OnItemClickListene
 
     private lateinit var ksiegarniaViewModel: KsiegarniaViewModel
     private lateinit var userLogin: String
-    private lateinit var infoToast: Toast
     private lateinit var booksData: Array<MyBooks>
     private lateinit var login: String
     private lateinit var pass: String
     private lateinit var jsonPlaceholderAPI: JsonPlaceholderAPI
     private lateinit var retrofit: Retrofit
+    private lateinit var infoToast: Toast
 
     val thread = Executors.newSingleThreadScheduledExecutor()
 
@@ -60,16 +60,21 @@ class KsiegarniaFragment : Fragment(), CustomBooksListAdapter.OnItemClickListene
         ////json
         loadLogin()
 
-        beginRefreshing()
+        if (checkNetworkConnection()) {
+            getAndShowData()
+            makeToast("Odświeżono książki")
+        } else {
+            makeToast("Nie można odświeżyć ksiązek - brak połączenia!")
+        }
 
         var swipeRefresh: SwipeRefreshLayout = root.findViewById(R.id.swipeRefresh)
         swipeRefresh.setOnRefreshListener {
             if (checkNetworkConnection()) {
                 getAndShowData()
                 swipeRefresh.isRefreshing = false
-                makeToast("Books refreshed")
+                makeToast("Odświeżono książki")
             } else {
-                makeToast("Cant refresh books - no internet connection!")
+                makeToast("Nie można odświeżyć ksiązek - brak połączenia!")
             }
         }
         return root
@@ -154,13 +159,14 @@ class KsiegarniaFragment : Fragment(), CustomBooksListAdapter.OnItemClickListene
 
         val fragmentManager: FragmentManager? = fragmentManager
         fragmentManager?.beginTransaction()
-            ?.add(R.id.nav_host_fragment, fragment, "nazwa")//TODO::: TROCHE PRYMITYWNIE XD?
+            ?.add(R.id.nav_host_fragment, fragment, "nazwa")
             ?.addToBackStack(this.toString())
             // ?.remove(this)
 
             ?.commit()
     }
 
+    /*
     fun beginRefreshing() {
         thread.scheduleAtFixedRate({
             if (checkNetworkConnection()) {
@@ -173,7 +179,7 @@ class KsiegarniaFragment : Fragment(), CustomBooksListAdapter.OnItemClickListene
                 )
             }
         }, 0, 1, TimeUnit.HOURS)// TODO:::NA RAZIE NIE DZIALA - crashuje jak zmieni sie fragment?
-    }
+    }*/
 
     private fun loadLogin() {
         val sharedPref = requireActivity().getPreferences(Context.MODE_PRIVATE) ?: return
