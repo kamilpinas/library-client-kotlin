@@ -16,13 +16,13 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupWithNavController
-import com.example.ksiegarnia_klient.ui.dane_klienta.DaneKlientaFragment
-import com.example.ksiegarnia_klient.ui.ksiegarnia.BookDetailsFragment
+import com.example.ksiegarnia_klient.ui.dodaj_ksiazke.DodajKsiazkeFragment
+import com.example.ksiegarnia_klient.ui.dodaj_autora.DodajAutoraFragment
+import com.example.ksiegarnia_klient.ui.dodaj_wydawnictwo.DodajWydawnictwoFragment
 import com.example.ksiegarnia_klient.ui.ksiegarnia.KsiegarniaFragment
 import com.example.ksiegarnia_klient.ui.wypozyczenia_klienta.WypozyczeniaKlientaFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -42,7 +42,7 @@ class DrawerActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         val fabDodajKsiazke: FloatingActionButton = findViewById(R.id.fabDodajKsiazke)
 
         fabDodajAutora.setOnClickListener { view ->
-            val fragment: Fragment = DaneKlientaFragment()
+            val fragment: Fragment = DodajAutoraFragment()
 
             val fragmentManager: FragmentManager = supportFragmentManager
             fragmentManager?.beginTransaction()
@@ -50,8 +50,9 @@ class DrawerActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
                 ?.addToBackStack(this.toString())
                 ?.commit()
         }
+
         fabDodajWydawnictwo.setOnClickListener { view ->
-            val fragment: Fragment = DaneKlientaFragment()
+            val fragment: Fragment = DodajWydawnictwoFragment()
 
             val fragmentManager: FragmentManager = supportFragmentManager
             fragmentManager?.beginTransaction()
@@ -61,7 +62,7 @@ class DrawerActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         }
 
         fabDodajKsiazke.setOnClickListener { view ->
-            val fragment: Fragment = DaneKlientaFragment()
+            val fragment: Fragment = DodajKsiazkeFragment()
 
             val fragmentManager: FragmentManager = supportFragmentManager
             fragmentManager?.beginTransaction()
@@ -125,7 +126,7 @@ class DrawerActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
                 startActivity(intent)
             }
             R.id.nav_dane_klienta -> {
-                val fragment: Fragment = DaneKlientaFragment()
+                val fragment: Fragment = DodajAutoraFragment()
                 val fragmentManager: FragmentManager = supportFragmentManager
                 fragmentManager.beginTransaction()
                     ?.replace(
