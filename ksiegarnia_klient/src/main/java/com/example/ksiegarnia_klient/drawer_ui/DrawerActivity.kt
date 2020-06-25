@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
@@ -24,12 +25,11 @@ import com.example.ksiegarnia_klient.drawer_ui.dodaj_ksiazke.DodajKsiazkeFragmen
 import com.example.ksiegarnia_klient.drawer_ui.dodaj_autora.DodajAutoraFragment
 import com.example.ksiegarnia_klient.drawer_ui.dodaj_wydawnictwo.DodajWydawnictwoFragment
 import com.example.ksiegarnia_klient.drawer_ui.ksiegarnia.KsiegarniaFragment
-import com.example.ksiegarnia_klient.drawer_ui.wypozyczenia_klienta.WypozyczeniaKlientaFragment
 import com.example.ksiegarnia_klient.activities_ui.isAdmin
+import com.example.ksiegarnia_klient.drawer_ui.wypozyczenia.WypozyczeniaFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
-
 
 class DrawerActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -38,10 +38,11 @@ class DrawerActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
     private lateinit var headerView: View
     private lateinit var navView: NavigationView
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+
         val fabDodajAutora: FloatingActionButton = findViewById(R.id.fabDodajAutora)
         val fabDodajWydawnictwo: FloatingActionButton = findViewById(R.id.fabDodajWydawnictwo)
         val fabDodajKsiazke: FloatingActionButton = findViewById(R.id.fabDodajKsiazke)
@@ -82,6 +83,9 @@ class DrawerActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
                 ?.commit()
         }
 
+        navView = findViewById(R.id.nav_view)
+        headerView = navView.getHeaderView(0)
+
         if (isAdmin == true) {
             fabDodajAutora.visibility = View.VISIBLE
             fabDodajWydawnictwo.visibility = View.VISIBLE
@@ -89,15 +93,15 @@ class DrawerActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
 
             DodajAutoraTextView.visibility = View.VISIBLE
             DodajKsiazkeTextView.visibility = View.VISIBLE
-
             DodajWydawnictwoTextView.visibility = View.VISIBLE
             adminPanelBackground.visibility = View.VISIBLE
+
+            val menu: Menu = navView.getMenu();
+
+            menu.findItem(R.id.nav_wypozyczenia_klienta).setTitle("Wypożyczenia klientów");
+
+
         }
-
-        navView = findViewById(R.id.nav_view)
-        headerView = navView.getHeaderView(0)
-
-
         var drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         var currentUserTextView: TextView = headerView.findViewById(R.id.currentUserTextView)
 
@@ -166,7 +170,10 @@ class DrawerActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
             }
 
             R.id.nav_wypozyczenia_klienta -> {
-                val fragment: Fragment = WypozyczeniaKlientaFragment()
+                val fragment: Fragment = WypozyczeniaFragment()
+                if (isAdmin) {
+                    R.id.nav_wypozyczenia_klienta
+                }
                 val fragmentManager: FragmentManager = supportFragmentManager
                 fragmentManager.beginTransaction()
                     ?.replace(R.id.nav_host_fragment, fragment)

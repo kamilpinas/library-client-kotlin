@@ -36,22 +36,34 @@ class RegisterActivity : AppCompatActivity() {
             input(R.id.editTextLogin, name = "login") {
                 isNotEmpty().description("Podaj login !")
                 length().atLeast(6).description("Login musi zawierac minimum 6 znaków")
+                length().atMost(20).description("Login może mieć max 20 znaków")
+
             }
             input(R.id.editTextPassword, name = "haslo") {
                 isNotEmpty().description("Podaj hasło !")
                 length().atLeast(6).description("Hasło musi zawierac minimum 6 znaków")
+                length().atMost(10).description("Hasło może mieć max 10 znaków")
+
             }
             input(R.id.editTextImie, name = "imię") {
                 isNotEmpty().description("Podaj imię !")
+                length().atMost(40).description("Imię może mieć max 40 znaków")
+
             }
             input(R.id.editTextNazwisko, name = "nazwisko") {
                 isNotEmpty().description("Podaj nazwisko !")
+                length().atMost(60).description("Nazwisko może mieć max 60 znaków")
+
             }
             input(R.id.editTextUlica, name = "ulica") {
                 isNotEmpty().description("Podaj ulicę !")
+                length().atMost(50).description("Ulica może mieć max 50 znaków")
+
             }
             input(R.id.editTextMiejscowosc, name = "miejscowosc") {
                 isNotEmpty().description("Podaj miejscowość !")
+                length().atMost(50).description("Miejscowosc może mieć max 50 znaków")
+
             }
             input(R.id.editTextNrDomu, name = "NumerDomu") {
                 isNotEmpty().description("Podaj numer domu !")
@@ -62,11 +74,13 @@ class RegisterActivity : AppCompatActivity() {
                 isNotEmpty().description("Podaj numer telefonu !")
                 isNumber()
                 length().atLeast(9)
+                length().atMost(12).description("Telefon może mieć max 12 znaków")
+
             }
             input(R.id.editTextKodPocztowy, name = "Kod Pocztowy") {
                 isNotEmpty().description("Podaj kod pocztowy !")
                 length().atLeast(5)
-                length().atMost(6)
+                length().atMost(6).description("Kod pocztowy może mieć max 6 znaków")
             }
 
             submitWith(R.id.registerButton) { result ->

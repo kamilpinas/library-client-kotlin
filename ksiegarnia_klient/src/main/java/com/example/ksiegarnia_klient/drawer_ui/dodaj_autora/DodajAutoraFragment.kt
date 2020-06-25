@@ -76,18 +76,26 @@ class DodajAutoraFragment : Fragment() {
             form {
                 input(editTextNarodowosc, name = "narodowosc") {
                     isNotEmpty().description("Podaj Narodowość !")
+                    length().atMost(30).description("Narodowość może mieć max 30 znaków")
                 }
                 input(editTextOkresTworzenia, name = "okres_tworzenia") {
                     isNotEmpty().description("Podaj okres tworzenia !")
+                    length().atMost(35).description("Okres tworzenia może mieć max 35znaków")
+
                 }
                 input(editTextImie, name = "imię") {
                     isNotEmpty().description("Podaj imię !")
+                    length().atMost(30).description("Imię może mieć max 30 znaków")
+
                 }
                 input(editTextNazwisko, name = "nazwisko") {
                     isNotEmpty().description("Podaj nazwisko !")
+                    length().atMost(50).description("Nazwisko może mieć max 50 znaków")
+
                 }
                 input(editTextJezyk, name = "Język") {
                     isNotEmpty().description("Podaj język !")
+                    length().atMost(30).description("Język może mieć max 30 znaków")
                 }
 
                 submitWith(dodajAutoraButton) { result ->
@@ -116,6 +124,7 @@ class DodajAutoraFragment : Fragment() {
                 makeToast("Brak połączenia!")
                 Log.d("nowy autor:", " error")
             }
+
             override fun onResponse(
                 call: Call<MyAutor>,
                 response: Response<MyAutor>
@@ -125,11 +134,12 @@ class DodajAutoraFragment : Fragment() {
                     println("Code: " + response.code())
                     return
                 } else {
-                    makeToast("Zaktualizowano dane !.")
+                    makeToast("Zaktualizowano autora!")
                 }
             }
         })
     }
+
     fun makeToast(myToastText: String) {
         infoToast = Toast.makeText(
             context,

@@ -14,6 +14,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginBottom="50dp"
             android:orientation="vertical">
 
             <ImageView
@@ -32,6 +33,29 @@
                 android:background="@drawable/button_background"
                 android:text="Wypożycz"
                 android:textColor="#FFFFFF" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:foregroundGravity="center_horizontal"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/usunKsiazkeButton"
+                    android:layout_width="300dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/button_background_red"
+                    android:foregroundGravity="center_horizontal"
+                    android:gravity="center_vertical"
+                    android:text="Usuń książkę z bazy"
+                    android:textAlignment="center"
+                    android:visibility="gone" />
+            </LinearLayout>
 
             <androidx.cardview.widget.CardView
                 android:layout_width="fill_parent"
@@ -131,11 +155,12 @@
                     </LinearLayout>
 
                     <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/marginesOpis"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="5dp"
                         android:layout_marginTop="20dp"
-                        android:layout_marginBottom="50dp">
+                        android:layout_marginBottom="40dp">
 
                         <TextView
                             android:id="@+id/opisTextView"

@@ -85,20 +85,28 @@ class DodajKsiazkeFragment : Fragment() {
                 input(editTextTytulKsiazki, name = "login") {
                     isNotEmpty().description("Podaj login !")
                     length().atLeast(6).description("Login musi zawierac minimum 6 znaków")
+                    length().atMost(30).description("Tytuł może mieć max 100 znaków")
+
                 }
                 input(editTextTematKsiazki, name = "haslo") {
                     isNotEmpty().description("Podaj hasło !")
                     length().atLeast(6).description("Hasło musi zawierac minimum 6 znaków")
+                    length().atMost(30).description("Temat może mieć max 30 znaków")
                 }
                 input(editTextJezykKsiazki, name = "jezyk_ksiazki") {
                     isNotEmpty().description("Podaj język ksiazki !")
+                    length().atMost(15).description("Jężyk może mieć max 15 znaków")
+
                 }
                 input(editTextRokWydania, name = "rok_wydania") {
                     isNotEmpty().description("Podaj rok wydania książki !")
                     isNumber()
+                    length().atMost(4).description("Rok wydania może mieć max 4 znaki")
+
                 }
                 input(editTextOpisKsiazki, name = "opis") {
                     isNotEmpty().description("Podaj Opis książki !")
+
                 }
 
                spinner(spinnerAutor, name = "autor") {
@@ -220,7 +228,7 @@ class DodajKsiazkeFragment : Fragment() {
                     println("Code: " + response.code())
                     return
                 } else {
-                    makeToast("Zaktualizowano dane !.")
+                    makeToast("Dodano książkę!")
                 }
             }
         })

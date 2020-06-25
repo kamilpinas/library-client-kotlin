@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.ksiegarnia_klient.*
 import com.example.ksiegarnia_klient.activities_ui.baseUrl
+import com.example.ksiegarnia_klient.activities_ui.isAdmin
 import com.example.ksiegarnia_klient.api_adapters.CustomBooksListAdapter
 import com.example.ksiegarnia_klient.api_adapters.JsonPlaceholderAPI
 import com.example.ksiegarnia_klient.api_data_structures.MyBooks
@@ -38,8 +39,6 @@ class KsiegarniaFragment : Fragment(), CustomBooksListAdapter.OnItemClickListene
     private lateinit var jsonPlaceholderAPI: JsonPlaceholderAPI
     private lateinit var retrofit: Retrofit
     private lateinit var infoToast: Toast
-
-    val thread = Executors.newSingleThreadScheduledExecutor()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -100,6 +99,10 @@ class KsiegarniaFragment : Fragment(), CustomBooksListAdapter.OnItemClickListene
                         this@KsiegarniaFragment
                     )
                 recyclerView.layoutManager = LinearLayoutManager(context)
+                if (isAdmin) {
+                    recyclerView.setPadding(0, 0, 0, 340)
+                }
+
             }
 
             override fun onFailure(

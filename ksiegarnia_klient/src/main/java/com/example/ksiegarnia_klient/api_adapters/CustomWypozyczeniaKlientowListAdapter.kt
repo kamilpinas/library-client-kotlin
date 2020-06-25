@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ksiegarnia_klient.R
 import com.example.ksiegarnia_klient.api_data_structures.MyWypozyczenia
+import com.example.ksiegarnia_klient.api_data_structures.WypozyczeniaKlientow
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.list_layout_wypozyczenia.view.*
 import kotlinx.android.synthetic.main.list_layout_wypozyczenia.view.dataWypozyczeniaTextView
@@ -17,13 +18,13 @@ import kotlinx.android.synthetic.main.list_layout_wypozyczenia.view.okladkaImage
 import kotlinx.android.synthetic.main.list_layout_wypozyczenia.view.tytulTextView
 import kotlinx.android.synthetic.main.list_layout_wypozyczenia_klientow.view.*
 
-class CustomWypozyczeniaListAdapter(
-    private var myList: Array<MyWypozyczenia>,
+class CustomWypozyczeniaKlientowListAdapter(
+    private var myList: Array<WypozyczeniaKlientow>,
     var clickListener: OnItemClickListener
-) : RecyclerView.Adapter<CustomWypozyczeniaListAdapter.ExampleViewHolder>() {
+) : RecyclerView.Adapter<CustomWypozyczeniaKlientowListAdapter.ExampleViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExampleViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(
-            R.layout.list_layout_wypozyczenia,
+            R.layout.list_layout_wypozyczenia_klientow,
             parent, false
         )
 
@@ -43,12 +44,20 @@ class CustomWypozyczeniaListAdapter(
         var tytulTextView: TextView = itemView.tytulTextView
         var dataWypozyczenia: TextView = itemView.dataWypozyczeniaTextView
         var dataZwrotu: TextView = itemView.dataZwrotuTextView
+        var imieWypozyczajacego:TextView = itemView.imieWypozyczajacegoTextView
+        var nazwiskoWypozyczajacego:TextView = itemView.nazwiskoWypozyczajacegoTextView
+        var  potwierdzZwrotButton: Button =itemView.potwierdzZwrotButton
+
+
         var okladkaImageView: ImageView = itemView.okladkaImageView
 
-        fun initialize(item: MyWypozyczenia, action: OnItemClickListener) {
+        fun initialize(item: WypozyczeniaKlientow, action: OnItemClickListener) {
             tytulTextView.text = item.tytulKsiazki
             dataWypozyczenia.text="Data wypożyczenia: "+ item.dataWypozyczenia
             dataZwrotu.text="Data zwrotu: "+ item.dataZwrotu
+            imieWypozyczajacego.text=item.imieWypozyczajacego+" "+ item.nazwiskoWypozyczajacego
+           // nazwiskoWypozyczajacego.text=item.nazwiskoWypozyczajacego
+
             id = item.idKsiazki.toString()
             var iconUrl: String = "http:/192.168.0.106:8080/ksiegarnia/image/" + id
             // var iconUrl: String = "http:/192.168.7.168:8080/ksiegarnia/image/" + id
@@ -61,6 +70,6 @@ class CustomWypozyczeniaListAdapter(
     }
 
     interface OnItemClickListener {
-        fun onItemClick(item: MyWypozyczenia, position: Int)
+        fun onItemClick(item: WypozyczeniaKlientow, position: Int)
     }
 }

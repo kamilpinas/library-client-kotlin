@@ -65,9 +65,13 @@ class DodajWydawnictwoFragment : Fragment() {
             form {
                 input(editTextNazwaWydawnictwa, name = "nazwa_wydawnictwa") {
                     isNotEmpty().description("Podaj nazwe wydawnictwa!")
+                    length().atMost(40).description("Nazwa wydawnictwa może mieć max 40 znaków")
+
                 }
                 input(editTextNazwaMiasta, name = "nazwa_miasta") {
                     isNotEmpty().description("Podaj miasto wydawnictwa!")
+                    length().atMost(20).description("Miasto może mieć max 15 znaków")
+
                 }
                 submitWith(dodajWydawnictwoButton) { result ->
                     val dodajWydawnictwo =
@@ -75,8 +79,6 @@ class DodajWydawnictwoFragment : Fragment() {
                             editTextNazwaWydawnictwa.text.toString(),
                             editTextNazwaMiasta.text.toString()
                         )
-                    Log.d("tworzenie wydawnictwa nazwa:", editTextNazwaWydawnictwa.text.toString())
-                    Log.d("tworzenie wydawnictwa:masy", editTextNazwaMiasta.text.toString())
                     addWydawnictwo(dodajWydawnictwo)
                 }
             }
@@ -94,16 +96,17 @@ class DodajWydawnictwoFragment : Fragment() {
                 makeToast("Brak połączenia!")
                 Log.d("tworzenie wydawnictwa:", " error")
             }
+
             override fun onResponse(
                 call: Call<MyWydawnictwa>,
                 response: Response<MyWydawnictwa>
             ) {
                 if (!response.isSuccessful) {
-                    makeToast("Podany login już istnieje w bazie!")
+                    makeToast("Podane wydawnictwo już istnieje w bazie!")
                     println("Code: " + response.code())
                     return
                 } else {
-                    makeToast("Zaktualizowano dane !.")
+                    makeToast("Dodano wydawnictwo!")
                 }
             }
         })
