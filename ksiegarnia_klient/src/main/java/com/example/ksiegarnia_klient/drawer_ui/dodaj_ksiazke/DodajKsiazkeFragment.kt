@@ -65,7 +65,7 @@ class DodajKsiazkeFragment : Fragment() {
         dostepnoscCheckBox = root.findViewById(R.id.dostepnoscCheckBox)
         spinnerAutor = root.findViewById(R.id.spinnerAutor)
         spinnerWydawnictwo = root.findViewById(R.id.spinnerWydawnictwo)
-        dodajKsiazkeButton = root.findViewById(R.id.dodajWydawnictwoButton)
+        dodajKsiazkeButton = root.findViewById(R.id.dodajKsiazkeButton)
 
         dodajKsiazkeView = root.findViewById(R.id.dodajKsiazkeView)
         retrofit = Retrofit.Builder().baseUrl(baseUrl)
@@ -101,7 +101,6 @@ class DodajKsiazkeFragment : Fragment() {
                     isNotEmpty().description("Podaj Opis książki !")
                 }
                 checkable(dostepnoscCheckBox, name = "dostepnosc") {
-                    isChecked()
                 }
                 spinner(spinnerAutor, name = "autor") {
                     selection().exactly(1).description("Wybierz Autora!")
@@ -111,18 +110,20 @@ class DodajKsiazkeFragment : Fragment() {
                 }
 
                 submitWith(dodajKsiazkeButton) { result ->
+                    var delimeter = " "
                     val bookData =
                         MyBooks(
                             editTextTytulKsiazki.text.toString(),
                             editTextTematKsiazki.text.toString(),
-                            spinnerAutor.selectedItem.toString(),
+                            spinnerAutor.selectedItem.toString().split(delimeter)[0],
+                            spinnerAutor.selectedItem.toString().split(delimeter)[1],
                             spinnerWydawnictwo.selectedItem.toString(),
-                            editTextTematKsiazki.text.toString(),
                             editTextJezykKsiazki.text.toString(),
                             editTextRokWydania.text.toString(),
-                          //dostepnoscCheckBox.text.toString(), TODO
+                            dostepnoscCheckBox.text.toString(),
                             editTextOpisKsiazki.text.toString()
                         )
+                    Log.d("NOWA KS:", "KLIKNALES PRYCISK")
                     addBook(bookData)
                 }
             }
@@ -143,11 +144,18 @@ class DodajKsiazkeFragment : Fragment() {
                 }
                 wydawnictwaData = response.body()!!
                 val item = arrayOfNulls<String>(wydawnictwaData!!.size)
-                for(i in 0 until wydawnictwaData.size){
+                for (i in 0 until wydawnictwaData.size) {
                     item[i] = wydawnictwaData.get(i).nazwa
                 }
-                spinnerWydawnictwo?.adapter= activity?.applicationContext?.let { ArrayAdapter1<String?>(it,R.layout.support_simple_spinner_dropdown_item,item) } as SpinnerAdapter
+                spinnerWydawnictwo?.adapter = activity?.applicationContext?.let {
+                    ArrayAdapter1<String?>(
+                        it,
+                        R.layout.support_simple_spinner_dropdown_item,
+                        item
+                    )
+                } as SpinnerAdapter
             }
+
             override fun onFailure(
                 call: Call<Array<MyWydawnictwa>?>,
                 t: Throwable
@@ -170,11 +178,18 @@ class DodajKsiazkeFragment : Fragment() {
                 }
                 autorData = response.body()!!
                 val item = arrayOfNulls<String>(autorData!!.size)
-                for(i in 0 until autorData.size){
-                    item[i] = autorData.get(i).nazwisko
+                for (i in 0 until autorData.size) {
+                    item[i] = autorData.get(i).imie + " " + autorData.get(i).nazwisko
                 }
-                spinnerAutor?.adapter= activity?.applicationContext?.let { ArrayAdapter1<String?>(it,R.layout.support_simple_spinner_dropdown_item,item) } as SpinnerAdapter
+                spinnerAutor?.adapter = activity?.applicationContext?.let {
+                    ArrayAdapter1<String?>(
+                        it,
+                        R.layout.support_simple_spinner_dropdown_item,
+                        item
+                    )
+                } as SpinnerAdapter
             }
+
             override fun onFailure(
                 call: Call<Array<MyAutor>?>,
                 t: Throwable
@@ -183,6 +198,7 @@ class DodajKsiazkeFragment : Fragment() {
             }
         })
     }
+
     private fun addBook(MyBooks: MyBooks) {
         val call = jsonPlaceholderAPI.createPost(MyBooks)
         call.enqueue(object : Callback<MyBooks> {
@@ -193,6 +209,7 @@ class DodajKsiazkeFragment : Fragment() {
                 makeToast("Brak połączenia!")
                 Log.d("nowy autor:", " error")
             }
+
             override fun onResponse(
                 call: Call<MyBooks>,
                 response: Response<MyBooks>
@@ -207,6 +224,7 @@ class DodajKsiazkeFragment : Fragment() {
             }
         })
     }
+
     fun makeToast(myToastText: String) {
         infoToast = Toast.makeText(
             context,
@@ -216,6 +234,5 @@ class DodajKsiazkeFragment : Fragment() {
         infoToast.setGravity(Gravity.TOP, 0, 200)
         infoToast.show()
     }
-
 }
 
