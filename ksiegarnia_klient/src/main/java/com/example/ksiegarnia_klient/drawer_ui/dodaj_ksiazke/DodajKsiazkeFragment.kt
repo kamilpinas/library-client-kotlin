@@ -100,14 +100,18 @@ class DodajKsiazkeFragment : Fragment() {
                 input(editTextOpisKsiazki, name = "opis") {
                     isNotEmpty().description("Podaj Opis książki !")
                 }
-                checkable(dostepnoscCheckBox, name = "dostepnosc") {
-                }
-                spinner(spinnerAutor, name = "autor") {
-                    selection().exactly(1).description("Wybierz Autora!")
-                }
-                spinner(spinnerWydawnictwo, name = "telefon") {
-                    selection().exactly(1).description("Wybierz Wydawnictwo!")
-                }
+                /*
+               checkable(dostepnoscCheckBox, name = "dostepnosc") {
+                   isChecked()
+                   isNotChecked()
+               }
+
+               spinner(spinnerAutor, name = "autor") {
+                   selection().exactly(1).description("Wybierz Autora!")
+               }
+               spinner(spinnerWydawnictwo, name = "telefon") {
+                   selection().exactly(1).description("Wybierz Wydawnictwo!")
+               }*/
 
                 submitWith(dodajKsiazkeButton) { result ->
                     var delimeter = " "
@@ -120,7 +124,7 @@ class DodajKsiazkeFragment : Fragment() {
                             spinnerWydawnictwo.selectedItem.toString(),
                             editTextJezykKsiazki.text.toString(),
                             editTextRokWydania.text.toString(),
-                            dostepnoscCheckBox.text.toString(),
+                            dostepnoscCheckBox.isChecked.toString(),
                             editTextOpisKsiazki.text.toString()
                         )
                     Log.d("NOWA KS:", "KLIKNALES PRYCISK")

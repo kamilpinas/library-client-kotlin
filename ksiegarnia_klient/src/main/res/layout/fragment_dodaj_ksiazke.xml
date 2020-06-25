@@ -218,7 +218,7 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:orientation="horizontal">
 
@@ -226,6 +226,7 @@
                             android:id="@+id/passWordLabel"
                             android:layout_width="90sp"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center"
                             android:layout_marginStart="5dp"
                             android:layout_marginEnd="5dp"
                             android:text="Autor:" />
@@ -241,7 +242,7 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:orientation="horizontal">
 
@@ -249,6 +250,7 @@
                             android:id="@+id/passWordLabel"
                             android:layout_width="95sp"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center"
                             android:layout_marginStart="5dp"
                             android:layout_marginEnd="5dp"
                             android:text="Wydawnictwo:" />
