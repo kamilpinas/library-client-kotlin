@@ -24,8 +24,8 @@ var isGuest: Boolean = false
 var currentUserLogin: String = ""
 var currentUserPassowrd: String = ""
 
-val baseUrl: String = "http://192.168.0.106:8080/" //TODO:: BUDZICZEK
-//private val baseUrl: String = "http://192.168.7.168:8080/" //TODO:: PINAS
+//val baseUrl: String = "http://192.168.0.106:8080/" //TODO:: BUDZICZEK
+val baseUrl: String = "http://192.168.7.168:8080/" //TODO:: PINAS
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var loginInput: EditText

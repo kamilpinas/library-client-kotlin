@@ -13,9 +13,24 @@ class MyBooks : Serializable {
     var dostepnosc: String? = null
     var opis: String? = null
 
-    /*
-    constructor(login: String?, content: String?) {TODO:: DO PUT
-        this.login = login
-        this.content = content
-    }*/
+
+    constructor(
+        tytul: String?,
+        autor: String?,
+        wydawnictwo: String?,
+        temat: String?,
+        jezykKsiazki: String?,
+        rokWydania: String?,
+        dostepnosc: String?,
+        opis: String?
+    ) {
+        this.tytul = tytul
+        this.autor = autor
+        this.wydawnictwo = wydawnictwo
+        this.temat = temat
+        this.jezykKsiazki = jezykKsiazki
+        this.rokWydania = rokWydania
+        this.dostepnosc = dostepnosc
+        this.opis = opis
+    }
 }

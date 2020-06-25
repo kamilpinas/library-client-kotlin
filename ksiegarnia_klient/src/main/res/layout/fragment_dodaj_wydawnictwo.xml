@@ -58,7 +58,7 @@
 
             <androidx.cardview.widget.CardView
                 android:layout_width="fill_parent"
-                android:layout_height="400dp"
+                android:layout_height="562dp"
                 android:layout_margin="8dp">
 
                 <LinearLayout
@@ -115,8 +115,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:ems="10"
-                            android:hint="Nazwa miasta"
-                            android:inputType="textPassword" />
+                            android:hint="Nazwa miasta" />
 
                     </LinearLayout>
 
@@ -131,7 +130,8 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="4dp"
                 android:background="@drawable/button_background"
-                android:text="Dodaj wydawnictwo" />
+                android:text="Dodaj wydawnictwo"
+                android:textColor="#FFFFFF" />
 
         </LinearLayout>
     </ScrollView>

@@ -1,9 +1,6 @@
 package com.example.ksiegarnia_klient.api_adapters
 
-import com.example.ksiegarnia_klient.api_data_structures.ClientData
-import com.example.ksiegarnia_klient.api_data_structures.MyBooks
-import com.example.ksiegarnia_klient.api_data_structures.MyLogin
-import com.example.ksiegarnia_klient.api_data_structures.MyWypozyczenia
+import com.example.ksiegarnia_klient.api_data_structures.*
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -26,6 +23,21 @@ interface JsonPlaceholderAPI {
 
     @POST("ksiegarnia/register")
     fun createPost(@Body ClientData: ClientData): Call<ClientData>
+
+    @POST("ksiegarnia/addWydawnictwo")
+    fun createPost(@Body MyWydawnictwa: MyWydawnictwa): Call<MyWydawnictwa>
+
+    @GET("ksiegarnia/getWydawnictwa")
+    fun getWydawnictwaArray(): Call<Array<MyWydawnictwa>?>?
+
+    @POST("ksiegarnia/addAutor")
+    fun createPost(@Body MyAutor: MyAutor): Call<MyAutor>
+
+    @GET("ksiegarnia/getAutorzy")
+    fun getAutorsArray(): Call<Array<MyAutor>?>?
+
+    @POST("ksiegarnia/addBook")
+    fun createPost(@Body MyBooks: MyBooks): Call<MyBooks>
 
     @PUT("ksiegarnia/update")
     fun createPut(@Body ClientData: ClientData): Call<ClientData>

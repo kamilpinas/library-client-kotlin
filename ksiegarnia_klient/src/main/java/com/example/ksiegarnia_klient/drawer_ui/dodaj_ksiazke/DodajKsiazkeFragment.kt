@@ -10,26 +10,33 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import com.afollestad.vvalidator.form
 import com.example.ksiegarnia_klient.*
 import com.example.ksiegarnia_klient.activities_ui.baseUrl
+import com.example.ksiegarnia_klient.activities_ui.isAdmin
+import com.example.ksiegarnia_klient.activities_ui.isGuest
 import com.example.ksiegarnia_klient.api_adapters.JsonPlaceholderAPI
 import com.example.ksiegarnia_klient.api_data_structures.ClientData
+import com.example.ksiegarnia_klient.api_data_structures.MyAutor
+import com.example.ksiegarnia_klient.api_data_structures.MyBooks
+import com.example.ksiegarnia_klient.api_data_structures.MyWydawnictwa
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import android.widget.ArrayAdapter as ArrayAdapter1
 
 class DodajKsiazkeFragment : Fragment() {
     private lateinit var dodajKsiazkeViewModel: DodajKsiazkeViewModel
     private lateinit var jsonPlaceholderAPI: JsonPlaceholderAPI
     private lateinit var retrofit: Retrofit
-    private lateinit var clientData: Array<ClientData>
-    var activity: Activity? = getActivity()
     private lateinit var infoToast: Toast
-
+    private lateinit var autorData: Array<MyAutor>
+    private lateinit var wydawnictwaData: Array<MyWydawnictwa>
     private lateinit var editTextTytulKsiazki: EditText
     private lateinit var editTextTematKsiazki: EditText
     private lateinit var editTextJezykKsiazki: EditText
@@ -68,14 +75,12 @@ class DodajKsiazkeFragment : Fragment() {
             )
             .build()
         jsonPlaceholderAPI = retrofit.create(JsonPlaceholderAPI::class.java)
-
-        dodajKsiazkeButton.setOnClickListener {
-            showDialog()
-        }
-/*
         if (!isAdmin && !isGuest) {
-            getAndShowClientData() // pobieranie danych klienta
-
+            Log.d("POBIERANIE DANYCH:::", "JESTES GOSCIEM LUB ADMINEM")
+            makeToast("Zaloguj się jako admin, aby dodac ksiazke")
+        } else {
+            getWydawnictwa()
+            getAutors()
             form {
                 input(editTextTytulKsiazki, name = "login") {
                     isNotEmpty().description("Podaj login !")
@@ -85,76 +90,115 @@ class DodajKsiazkeFragment : Fragment() {
                     isNotEmpty().description("Podaj hasło !")
                     length().atLeast(6).description("Hasło musi zawierac minimum 6 znaków")
                 }
-                input(editTextImie, name = "imię") {
-                    isNotEmpty().description("Podaj imię !")
+                input(editTextJezykKsiazki, name = "jezyk_ksiazki") {
+                    isNotEmpty().description("Podaj język ksiazki !")
                 }
-                input(editTextNazwisko, name = "nazwisko") {
-                    isNotEmpty().description("Podaj nazwisko !")
-                }
-                input(editTextUlica, name = "ulica") {
-                    isNotEmpty().description("Podaj ulicę !")
-                }
-                input(editTextMiejscowosc, name = "miejscowosc") {
-                    isNotEmpty().description("Podaj miejscowość !")
-                }
-                input(editTextNrDomu, name = "NumerDomu") {
-                    isNotEmpty().description("Podaj numer domu !")
+                input(editTextRokWydania, name = "rok_wydania") {
+                    isNotEmpty().description("Podaj rok wydania książki !")
                     isNumber()
-                    length().atMost(7)
                 }
-                input(editTextTelefon, name = "telefon") {
-                    isNotEmpty().description("Podaj numer telefonu !")
-                    isNumber()
-                    length().atLeast(9)
+                input(editTextOpisKsiazki, name = "opis") {
+                    isNotEmpty().description("Podaj Opis książki !")
                 }
-                input(editTextKodPocztowy, name = "Kod Pocztowy") {
-                    isNotEmpty().description("Podaj kod pocztowy !")
-                    length().atLeast(5)
-                    length().atMost(6)
+                checkable(dostepnoscCheckBox, name = "dostepnosc") {
+                    isChecked()
+                }
+                spinner(spinnerAutor, name = "autor") {
+                    selection().exactly(1).description("Wybierz Autora!")
+                }
+                spinner(spinnerWydawnictwo, name = "telefon") {
+                    selection().exactly(1).description("Wybierz Wydawnictwo!")
                 }
 
-                submitWith(updateButton) { result ->
-                    val updateData =
-                        ClientData(
-                            editTextNazwisko.text.toString(),
-                            editTextImie.text.toString(),
-                            editTextKodPocztowy.text.toString(),
-                            editTextMiejscowosc.text.toString(),
-                            editTextUlica.text.toString(),
-                            editTextNrDomu.text.toString(),
-                            editTextTelefon.text.toString(),
+                submitWith(dodajKsiazkeButton) { result ->
+                    val bookData =
+                        MyBooks(
                             editTextTytulKsiazki.text.toString(),
-                            editTextTematKsiazki.text.toString()
+                            editTextTematKsiazki.text.toString(),
+                            spinnerAutor.selectedItem.toString(),
+                            spinnerWydawnictwo.selectedItem.toString(),
+                            editTextTematKsiazki.text.toString(),
+                            editTextJezykKsiazki.text.toString(),
+                            editTextRokWydania.text.toString(),
+                          //dostepnoscCheckBox.text.toString(), TODO
+                            editTextOpisKsiazki.text.toString()
                         )
-                    sendUpdate(updateData)
+                    addBook(bookData)
                 }
             }
-        } else {
-
-
-            Log.d("POBIERANIE DANYCH:::", "JESTES GOSCIEM LUB ADMINEM")
-            makeToast("Zaloguj się jako klient, aby zobaczyć i edytować swoje dane")
-        }*/
+        }
         return root
     }
 
-    private fun sendUpdate(ClientData: ClientData) {
-        val call = jsonPlaceholderAPI.createPut(ClientData)
-        call.enqueue(object : Callback<ClientData> {
+    fun getWydawnictwa() {
+        val call = jsonPlaceholderAPI.getWydawnictwaArray()
+        call!!.enqueue(object : Callback<Array<MyWydawnictwa>?> {
+            override fun onResponse(
+                call: Call<Array<MyWydawnictwa>?>,
+                response: Response<Array<MyWydawnictwa>?>
+            ) {
+                if (!response.isSuccessful) {
+                    println("Code: " + response.code())
+                    return
+                }
+                wydawnictwaData = response.body()!!
+                val item = arrayOfNulls<String>(wydawnictwaData!!.size)
+                for(i in 0 until wydawnictwaData.size){
+                    item[i] = wydawnictwaData.get(i).nazwa
+                }
+                spinnerWydawnictwo?.adapter= activity?.applicationContext?.let { ArrayAdapter1<String?>(it,R.layout.support_simple_spinner_dropdown_item,item) } as SpinnerAdapter
+            }
             override fun onFailure(
-                call: Call<ClientData>,
+                call: Call<Array<MyWydawnictwa>?>,
+                t: Throwable
+            ) {
+                println(t.message)
+            }
+        })
+    }
+
+    fun getAutors() {
+        val call = jsonPlaceholderAPI.getAutorsArray()
+        call!!.enqueue(object : Callback<Array<MyAutor>?> {
+            override fun onResponse(
+                call: Call<Array<MyAutor>?>,
+                response: Response<Array<MyAutor>?>
+            ) {
+                if (!response.isSuccessful) {
+                    println("Code: " + response.code())
+                    return
+                }
+                autorData = response.body()!!
+                val item = arrayOfNulls<String>(autorData!!.size)
+                for(i in 0 until autorData.size){
+                    item[i] = autorData.get(i).nazwisko
+                }
+                spinnerAutor?.adapter= activity?.applicationContext?.let { ArrayAdapter1<String?>(it,R.layout.support_simple_spinner_dropdown_item,item) } as SpinnerAdapter
+            }
+            override fun onFailure(
+                call: Call<Array<MyAutor>?>,
+                t: Throwable
+            ) {
+                println(t.message)
+            }
+        })
+    }
+    private fun addBook(MyBooks: MyBooks) {
+        val call = jsonPlaceholderAPI.createPost(MyBooks)
+        call.enqueue(object : Callback<MyBooks> {
+            override fun onFailure(
+                call: Call<MyBooks>,
                 t: Throwable
             ) {
                 makeToast("Brak połączenia!")
-                Log.d("rejestracja:", " error")
+                Log.d("nowy autor:", " error")
             }
-
             override fun onResponse(
-                call: Call<ClientData>,
-                response: Response<ClientData>
+                call: Call<MyBooks>,
+                response: Response<MyBooks>
             ) {
                 if (!response.isSuccessful) {
-                    makeToast("Podany login już istnieje w bazie!")
+                    makeToast("Podana ksiazka już istnieje w bazie!")
                     println("Code: " + response.code())
                     return
                 } else {
@@ -163,44 +207,6 @@ class DodajKsiazkeFragment : Fragment() {
             }
         })
     }
-
-    /*
-        fun getAndShowClientData() {
-            val call = jsonPlaceholderAPI.getClientArray(
-                currentUserLogin,
-                currentUserPassowrd
-            )
-
-            call!!.enqueue(object : Callback<Array<ClientData>?> {
-                override fun onResponse(
-                    call: Call<Array<ClientData>?>,
-                    response: Response<Array<ClientData>?>
-                ) {
-                    if (!response.isSuccessful) {
-                        println("Code: " + response.code())
-                        return
-                    }
-                    clientData = response.body()!!
-                    editTextTytulKsiazki.setText(clientData.get(0).login.toString())
-                    editTextTematKsiazki.setText(clientData.get(0).haslo.toString())
-                    editTextImie.setText(clientData.get(0).imie.toString())
-                    editTextNazwisko.setText(clientData.get(0).nazwisko.toString())
-                    editTextTelefon.setText(clientData.get(0).telefon.toString())
-                    editTextKodPocztowy.setText(clientData.get(0).kodPocztowy.toString())
-                    editTextMiejscowosc.setText(clientData.get(0).miejscowosc.toString())
-                    editTextNrDomu.setText(clientData.get(0).nrDomu.toString())
-                    editTextUlica.setText(clientData.get(0).ulica.toString())
-                }
-
-                override fun onFailure(
-                    call: Call<Array<ClientData>?>,
-                    t: Throwable
-                ) {
-                    println(t.message)
-                }
-            })
-        }
-    */
     fun makeToast(myToastText: String) {
         infoToast = Toast.makeText(
             context,
@@ -211,22 +217,5 @@ class DodajKsiazkeFragment : Fragment() {
         infoToast.show()
     }
 
-    fun showDialog() {
-        val dialogBuilder = AlertDialog.Builder(context)
-        dialogBuilder.setMessage("Czy na pewno chcesz nieodwracalnie skasować konto?")
-        dialogBuilder.setPositiveButton("Tak",
-            DialogInterface.OnClickListener { dialog, whichButton ->
-
-            }
-        )
-        dialogBuilder.setNegativeButton("Nie",
-            DialogInterface.OnClickListener { dialog, whichButton ->
-            })
-        val b = dialogBuilder.create()
-        if (b.toString() == "tak") {
-            Log.d("dasdas", "DSADASDASD")
-        }
-        b.show()
-    }
 }
 
