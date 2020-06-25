@@ -114,7 +114,7 @@
                             android:layout_height="wrap_content"
                             android:ems="10"
                             android:hint="Temat książki"
-                            android:inputType="textPassword" />
+                            />
 
                     </LinearLayout>
 

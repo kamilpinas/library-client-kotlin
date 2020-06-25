@@ -114,7 +114,7 @@
                             android:layout_height="wrap_content"
                             android:ems="10"
                             android:hint="Nazwisko"
-                            android:inputType="textPassword" />
+                            />
 
                     </LinearLayout>
 

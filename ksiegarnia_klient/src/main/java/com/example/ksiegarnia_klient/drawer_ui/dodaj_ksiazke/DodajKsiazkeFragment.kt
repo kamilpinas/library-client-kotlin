@@ -100,18 +100,15 @@ class DodajKsiazkeFragment : Fragment() {
                 input(editTextOpisKsiazki, name = "opis") {
                     isNotEmpty().description("Podaj Opis książki !")
                 }
-                /*
-               checkable(dostepnoscCheckBox, name = "dostepnosc") {
-                   isChecked()
-                   isNotChecked()
-               }
 
                spinner(spinnerAutor, name = "autor") {
-                   selection().exactly(1).description("Wybierz Autora!")
+                   selection().greaterThan(0)
+                       .description("Wybierz Autora!")
                }
                spinner(spinnerWydawnictwo, name = "telefon") {
-                   selection().exactly(1).description("Wybierz Wydawnictwo!")
-               }*/
+                   selection().greaterThan(0)
+                       .description("Wybierz Wydawnictwo!")
+               }
 
                 submitWith(dodajKsiazkeButton) { result ->
                     var delimeter = " "
