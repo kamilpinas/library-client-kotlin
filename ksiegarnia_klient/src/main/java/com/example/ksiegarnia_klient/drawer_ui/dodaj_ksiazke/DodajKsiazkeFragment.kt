@@ -82,20 +82,18 @@ class DodajKsiazkeFragment : Fragment() {
             getWydawnictwa()
             getAutors()
             form {
-                input(editTextTytulKsiazki, name = "login") {
-                    isNotEmpty().description("Podaj login !")
-                    length().atLeast(6).description("Login musi zawierac minimum 6 znaków")
-                    length().atMost(30).description("Tytuł może mieć max 100 znaków")
+                input(editTextTytulKsiazki, name = "tytul") {
+                    isNotEmpty().description("Podaj tytuł książki !")
+                    length().atMost(100).description("Tytuł może mieć max 100 znaków")
 
                 }
-                input(editTextTematKsiazki, name = "haslo") {
-                    isNotEmpty().description("Podaj hasło !")
-                    length().atLeast(6).description("Hasło musi zawierac minimum 6 znaków")
+                input(editTextTematKsiazki, name = "temat") {
+                    isNotEmpty().description("Podaj temat !")
                     length().atMost(30).description("Temat może mieć max 30 znaków")
                 }
                 input(editTextJezykKsiazki, name = "jezyk_ksiazki") {
                     isNotEmpty().description("Podaj język ksiazki !")
-                    length().atMost(15).description("Jężyk może mieć max 15 znaków")
+                    length().atMost(15).description("Język może mieć max 15 znaków")
 
                 }
                 input(editTextRokWydania, name = "rok_wydania") {
@@ -106,16 +104,13 @@ class DodajKsiazkeFragment : Fragment() {
                 }
                 input(editTextOpisKsiazki, name = "opis") {
                     isNotEmpty().description("Podaj Opis książki !")
-
                 }
 
                spinner(spinnerAutor, name = "autor") {
-                   selection().greaterThan(0)
-                       .description("Wybierz Autora!")
+                   selection().description("Wybierz Autora")
                }
                spinner(spinnerWydawnictwo, name = "telefon") {
-                   selection().greaterThan(0)
-                       .description("Wybierz Wydawnictwo!")
+                   selection().description("Wybierz Wydawnictwo")
                }
 
                 submitWith(dodajKsiazkeButton) { result ->
