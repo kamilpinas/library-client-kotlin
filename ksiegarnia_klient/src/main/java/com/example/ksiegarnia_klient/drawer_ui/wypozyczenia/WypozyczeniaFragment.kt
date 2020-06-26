@@ -1,6 +1,8 @@
 package com.example.ksiegarnia_klient.drawer_ui.wypozyczenia
 
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Bundle
@@ -103,7 +105,7 @@ class WypozyczeniaFragment : Fragment(), CustomWypozyczeniaListAdapter.OnItemCli
             if (checkNetworkConnection()) {
                 getAndShowWypozyczeniaKlientow()
                 swipeRefresh.isRefreshing = false
-                makeToast("Odświeżono wypozyczenia")
+                makeToast("Kliknij na jakikolwiek element listy, aby potwierdzić otrzymanie zwrotu.")
             } else {
                 makeToast("Nie można odświeżyć ksiązek - brak połączenia!")
             }
@@ -225,7 +227,7 @@ class WypozyczeniaFragment : Fragment(), CustomWypozyczeniaListAdapter.OnItemCli
 
         idKsiazki = item.idKsiazki!!
         idKlienta = item.idKlienta!!
-        usunWypozyczenie()
+        showDialog()
 
         Log.d("id klienta", idKlienta.toString())
         Log.d("id ksiazki", idKsiazki.toString())
@@ -273,5 +275,23 @@ class WypozyczeniaFragment : Fragment(), CustomWypozyczeniaListAdapter.OnItemCli
                 }
             }
         })
+    }
+
+    fun showDialog() {
+        val dialogBuilder = AlertDialog.Builder(context)
+        dialogBuilder.setMessage("Czy na pewno chcesz potweirdzić zwrot książki?")
+        dialogBuilder.setPositiveButton("Tak",
+            DialogInterface.OnClickListener { dialog, whichButton ->
+                usunWypozyczenie()
+            }
+        )
+        dialogBuilder.setNegativeButton("Nie",
+            DialogInterface.OnClickListener { dialog, whichButton ->
+            })
+        val b = dialogBuilder.create()
+        if (b.toString() == "tak") {
+            Log.d("dasdas", "DSADASDASD")
+        }
+        b.show()
     }
 }

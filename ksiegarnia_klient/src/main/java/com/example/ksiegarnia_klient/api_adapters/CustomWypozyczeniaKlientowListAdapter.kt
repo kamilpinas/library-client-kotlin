@@ -46,7 +46,6 @@ class CustomWypozyczeniaKlientowListAdapter(
         var dataZwrotu: TextView = itemView.dataZwrotuTextView
         var imieWypozyczajacego:TextView = itemView.imieWypozyczajacegoTextView
         var nazwiskoWypozyczajacego:TextView = itemView.nazwiskoWypozyczajacegoTextView
-        var  potwierdzZwrotButton: Button =itemView.potwierdzZwrotButton
 
 
         var okladkaImageView: ImageView = itemView.okladkaImageView
