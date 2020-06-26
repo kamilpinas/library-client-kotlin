@@ -85,21 +85,14 @@ class DaneKlientaFragment : Fragment() {
 
         if (!isAdmin && !isGuest) {
             getAndShowClientData() // pobieranie danych klienta
-
+            editTextLogin.isEnabled=false
+            editTextImie.isEnabled=false
+            editTextNazwisko.isEnabled=false
             form {
-                input(editTextLogin, name = "login") {
-                    isNotEmpty().description("Podaj login !")
-                    length().atLeast(6).description("Login musi zawierac minimum 6 znaków")
-                }
+
                 input(editTextPassword, name = "haslo") {
                     isNotEmpty().description("Podaj hasło !")
                     length().atLeast(6).description("Hasło musi zawierac minimum 6 znaków")
-                }
-                input(editTextImie, name = "imię") {
-                    isNotEmpty().description("Podaj imię !")
-                }
-                input(editTextNazwisko, name = "nazwisko") {
-                    isNotEmpty().description("Podaj nazwisko !")
                 }
                 input(editTextUlica, name = "ulica") {
                     isNotEmpty().description("Podaj ulicę !")
