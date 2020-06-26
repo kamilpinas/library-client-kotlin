@@ -45,12 +45,6 @@ interface JsonPlaceholderAPI {
     @PUT("ksiegarnia/update")
     fun createPut(@Body ClientData: ClientData): Call<ClientData>
 
-    @PUT("shoutbox/message/{id}")
-    fun createPut(
-        @Path("id") id: String,
-        @Body exampleItem: MyLogin
-    ): Call<MyLogin>
-
     @DELETE("ksiegarnia/klient/usunkonto")
     fun deleteClient(@Query("login") login: String, @Query("password") password: String): Call<MyLogin>
 
