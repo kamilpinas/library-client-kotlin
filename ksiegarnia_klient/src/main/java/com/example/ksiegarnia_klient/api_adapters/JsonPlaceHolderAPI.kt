@@ -6,55 +6,55 @@ import retrofit2.http.*
 
 interface JsonPlaceholderAPI {
 
-    @GET("ksiegarnia/ksiazki")
+    @GET("library/books/all")
     fun getBookArray(): Call<Array<MyBooks>?>?
 
-    @GET("ksiegarnia/klient/wypozyczeniaKlienta")
+    @GET("library/books/get_client_rentals")
     fun getWypozyczeniaArray(@Query("login") login: String, @Query("password") password: String): Call<Array<MyWypozyczenia>?>?
 
-    @GET("ksiegarnia/klient/wypozyczeniaKlientow")
+    @GET("library/books/rented/all")
     fun getWypozyczeniaKlientowArray(@Query("login") login: String, @Query("password") password: String): Call<Array<WypozyczeniaKlientow>?>?
 
-    @GET("ksiegarnia/klient")
+    @GET("library/client")
     fun getClientArray(@Query("login") login: String, @Query("password") password: String): Call<Array<ClientData>?>?
 
-    @POST("ksiegarnia/login")
+    @POST("library/client/login")
     fun createPost(@Body MyLogin: MyLogin): Call<MyLogin>
 
-    @POST("ksiegarnia/loginAdmin")
+    @POST("library/admin/login")
     fun createPostAdmin(@Body MyLogin: MyLogin): Call<MyLogin>
 
-    @POST("ksiegarnia/register")
+    @POST("library/client/register")
     fun createPost(@Body ClientData: ClientData): Call<ClientData>
 
-    @POST("ksiegarnia/addWydawnictwo")
+    @POST("library/publishing_houses/add")
     fun createPost(@Body MyWydawnictwa: MyWydawnictwa): Call<MyWydawnictwa>
 
-    @GET("ksiegarnia/getWydawnictwa")
+    @GET("library/publishing_houses/all")
     fun getWydawnictwaArray(): Call<Array<MyWydawnictwa>?>?
 
-    @POST("ksiegarnia/addAutor")
+    @POST("library/authors/add")
     fun createPost(@Body MyAutor: MyAutor): Call<MyAutor>
 
-    @GET("ksiegarnia/getAutorzy")
+    @GET("library/authors/all")
     fun getAutorsArray(): Call<Array<MyAutor>?>?
 
-    @POST("ksiegarnia/addBook")
+    @POST("library/books/add")
     fun createPost(@Body MyBooks: MyBooks): Call<MyBooks>
 
-    @PUT("ksiegarnia/update")
+    @PUT("library/books/update")
     fun createPut(@Body ClientData: ClientData): Call<ClientData>
 
-    @DELETE("ksiegarnia/klient/usunkonto")
+    @DELETE("library/client/delete_account")
     fun deleteClient(@Query("login") login: String, @Query("password") password: String): Call<MyLogin>
 
-    @POST("ksiegarnia/ksiazki/wypozycz")
+    @POST("library/books/rent")
     fun wypozyczKsiazke(@Query("login") login: String, @Query("password") password: String, @Query("idKsiazki") idKsiazki: Integer): Call<MyLogin>
 
-    @DELETE("ksiegarnia/ksiazki/usunKsiazke")
+    @DELETE("library/books/delete_book")
     fun usunKsiazke(@Query("login") login: String, @Query("password") password: String, @Query("idKsiazki") idKsiazki: Integer): Call<MyLogin>
 
-    @DELETE("ksiegarnia/ksiazki/usunWypozyczenie")
+    @DELETE("library/ksiazki/usunWypozyczenie")
     fun usunWypozyczenie(
         @Query("login") login: String, @Query("password") password: String, @Query(
             "idKsiazki"
