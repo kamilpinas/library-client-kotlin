@@ -1,8 +1,5 @@
 package com.example.ksiegarnia_klient.drawer_ui.dodaj_ksiazke
 
-import android.app.Activity
-import android.app.AlertDialog
-import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
@@ -10,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.afollestad.vvalidator.form
@@ -19,7 +15,6 @@ import com.example.ksiegarnia_klient.activities_ui.baseUrl
 import com.example.ksiegarnia_klient.activities_ui.isAdmin
 import com.example.ksiegarnia_klient.activities_ui.isGuest
 import com.example.ksiegarnia_klient.api_adapters.JsonPlaceholderAPI
-import com.example.ksiegarnia_klient.api_data_structures.ClientData
 import com.example.ksiegarnia_klient.api_data_structures.MyAutor
 import com.example.ksiegarnia_klient.api_data_structures.MyBooks
 import com.example.ksiegarnia_klient.api_data_structures.MyWydawnictwa
@@ -114,18 +109,18 @@ class DodajKsiazkeFragment : Fragment() {
                }
 
                 submitWith(dodajKsiazkeButton) { result ->
-                    var delimeter = " "
+
                     val bookData =
                         MyBooks(
                             editTextTytulKsiazki.text.toString(),
                             editTextTematKsiazki.text.toString(),
-                            spinnerAutor.selectedItem.toString().split(delimeter)[0],
-                            spinnerAutor.selectedItem.toString().split(delimeter)[1],
-                            spinnerWydawnictwo.selectedItem.toString(),
-                            editTextJezykKsiazki.text.toString(),
                             editTextRokWydania.text.toString(),
-                            dostepnoscCheckBox.isChecked.toString(),
-                            editTextOpisKsiazki.text.toString()
+                            editTextJezykKsiazki.text.toString(),
+                            dostepnoscCheckBox.isChecked,
+                            editTextOpisKsiazki.text.toString(),
+                            spinnerWydawnictwo.selectedItem as MyWydawnictwa,
+                            spinnerAutor.selectedItem as MyAutor
+
                         )
                     Log.d("NOWA KS:", "KLIKNALES PRYCISK")
                     addBook(bookData)

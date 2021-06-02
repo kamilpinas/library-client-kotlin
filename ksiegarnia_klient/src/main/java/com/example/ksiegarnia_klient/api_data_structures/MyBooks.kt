@@ -3,38 +3,35 @@ package com.example.ksiegarnia_klient.api_data_structures
 import java.io.Serializable
 
 class MyBooks : Serializable {
-    var idKsiazki: String? = null
-    var tytul: String? = null
-    var autor: String? = null
-    var imieAutora: String? = null
-    var nazwiskoAutora: String? = null
-    var wydawnictwo: String? = null
-    var temat: String? = null
-    var jezykKsiazki: String? = null
-    var rokWydania: String? = null
-    var dostepnosc: String? = null
-    var opis: String? = null
+    var bookId: Long? = null
+    var title: String? = null
+    var genre: String? = null
+    var bookLanguage: String? = null
+    var publicationDate: String? = null
+    var availability: Boolean? = null
+    var description: String? = null
+
+    var publishingHouse: MyWydawnictwa
+    var author: MyAutor
 
 
     constructor(
-        tytul: String?,
-        temat: String?,
-        imieAutora: String?,
-        nazwiskoAutora: String?,
-        wydawnictwo: String?,
-        jezykKsiazki: String?,
-        rokWydania: String?,
-        dostepnosc: String?,
-        opis: String?
+        title: String?,
+        genre: String?,
+        bookLanguage: String?,
+        publicationDate: String?,
+        availability: Boolean?,
+        description: String?,
+        publishingHouse: MyWydawnictwa,
+        author: MyAutor
     ) {
-        this.tytul = tytul
-        this.temat = temat
-        this.imieAutora=imieAutora
-        this.nazwiskoAutora=nazwiskoAutora
-        this.wydawnictwo = wydawnictwo
-        this.jezykKsiazki = jezykKsiazki
-        this.rokWydania = rokWydania
-        this.dostepnosc = dostepnosc
-        this.opis = opis
+        this.title = title
+        this.genre = genre
+        this.bookLanguage = bookLanguage
+        this.publicationDate = publicationDate
+        this.availability = availability
+        this.description = description
+        this.publishingHouse = publishingHouse
+        this.author = author
     }
 }

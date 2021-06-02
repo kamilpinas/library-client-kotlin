@@ -3,6 +3,7 @@ package com.example.ksiegarnia_klient.drawer_ui.ksiegarnia
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
@@ -10,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProviders
@@ -27,7 +29,6 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.concurrent.Executors
 
 class KsiegarniaFragment : Fragment(), CustomBooksListAdapter.OnItemClickListener {
 
@@ -40,6 +41,7 @@ class KsiegarniaFragment : Fragment(), CustomBooksListAdapter.OnItemClickListene
     private lateinit var retrofit: Retrofit
     private lateinit var infoToast: Toast
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -92,6 +94,7 @@ class KsiegarniaFragment : Fragment(), CustomBooksListAdapter.OnItemClickListene
                     return
                 }
                 booksData = response.body()!!
+                println(response.body())
                 // booksData.reverse()
                 recyclerView.adapter =
                     CustomBooksListAdapter(
@@ -114,6 +117,7 @@ class KsiegarniaFragment : Fragment(), CustomBooksListAdapter.OnItemClickListene
         })
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     fun checkNetworkConnection(): Boolean {
         val connectivityManager =
             context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -150,17 +154,17 @@ class KsiegarniaFragment : Fragment(), CustomBooksListAdapter.OnItemClickListene
         item: MyBooks, position: Int
     ) {
         val bundle = Bundle()
-        bundle.putString("tytul", item.tytul)
-        bundle.putString("idKsiazki", item.idKsiazki)// TODO:: ID JEST DO EDYCJI
-        bundle.putString("rokWydania", item.rokWydania)
-        bundle.putString("opis", item.opis)
-        bundle.putString("temat", item.temat)
-        bundle.putString("jezykKsiazki", item.jezykKsiazki)
-        bundle.putString("rokWydania", item.rokWydania)
-        bundle.putString("dostepnosc", item.dostepnosc)
-        bundle.putString("autor", item.autor)
-        bundle.putString("wydawnictwo", item.wydawnictwo)
-        bundle.putString("dostepnosc", item.dostepnosc)
+//        bundle.putString("tytul", item.title)
+//        bundle.putString("idKsiazki", item.bookId)// TODO:: ID JEST DO EDYCJI
+//        bundle.putString("rokWydania", item.publicationDate)
+//        bundle.putString("opis", item.description)
+//        bundle.putString("temat", item.genre)
+//        bundle.putString("jezykKsiazki", item.bookLanguage)
+//        bundle.putString("rokWydania", item.publicationDate)
+//        bundle.putString("dostepnosc", item.availability)
+//        bundle.putString("autor", item.author)
+//        bundle.putString("wydawnictwo", item.publishingHouse)
+//        bundle.putString("dostepnosc", item.availability)
 
         val fragment: Fragment = BookDetailsFragment()
         fragment.arguments = bundle

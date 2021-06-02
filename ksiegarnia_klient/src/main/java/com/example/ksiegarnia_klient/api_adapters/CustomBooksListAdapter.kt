@@ -42,20 +42,20 @@ class CustomBooksListAdapter(
         var opisTextView: TextView = itemView.opisTextView
         var okladkaImageView: ImageView = itemView.okladkaImageView
         fun initialize(item: MyBooks, action: OnItemClickListener) {
-            if (item.dostepnosc.toString() == "t") {
+            if (item.availability.toString() == "t") {
                 dostepnoscTextView.setTextColor(Color.parseColor("#009900"));
                 dostepnoscTextView.text = "Dostępna"
             } else {
                 dostepnoscTextView.setTextColor(Color.parseColor("#FF0000"));
                 dostepnoscTextView.text = "Niedostępna"
             }
-            opisTextView.text = item.opis
-            tytulTextView.text = item.tytul
-            autorTextView.text = item.autor
-            id = item.idKsiazki.toString()
+            opisTextView.text = item.description
+            tytulTextView.text = item.title
+            autorTextView.text = item.author.nazwisko.toString()
+            id = item.bookId.toString()
             //var iconUrl: String = "http:/192.168.0.106:8080/ksiegarnia/image/" + id
-             var iconUrl: String = "http:/192.168.7.168:8080/ksiegarnia/image/" + id
-            wydawnictwoTextView.text = item.wydawnictwo
+             var iconUrl: String = "http:/192.168.7.168:8080/library/image/" + id
+            wydawnictwoTextView.text = item.publishingHouse.nazwa.toString()
             Picasso.get().load(iconUrl).into(okladkaImageView)
 
             itemView.setOnClickListener {
