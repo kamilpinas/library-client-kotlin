@@ -36,7 +36,7 @@ class CustomWypozyczeniaListAdapter(
     override fun getItemCount() = myList.size
 
     class ExampleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var id: String = ""
+
         var tytulTextView: TextView = itemView.tytulTextView
         var dataWypozyczenia: TextView = itemView.dataWypozyczeniaTextView
         var dataZwrotu: TextView = itemView.dataZwrotuTextView
@@ -46,7 +46,8 @@ class CustomWypozyczeniaListAdapter(
             tytulTextView.text = item.book.title
             dataWypozyczenia.text="Data wypożyczenia: "+ item.rentalDate
             dataZwrotu.text="Data zwrotu: "+ item.returnDate
-            id = item.rentalId.toString()
+            var id = item.rentalId!!
+
             //var iconUrl: String = "http:/192.168.0.106:8080/ksiegarnia/image/" + id
              var iconUrl: String = "http:/192.168.7.167:8080/library/image/" + id
             Picasso.get().load(iconUrl).into(okladkaImageView)

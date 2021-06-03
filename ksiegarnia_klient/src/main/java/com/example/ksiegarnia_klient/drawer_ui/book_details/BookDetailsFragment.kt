@@ -173,6 +173,7 @@ class BookDetailsFragment : Fragment() {
                     return
                 }
                 if (!response.isSuccessful) {
+                    println("ID KSAIZKI: " + idKsiazki+"login: " + currentUserLogin+"pass: " + currentUserPassowrd)
                     println("Code: " + response.code())
                     makeToast("Błąd przy wypożyczaniu!")
                     return

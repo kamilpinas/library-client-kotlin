@@ -128,9 +128,12 @@ class WypozyczeniaFragment : Fragment(), CustomWypozyczeniaListAdapter.OnItemCli
             ) {
                 if (!response.isSuccessful) {
                     println("Code: " + response.code())
+                    println("login:"+ currentUserLogin+"pass"+ currentUserPassowrd)
                     return
                 }
+                println("Code: " + response.body())
                 wypozyczeniaData = response.body()!!
+
                 recyclerView.adapter =
                     CustomWypozyczeniaListAdapter(
                         wypozyczeniaData,

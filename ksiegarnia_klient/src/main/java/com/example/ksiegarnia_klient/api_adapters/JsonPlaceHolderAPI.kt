@@ -9,14 +9,14 @@ interface JsonPlaceholderAPI {
     @GET("library/books/all")
     fun getBookArray(): Call<Array<MyBooks>?>?
 
-    @GET("library/books/get_client_rentals")
+    @GET("library/books/rented/get_client_rentals")
     fun getWypozyczeniaArray(@Query("login") login: String, @Query("password") password: String): Call<Array<MyWypozyczenia>?>?
 
     @GET("library/books/rented/all")
     fun getWypozyczeniaKlientowArray(@Query("login") login: String, @Query("password") password: String): Call<Array<WypozyczeniaKlientow>?>?
 
     @GET("library/client")
-    fun getClientArray(@Query("login") login: String, @Query("password") password: String): Call<Array<ClientData>?>?
+    fun getClientArray(@Query("login") login: String, @Query("password") password: String): Call<ClientData>
 
     @POST("library/client/login")
     fun createPost(@Body MyLogin: MyLogin): Call<MyLogin>
@@ -49,7 +49,7 @@ interface JsonPlaceholderAPI {
     fun deleteClient(@Query("login") login: String, @Query("password") password: String): Call<MyLogin>
 
     @POST("library/books/rent")
-    fun wypozyczKsiazke(@Query("login") login: String, @Query("password") password: String, @Query("idKsiazki") idKsiazki: Long): Call<MyLogin>
+    fun wypozyczKsiazke(@Query("login") login: String, @Query("password") password: String, @Query("book_id") book_id: Long): Call<MyLogin>
 
     @DELETE("library/books/delete_book")
     fun usunKsiazke(@Query("login") login: String, @Query("password") password: String, @Query("idKsiazki") idKsiazki: Long): Call<MyLogin>

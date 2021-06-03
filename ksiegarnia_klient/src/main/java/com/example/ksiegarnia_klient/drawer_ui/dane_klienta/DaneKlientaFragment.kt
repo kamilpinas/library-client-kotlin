@@ -32,7 +32,7 @@ class DaneKlientaFragment : Fragment() {
     private lateinit var daneKlientaViewModel: DaneKlientaViewModel
     private lateinit var jsonPlaceholderAPI: JsonPlaceholderAPI
     private lateinit var retrofit: Retrofit
-    private lateinit var clientData: Array<ClientData>
+    private lateinit var clientData: ClientData
     var activity: Activity? = getActivity()
     private lateinit var infoToast: Toast
     private lateinit var editTextLogin: EditText
@@ -174,29 +174,30 @@ class DaneKlientaFragment : Fragment() {
             currentUserPassowrd
         )
 
-        call!!.enqueue(object : Callback<Array<ClientData>?> {
+        call!!.enqueue(object : Callback<ClientData> {
             override fun onResponse(
-                call: Call<Array<ClientData>?>,
-                response: Response<Array<ClientData>?>
+                call: Call<ClientData>,
+                response: Response<ClientData>
             ) {
                 if (!response.isSuccessful) {
                     println("Code: " + response.code())
                     return
                 }
                 clientData = response.body()!!
-                editTextLogin.setText(clientData.get(0).login.toString())
-                editTextPassword.setText(clientData.get(0).password.toString())
-                editTextImie.setText(clientData.get(0).name.toString())
-                editTextNazwisko.setText(clientData.get(0).surname.toString())
-                editTextTelefon.setText(clientData.get(0).phoneNumber.toString())
-                editTextKodPocztowy.setText(clientData.get(0).zipCode.toString())
-                editTextMiejscowosc.setText(clientData.get(0).city.toString())
-                editTextNrDomu.setText(clientData.get(0).houseNumber.toString())
-                editTextUlica.setText(clientData.get(0).street.toString())
+                editTextLogin.setText(clientData.login.toString())
+                editTextPassword.setText(clientData.password.toString())
+                editTextImie.setText(clientData.name.toString())
+                editTextNazwisko.setText(clientData.surname.toString())
+                editTextTelefon.setText(clientData.phoneNumber.toString())
+                editTextKodPocztowy.setText(clientData.zipCode.toString())
+                editTextMiejscowosc.setText(clientData.city.toString())
+                editTextNrDomu.setText(clientData.houseNumber.toString())
+                editTextUlica.setText(clientData.street.toString())
+
             }
 
             override fun onFailure(
-                call: Call<Array<ClientData>?>,
+                call: Call<ClientData>,
                 t: Throwable
             ) {
                 println(t.message)
@@ -231,6 +232,7 @@ class DaneKlientaFragment : Fragment() {
                 }
                 if (!response.isSuccessful) {
                     println("Code: " + response.code())
+                    makeToast("Istnieja wypozyczone ksiazki, nie mozna usunac!")
                     return
                 }
             }
@@ -251,7 +253,7 @@ class DaneKlientaFragment : Fragment() {
         val dialogBuilder = AlertDialog.Builder(context)
         dialogBuilder.setMessage("Czy na pewno chcesz nieodwracalnie skasować konto?")
         dialogBuilder.setPositiveButton("Tak",
-            DialogInterface.OnClickListener { dialog, whichButton ->
+            { dialog, whichButton ->
                 deleteClient()
 
             }
