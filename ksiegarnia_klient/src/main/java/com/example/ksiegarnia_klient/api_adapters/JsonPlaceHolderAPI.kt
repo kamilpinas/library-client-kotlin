@@ -49,10 +49,10 @@ interface JsonPlaceholderAPI {
     fun deleteClient(@Query("login") login: String, @Query("password") password: String): Call<MyLogin>
 
     @POST("library/books/rent")
-    fun wypozyczKsiazke(@Query("login") login: String, @Query("password") password: String, @Query("idKsiazki") idKsiazki: Integer): Call<MyLogin>
+    fun wypozyczKsiazke(@Query("login") login: String, @Query("password") password: String, @Query("idKsiazki") idKsiazki: Long): Call<MyLogin>
 
     @DELETE("library/books/delete_book")
-    fun usunKsiazke(@Query("login") login: String, @Query("password") password: String, @Query("idKsiazki") idKsiazki: Integer): Call<MyLogin>
+    fun usunKsiazke(@Query("login") login: String, @Query("password") password: String, @Query("idKsiazki") idKsiazki: Long): Call<MyLogin>
 
     @DELETE("library/ksiazki/usunWypozyczenie")
     fun usunWypozyczenie(

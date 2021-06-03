@@ -26,6 +26,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import kotlin.properties.Delegates
 
 class BookDetailsFragment : Fragment() {
 
@@ -43,8 +44,7 @@ class BookDetailsFragment : Fragment() {
     private lateinit var rokWydania: TextView
     private lateinit var temat: TextView
     private lateinit var okladka: ImageView
-    private lateinit var idKsiazki: String
-    lateinit var idKsiazkiInt: Integer
+    private var idKsiazki by Delegates.notNull<Long>()
     private lateinit var marginesOpis: ConstraintLayout
 
     override fun onCreateView(
@@ -68,7 +68,7 @@ class BookDetailsFragment : Fragment() {
         usunKsiazkeButton = root.findViewById(R.id.usunKsiazkeButton)
         marginesOpis = root.findViewById(R.id.marginesOpis)
 
-        if (arguments?.getString("dostepnosc").toString() == "t") {
+        if (arguments?.getBoolean("dostepnosc")!!) {
             dostepnoscTextView.setTextColor(Color.parseColor("#009900"));
             dostepnoscTextView.text = "Dostępna"
         } else {
@@ -77,15 +77,16 @@ class BookDetailsFragment : Fragment() {
             wypozyczButton.visibility = View.GONE
         }
         tytulTextView.text = arguments?.getString("tytul").toString()
-        autorTextView.text = arguments?.getString("autor").toString()
-        wydawnictwoTextView.text = arguments?.getString("wydawnictwo").toString()
+        autorTextView.text = arguments?.getSerializable("autor").toString()
+        wydawnictwoTextView.text = arguments?.getSerializable("wydawnictwo").toString()
         opisTextView.text = arguments?.getString("opis").toString()
         rokWydania.text = "Rok wydania: " + arguments?.getString("rokWydania").toString()
         temat.text = "Temat: " + arguments?.getString("temat").toString()
-        idKsiazki = arguments?.getString("idKsiazki").toString()
-        idKsiazkiInt = Integer(idKsiazki)
+        idKsiazki = arguments?.getLong("idKsiazki")!!
 
-        var iconUrl: String = "http:/192.168.0.106:8080/ksiegarnia/image/" + idKsiazki
+
+
+        var iconUrl: String = "http:/192.168.7.167:8080/library/image/" + idKsiazki
         Picasso.get().load(iconUrl).into(okladka)
 
         val retrofit = Retrofit.Builder().baseUrl(baseUrl)
@@ -143,7 +144,7 @@ class BookDetailsFragment : Fragment() {
         val call =
             jsonPlaceholderAPI.wypozyczKsiazke(
                 currentUserLogin,
-                currentUserPassowrd, idKsiazkiInt
+                currentUserPassowrd, idKsiazki
             )
         call.enqueue(object : Callback<MyLogin> {
             override fun onFailure(
@@ -184,7 +185,7 @@ class BookDetailsFragment : Fragment() {
         val call =
             jsonPlaceholderAPI.usunKsiazke(
                 currentUserLogin,
-                currentUserPassowrd, idKsiazkiInt
+                currentUserPassowrd, idKsiazki
             )
         call.enqueue(object : Callback<MyLogin> {
             override fun onFailure(

@@ -154,17 +154,16 @@ class KsiegarniaFragment : Fragment(), CustomBooksListAdapter.OnItemClickListene
         item: MyBooks, position: Int
     ) {
         val bundle = Bundle()
-//        bundle.putString("tytul", item.title)
-//        bundle.putString("idKsiazki", item.bookId)// TODO:: ID JEST DO EDYCJI
-//        bundle.putString("rokWydania", item.publicationDate)
-//        bundle.putString("opis", item.description)
-//        bundle.putString("temat", item.genre)
-//        bundle.putString("jezykKsiazki", item.bookLanguage)
-//        bundle.putString("rokWydania", item.publicationDate)
-//        bundle.putString("dostepnosc", item.availability)
-//        bundle.putString("autor", item.author)
-//        bundle.putString("wydawnictwo", item.publishingHouse)
-//        bundle.putString("dostepnosc", item.availability)
+        bundle.putString("tytul", item.title)
+        bundle.putLong("idKsiazki", item.bookId!!)// TODO:: ID JEST DO EDYCJI
+        bundle.putString("rokWydania", item.publicationDate)
+        bundle.putString("opis", item.description)
+        bundle.putString("temat", item.genre)
+        bundle.putString("jezykKsiazki", item.bookLanguage)
+        bundle.putString("rokWydania", item.publicationDate)
+        bundle.putBoolean("dostepnosc", item.availability)
+        bundle.putSerializable("autor", item.author)
+        bundle.putSerializable("wydawnictwo", item.publishingHouse)
 
         val fragment: Fragment = BookDetailsFragment()
         fragment.arguments = bundle

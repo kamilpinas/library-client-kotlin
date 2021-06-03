@@ -8,7 +8,7 @@ class MyBooks : Serializable {
     var genre: String? = null
     var bookLanguage: String? = null
     var publicationDate: String? = null
-    var availability: Boolean? = null
+    var availability: Boolean
     var description: String? = null
 
     var publishingHouse: MyWydawnictwa
@@ -20,7 +20,7 @@ class MyBooks : Serializable {
         genre: String?,
         bookLanguage: String?,
         publicationDate: String?,
-        availability: Boolean?,
+        availability: Boolean,
         description: String?,
         publishingHouse: MyWydawnictwa,
         author: MyAutor
