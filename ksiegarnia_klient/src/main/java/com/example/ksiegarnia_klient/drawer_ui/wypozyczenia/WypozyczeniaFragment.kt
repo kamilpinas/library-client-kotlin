@@ -11,7 +11,6 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -24,16 +23,14 @@ import com.example.ksiegarnia_klient.activities_ui.*
 import com.example.ksiegarnia_klient.api_adapters.CustomWypozyczeniaKlientowListAdapter
 import com.example.ksiegarnia_klient.api_adapters.CustomWypozyczeniaListAdapter
 import com.example.ksiegarnia_klient.api_adapters.JsonPlaceholderAPI
-import com.example.ksiegarnia_klient.api_data_structures.MyLogin
 import com.example.ksiegarnia_klient.api_data_structures.MyWypozyczenia
-import com.example.ksiegarnia_klient.api_data_structures.WypozyczeniaKlientow
-import com.example.ksiegarnia_klient.drawer_ui.ksiegarnia.KsiegarniaFragment
 import kotlinx.android.synthetic.main.fragment_ksiegarnia.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import kotlin.properties.Delegates
 
 
 class WypozyczeniaFragment : Fragment(), CustomWypozyczeniaListAdapter.OnItemClickListener,
@@ -43,10 +40,12 @@ class WypozyczeniaFragment : Fragment(), CustomWypozyczeniaListAdapter.OnItemCli
     private lateinit var retrofit: Retrofit
     private lateinit var infoToast: Toast
     private lateinit var wypozyczeniaData: Array<MyWypozyczenia>
-    private lateinit var wypozyczeniaKlientowData: Array<WypozyczeniaKlientow>
+    private lateinit var wypozyczeniaKlientowData: Array<MyWypozyczenia>
     private lateinit var toolbarHeaderTextView: TextView
-    private lateinit var idKsiazki: Integer
-    private lateinit var idKlienta: Integer
+    private var idKsiazki by Delegates.notNull<Long>()
+    private var idKlienta by Delegates.notNull<Long>()
+    private var idWypozyczenia by Delegates.notNull<Long>()
+
 
 
     override fun onCreateView(
@@ -152,14 +151,11 @@ class WypozyczeniaFragment : Fragment(), CustomWypozyczeniaListAdapter.OnItemCli
     }
 
     fun getAndShowWypozyczeniaKlientow() {
-        val call = jsonPlaceholderAPI.getWypozyczeniaKlientowArray(
-            currentUserLogin,
-            currentUserPassowrd
-        )
-        call!!.enqueue(object : Callback<Array<WypozyczeniaKlientow>?> {
+        val call = jsonPlaceholderAPI.getWypozyczeniaKlientowArray()
+        call!!.enqueue(object : Callback<Array<MyWypozyczenia>?> {
             override fun onResponse(
-                call: Call<Array<WypozyczeniaKlientow>?>,
-                response: Response<Array<WypozyczeniaKlientow>?>
+                call: Call<Array<MyWypozyczenia>?>,
+                response: Response<Array<MyWypozyczenia>?>
             ) {
                 if (!response.isSuccessful) {
                     println("Code: " + response.code())
@@ -178,7 +174,7 @@ class WypozyczeniaFragment : Fragment(), CustomWypozyczeniaListAdapter.OnItemCli
             }
 
             override fun onFailure(
-                call: Call<Array<WypozyczeniaKlientow>?>,
+                call: Call<Array<MyWypozyczenia>?>,
                 t: Throwable
             ) {
                 println(t.message)
@@ -218,18 +214,11 @@ class WypozyczeniaFragment : Fragment(), CustomWypozyczeniaListAdapter.OnItemCli
         infoToast.show()
     }
 
-    override fun onItemClick(//dzialanie edycji - klikniecia na cokolwiek z listy ksiazek
-        item: MyWypozyczenia, position: Int
-    ) {
-    }
 
-    override fun onItemClick(//dzialanie edycji - klikniecia na cokolwiek z listy ksiazek
-        item: WypozyczeniaKlientow, position: Int
-    ) {
-
-
-        idKsiazki = item.idKsiazki!!
-        idKlienta = item.idKlienta!!
+    override fun onItemClick(item: MyWypozyczenia, position: Int) {
+        idKsiazki = item.book.bookId!!
+        idKlienta = item.client.clientId!!
+        idWypozyczenia= item.rentalId!!
         showDialog()
 
         Log.d("id klienta", idKlienta.toString())
@@ -239,26 +228,22 @@ class WypozyczeniaFragment : Fragment(), CustomWypozyczeniaListAdapter.OnItemCli
 
     fun usunWypozyczenie() {
         val call =
-            jsonPlaceholderAPI.usunWypozyczenie(
-                currentUserLogin,
-                currentUserPassowrd,
-                idKsiazki,
-                idKlienta
-            )
-        call.enqueue(object : Callback<WypozyczeniaKlientow> {
+            jsonPlaceholderAPI.usunWypozyczenie(idWypozyczenia)
+        call.enqueue(object : Callback<MyWypozyczenia> {
             override fun onFailure(
-                call: Call<WypozyczeniaKlientow>,
+                call: Call<MyWypozyczenia>,
                 t: Throwable
             ) {
                 return
             }
 
             override fun onResponse(
-                call: Call<WypozyczeniaKlientow>,
-                response: Response<WypozyczeniaKlientow>
+                call: Call<MyWypozyczenia>,
+                response: Response<MyWypozyczenia>
             ) {
                 if (response.isSuccessful) {
-                    makeToast("Usunięto ksiązkę!")
+                    makeToast("Usunięto wypozyczenie!")
+
                     val fragmentManager: FragmentManager? = fragmentManager
                     val fragment: Fragment = WypozyczeniaFragment()
 

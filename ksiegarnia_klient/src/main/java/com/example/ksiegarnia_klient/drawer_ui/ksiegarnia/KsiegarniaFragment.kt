@@ -95,7 +95,7 @@ class KsiegarniaFragment : Fragment(), CustomBooksListAdapter.OnItemClickListene
                 }
                 booksData = response.body()!!
                 println(response.body())
-                // booksData.reverse()
+                booksData.reverse()
                 recyclerView.adapter =
                     CustomBooksListAdapter(
                         booksData,
@@ -161,7 +161,7 @@ class KsiegarniaFragment : Fragment(), CustomBooksListAdapter.OnItemClickListene
         bundle.putString("temat", item.genre)
         bundle.putString("jezykKsiazki", item.bookLanguage)
         bundle.putString("rokWydania", item.publicationDate)
-        bundle.putBoolean("dostepnosc", item.availability)
+        bundle.putString("dostepnosc", item.availability.toString())
         bundle.putString("autor", item.author.name+" "+item.author.surname)
         bundle.putString("wydawnictwo", item.publishingHouse.name)
 

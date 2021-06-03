@@ -69,7 +69,7 @@ class BookDetailsFragment : Fragment() {
         usunKsiazkeButton = root.findViewById(R.id.usunKsiazkeButton)
         marginesOpis = root.findViewById(R.id.marginesOpis)
 
-        if (arguments?.getBoolean("dostepnosc")!!) {
+        if (arguments?.getString("dostepnosc")=="true") {
             dostepnoscTextView.setTextColor(Color.parseColor("#009900"));
             dostepnoscTextView.text = "Dostępna"
         } else {

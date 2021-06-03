@@ -3,15 +3,12 @@ package com.example.ksiegarnia_klient.api_adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ksiegarnia_klient.R
 import com.example.ksiegarnia_klient.api_data_structures.MyWypozyczenia
-import com.example.ksiegarnia_klient.api_data_structures.WypozyczeniaKlientow
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.list_layout_wypozyczenia.view.*
 import kotlinx.android.synthetic.main.list_layout_wypozyczenia.view.dataWypozyczeniaTextView
 import kotlinx.android.synthetic.main.list_layout_wypozyczenia.view.dataZwrotuTextView
 import kotlinx.android.synthetic.main.list_layout_wypozyczenia.view.okladkaImageView
@@ -19,7 +16,7 @@ import kotlinx.android.synthetic.main.list_layout_wypozyczenia.view.tytulTextVie
 import kotlinx.android.synthetic.main.list_layout_wypozyczenia_klientow.view.*
 
 class CustomWypozyczeniaKlientowListAdapter(
-    private var myList: Array<WypozyczeniaKlientow>,
+    private var myList: Array<MyWypozyczenia>,
     var clickListener: OnItemClickListener
 ) : RecyclerView.Adapter<CustomWypozyczeniaKlientowListAdapter.ExampleViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExampleViewHolder {
@@ -45,19 +42,18 @@ class CustomWypozyczeniaKlientowListAdapter(
         var dataWypozyczenia: TextView = itemView.dataWypozyczeniaTextView
         var dataZwrotu: TextView = itemView.dataZwrotuTextView
         var imieWypozyczajacego:TextView = itemView.imieWypozyczajacegoTextView
-        var nazwiskoWypozyczajacego:TextView = itemView.nazwiskoWypozyczajacegoTextView
 
 
         var okladkaImageView: ImageView = itemView.okladkaImageView
 
-        fun initialize(item: WypozyczeniaKlientow, action: OnItemClickListener) {
-            tytulTextView.text = item.tytulKsiazki
-            dataWypozyczenia.text="Data wypożyczenia: "+ item.dataWypozyczenia
-            dataZwrotu.text="Data zwrotu: "+ item.dataZwrotu
-            imieWypozyczajacego.text=item.imieWypozyczajacego+" "+ item.nazwiskoWypozyczajacego
+        fun initialize(item: MyWypozyczenia, action: OnItemClickListener) {
+            tytulTextView.text = item.book.title
+            dataWypozyczenia.text="Data wypożyczenia: "+ item.rentalDate
+            dataZwrotu.text="Data zwrotu: "+ item.returnDate
+            imieWypozyczajacego.text=item.client.name+" "+ item.client.surname
            // nazwiskoWypozyczajacego.text=item.nazwiskoWypozyczajacego
 
-            id = item.idKsiazki.toString()
+            id = item.book.bookId.toString()
            // var iconUrl: String = "http:/192.168.0.106:8080/ksiegarnia/image/" + id
              var iconUrl: String = "http:/192.168.7.168:8080/ksiegarnia/image/" + id
             Picasso.get().load(iconUrl).into(okladkaImageView)
@@ -69,6 +65,6 @@ class CustomWypozyczeniaKlientowListAdapter(
     }
 
     interface OnItemClickListener {
-        fun onItemClick(item: WypozyczeniaKlientow, position: Int)
+        fun onItemClick(item: MyWypozyczenia, position: Int)
     }
 }
