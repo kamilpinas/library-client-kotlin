@@ -11,4 +11,9 @@ class MyWydawnictwa: Serializable {
         this.name = nazwa
         this.city = miasto
     }
+
+    override fun toString(): String {
+        return "$name"
+    }
+
 }

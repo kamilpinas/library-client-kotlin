@@ -88,6 +88,7 @@ class LoginActivity : AppCompatActivity() {
         val call = jsonPlaceholderAPI.clientLogin(MyLogin)
         val callAdmin = jsonPlaceholderAPI.createPostAdmin(MyLogin)
 
+
         callAdmin.enqueue(object : Callback<MyLogin> {
             override fun onFailure(
                 call: Call<MyLogin>,

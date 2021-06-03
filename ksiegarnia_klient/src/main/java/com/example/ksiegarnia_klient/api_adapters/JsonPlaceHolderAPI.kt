@@ -55,7 +55,7 @@ interface JsonPlaceholderAPI {
     fun wypozyczKsiazke(@Query("login") login: String, @Query("password") password: String, @Query("book_id") book_id: Long): Call<MyLogin>
 
     @DELETE("library/books/delete_book")
-    fun usunKsiazke(@Query("login") login: String, @Query("password") password: String, @Query("idKsiazki") idKsiazki: Long): Call<MyLogin>
+    fun usunKsiazke(@Query("book_id") book_id: Long): Call<MyBooks>
 
     @DELETE("library/ksiazki/usunWypozyczenie")
     fun usunWypozyczenie(

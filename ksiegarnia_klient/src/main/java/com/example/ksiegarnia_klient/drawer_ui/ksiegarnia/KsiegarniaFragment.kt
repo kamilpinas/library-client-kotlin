@@ -162,8 +162,8 @@ class KsiegarniaFragment : Fragment(), CustomBooksListAdapter.OnItemClickListene
         bundle.putString("jezykKsiazki", item.bookLanguage)
         bundle.putString("rokWydania", item.publicationDate)
         bundle.putBoolean("dostepnosc", item.availability)
-        bundle.putSerializable("autor", item.author)
-        bundle.putSerializable("wydawnictwo", item.publishingHouse)
+        bundle.putString("autor", item.author.name+" "+item.author.surname)
+        bundle.putString("wydawnictwo", item.publishingHouse.name)
 
         val fragment: Fragment = BookDetailsFragment()
         fragment.arguments = bundle

@@ -114,10 +114,11 @@ class DodajKsiazkeFragment : Fragment() {
                         MyBooks(
                             editTextTytulKsiazki.text.toString(),
                             editTextTematKsiazki.text.toString(),
-                            editTextRokWydania.text.toString(),
                             editTextJezykKsiazki.text.toString(),
+                            editTextRokWydania.text.toString(),
                             dostepnoscCheckBox.isChecked,
                             editTextOpisKsiazki.text.toString(),
+
                             spinnerWydawnictwo.selectedItem as MyWydawnictwa,
                             spinnerAutor.selectedItem as MyAutor
 
@@ -142,15 +143,12 @@ class DodajKsiazkeFragment : Fragment() {
                     return
                 }
                 wydawnictwaData = response.body()!!
-                val item = arrayOfNulls<String>(wydawnictwaData!!.size)
-                for (i in 0 until wydawnictwaData.size) {
-                    item[i] = wydawnictwaData.get(i).name
-                }
+
                 spinnerWydawnictwo?.adapter = activity?.applicationContext?.let {
-                    ArrayAdapter1<String?>(
+                    ArrayAdapter1<MyWydawnictwa?>(
                         it,
                         R.layout.support_simple_spinner_dropdown_item,
-                        item
+                        wydawnictwaData
                     )
                 } as SpinnerAdapter
             }
@@ -176,15 +174,12 @@ class DodajKsiazkeFragment : Fragment() {
                     return
                 }
                 autorData = response.body()!!
-                val item = arrayOfNulls<String>(autorData!!.size)
-                for (i in 0 until autorData.size) {
-                    item[i] = autorData.get(i).name + " " + autorData.get(i).surname
-                }
+
                 spinnerAutor?.adapter = activity?.applicationContext?.let {
-                    ArrayAdapter1<String?>(
+                    ArrayAdapter1<MyAutor?>(
                         it,
                         R.layout.support_simple_spinner_dropdown_item,
-                        item
+                        autorData
                     )
                 } as SpinnerAdapter
             }

@@ -19,6 +19,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.ksiegarnia_klient.R
 import com.example.ksiegarnia_klient.activities_ui.*
 import com.example.ksiegarnia_klient.api_adapters.JsonPlaceholderAPI
+import com.example.ksiegarnia_klient.api_data_structures.MyBooks
 import com.example.ksiegarnia_klient.api_data_structures.MyLogin
 import com.squareup.picasso.Picasso
 import retrofit2.Call
@@ -77,7 +78,7 @@ class BookDetailsFragment : Fragment() {
             wypozyczButton.visibility = View.GONE
         }
         tytulTextView.text = arguments?.getString("tytul").toString()
-        autorTextView.text = arguments?.getSerializable("autor").toString()
+        autorTextView.text = arguments?.getString("autor").toString()
         wydawnictwoTextView.text = arguments?.getSerializable("wydawnictwo").toString()
         opisTextView.text = arguments?.getString("opis").toString()
         rokWydania.text = "Rok wydania: " + arguments?.getString("rokWydania").toString()
@@ -185,20 +186,19 @@ class BookDetailsFragment : Fragment() {
     fun usunKsiazke() {
         val call =
             jsonPlaceholderAPI.usunKsiazke(
-                currentUserLogin,
-                currentUserPassowrd, idKsiazki
+                idKsiazki
             )
-        call.enqueue(object : Callback<MyLogin> {
+        call.enqueue(object : Callback<MyBooks> {
             override fun onFailure(
-                call: Call<MyLogin>,
+                call: Call<MyBooks>,
                 t: Throwable
             ) {
                 return
             }
 
             override fun onResponse(
-                call: Call<MyLogin>,
-                response: Response<MyLogin>
+                call: Call<MyBooks>,
+                response: Response<MyBooks>
             ) {
                 if (response.isSuccessful) {
                     makeToast("Usunięto ksiązkę!")

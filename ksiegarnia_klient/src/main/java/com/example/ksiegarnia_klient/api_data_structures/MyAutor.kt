@@ -26,4 +26,8 @@ class MyAutor : Serializable {
 
     constructor()
 
+    override fun toString(): String {
+        return "$name $surname )"
+    }
+
 }
