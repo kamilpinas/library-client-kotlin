@@ -102,7 +102,7 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun sendRegister(ClientData: ClientData) {
-        val call = jsonPlaceholderAPI.createPost(ClientData)
+        val call = jsonPlaceholderAPI.clientRegister(ClientData)
         call.enqueue(object : Callback<ClientData> {
             override fun onFailure(
                 call: Call<ClientData>,

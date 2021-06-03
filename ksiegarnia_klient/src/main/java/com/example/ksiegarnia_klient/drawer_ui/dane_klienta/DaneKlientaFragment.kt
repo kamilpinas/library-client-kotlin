@@ -27,6 +27,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import kotlin.properties.Delegates
 
 class DaneKlientaFragment : Fragment() {
     private lateinit var daneKlientaViewModel: DaneKlientaViewModel
@@ -36,6 +37,7 @@ class DaneKlientaFragment : Fragment() {
     var activity: Activity? = getActivity()
     private lateinit var infoToast: Toast
     private lateinit var editTextLogin: EditText
+    private var id by Delegates.notNull<Long>()
     private lateinit var editTextPassword: EditText
     private lateinit var editTextImie: EditText
     private lateinit var editTextNazwisko: EditText
@@ -67,7 +69,7 @@ class DaneKlientaFragment : Fragment() {
         editTextUlica = root.findViewById(R.id.editTextUlica)
         editTextMiejscowosc = root.findViewById(R.id.editTextMiejscowosc)
         editTextNrDomu = root.findViewById(R.id.editTextNrDomu)
-        updateButton = root.findViewById(R.id.dodajWydawnictwoButton)
+        updateButton = root.findViewById(R.id.aktualizujKlientaButton)
         deleteButton = root.findViewById(R.id.deleteButton)
 
         daneKlientaView = root.findViewById(R.id.daneKlientaView)
@@ -119,6 +121,7 @@ class DaneKlientaFragment : Fragment() {
                 submitWith(updateButton) { result ->
                     val updateData =
                         ClientData(
+                            id,
                             editTextNazwisko.text.toString(),
                             editTextImie.text.toString(),
                             editTextKodPocztowy.text.toString(),
@@ -143,7 +146,7 @@ class DaneKlientaFragment : Fragment() {
     }
 
     private fun sendUpdate(ClientData: ClientData) {
-        val call = jsonPlaceholderAPI.createPut(ClientData)
+        val call = jsonPlaceholderAPI.updateClient(ClientData)
         call.enqueue(object : Callback<ClientData> {
             override fun onFailure(
                 call: Call<ClientData>,
@@ -184,6 +187,7 @@ class DaneKlientaFragment : Fragment() {
                     return
                 }
                 clientData = response.body()!!
+                id = clientData.clientId!!
                 editTextLogin.setText(clientData.login.toString())
                 editTextPassword.setText(clientData.password.toString())
                 editTextImie.setText(clientData.name.toString())

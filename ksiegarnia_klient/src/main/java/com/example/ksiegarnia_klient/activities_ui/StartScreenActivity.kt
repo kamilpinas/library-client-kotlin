@@ -3,6 +3,7 @@ package com.example.ksiegarnia_klient.activities_ui
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
 import com.example.ksiegarnia_klient.*
@@ -11,9 +12,16 @@ import kotlinx.android.synthetic.main.activity_start_screen.*
 
 
 class StartScreenActivity : AppCompatActivity() {
+    private lateinit var registerButton : Button
+    private lateinit var loginButton : Button
+    private lateinit var loginAsGuestButton : Button
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_start_screen)
+        loginAsGuestButton = findViewById(R.id.loginAsGuestButton)
+        loginButton = findViewById(R.id.loginButton)
+        registerButton = findViewById(R.id.registerButton)
 
         loginAsGuestButton.setOnClickListener {
             isAdmin = false

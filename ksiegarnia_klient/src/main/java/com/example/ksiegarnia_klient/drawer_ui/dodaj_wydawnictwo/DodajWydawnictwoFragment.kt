@@ -87,7 +87,7 @@ class DodajWydawnictwoFragment : Fragment() {
     }
 
     private fun addWydawnictwo(wydawnictwaData: MyWydawnictwa) {
-        val call = jsonPlaceholderAPI.createPost(wydawnictwaData)
+        val call = jsonPlaceholderAPI.createPublishingHouse(wydawnictwaData)
         call.enqueue(object : Callback<MyWydawnictwa> {
             override fun onFailure(
                 call: Call<MyWydawnictwa>,

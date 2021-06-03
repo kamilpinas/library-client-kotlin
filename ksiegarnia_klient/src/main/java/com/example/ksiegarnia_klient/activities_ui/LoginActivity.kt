@@ -85,7 +85,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun sendLogin(MyLogin: MyLogin) {
-        val call = jsonPlaceholderAPI.createPost(MyLogin)
+        val call = jsonPlaceholderAPI.clientLogin(MyLogin)
         val callAdmin = jsonPlaceholderAPI.createPostAdmin(MyLogin)
 
         callAdmin.enqueue(object : Callback<MyLogin> {

@@ -199,7 +199,7 @@ class DodajKsiazkeFragment : Fragment() {
     }
 
     private fun addBook(MyBooks: MyBooks) {
-        val call = jsonPlaceholderAPI.createPost(MyBooks)
+        val call = jsonPlaceholderAPI.createBook(MyBooks)
         call.enqueue(object : Callback<MyBooks> {
             override fun onFailure(
                 call: Call<MyBooks>,

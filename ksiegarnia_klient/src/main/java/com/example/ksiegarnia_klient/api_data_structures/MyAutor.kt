@@ -23,4 +23,7 @@ class MyAutor : Serializable {
         this.publicationPeriod = publicationPeriod
         this.writingLanguage = writingLanguage
     }
+
+    constructor()
+
 }

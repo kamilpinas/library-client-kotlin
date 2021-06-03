@@ -1,8 +1,5 @@
 package com.example.ksiegarnia_klient.drawer_ui.dodaj_autora
 
-import android.app.Activity
-import android.app.AlertDialog
-import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
@@ -21,7 +18,6 @@ import com.example.ksiegarnia_klient.activities_ui.baseUrl
 import com.example.ksiegarnia_klient.activities_ui.isAdmin
 import com.example.ksiegarnia_klient.activities_ui.isGuest
 import com.example.ksiegarnia_klient.api_adapters.JsonPlaceholderAPI
-import com.example.ksiegarnia_klient.api_data_structures.ClientData
 import com.example.ksiegarnia_klient.api_data_structures.MyAutor
 import retrofit2.Call
 import retrofit2.Callback
@@ -58,7 +54,7 @@ class DodajAutoraFragment : Fragment() {
         editTextOkresTworzenia = root.findViewById(R.id.editTextOkresTworzenia)
         editTextJezyk = root.findViewById(R.id.editTextJezyk)
 
-        dodajAutoraButton = root.findViewById(R.id.dodajWydawnictwoButton)
+        dodajAutoraButton = root.findViewById(R.id.dodajAutoraButton)
 
         dodajAutoraView = root.findViewById(R.id.dodajAutoraView)
         retrofit = Retrofit.Builder().baseUrl(baseUrl)
@@ -115,7 +111,7 @@ class DodajAutoraFragment : Fragment() {
     }
 
     private fun addAutor(MyAutor: MyAutor) {
-        val call = jsonPlaceholderAPI.createPost(MyAutor)
+        val call = jsonPlaceholderAPI.createAuthor(MyAutor)
         call.enqueue(object : Callback<MyAutor> {
             override fun onFailure(
                 call: Call<MyAutor>,
