@@ -185,14 +185,14 @@ class DaneKlientaFragment : Fragment() {
                 }
                 clientData = response.body()!!
                 editTextLogin.setText(clientData.get(0).login.toString())
-                editTextPassword.setText(clientData.get(0).haslo.toString())
-                editTextImie.setText(clientData.get(0).imie.toString())
-                editTextNazwisko.setText(clientData.get(0).nazwisko.toString())
-                editTextTelefon.setText(clientData.get(0).telefon.toString())
-                editTextKodPocztowy.setText(clientData.get(0).kodPocztowy.toString())
-                editTextMiejscowosc.setText(clientData.get(0).miejscowosc.toString())
-                editTextNrDomu.setText(clientData.get(0).nrDomu.toString())
-                editTextUlica.setText(clientData.get(0).ulica.toString())
+                editTextPassword.setText(clientData.get(0).password.toString())
+                editTextImie.setText(clientData.get(0).name.toString())
+                editTextNazwisko.setText(clientData.get(0).surname.toString())
+                editTextTelefon.setText(clientData.get(0).phoneNumber.toString())
+                editTextKodPocztowy.setText(clientData.get(0).zipCode.toString())
+                editTextMiejscowosc.setText(clientData.get(0).city.toString())
+                editTextNrDomu.setText(clientData.get(0).houseNumber.toString())
+                editTextUlica.setText(clientData.get(0).street.toString())
             }
 
             override fun onFailure(
