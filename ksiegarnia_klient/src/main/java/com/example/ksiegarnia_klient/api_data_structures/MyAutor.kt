@@ -3,17 +3,24 @@ package com.example.ksiegarnia_klient.api_data_structures
 import java.io.Serializable
 
 class MyAutor : Serializable {
-    var id_autora: String? = null
-    var nazwisko: String? = null
-    var imie: String? = null
-    var narodowosc: String? = null
-    var okres_tworzenia: String? = null
-    var jezyk: String? = null
-    constructor(nazwisko: String?, imie: String?, narodowosc: String?, okres_tworzenia: String?, jezyk: String? ){
-        this.nazwisko = nazwisko
-        this.imie = imie
-        this.narodowosc = narodowosc
-        this.okres_tworzenia = okres_tworzenia
-        this.jezyk = jezyk
+    var authorId: String? = null
+    var surname: String? = null
+    var name: String? = null
+    var nationality: String? = null
+    var publicationPeriod: String? = null
+    var writingLanguage: String? = null
+
+    constructor(
+        surname: String?,
+        name: String?,
+        nationality: String?,
+        publicationPeriod: String?,
+        writingLanguage: String?
+    ) {
+        this.surname = surname
+        this.name = name
+        this.nationality = nationality
+        this.publicationPeriod = publicationPeriod
+        this.writingLanguage = writingLanguage
     }
 }

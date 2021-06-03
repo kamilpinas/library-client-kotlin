@@ -178,7 +178,7 @@ class DodajKsiazkeFragment : Fragment() {
                 autorData = response.body()!!
                 val item = arrayOfNulls<String>(autorData!!.size)
                 for (i in 0 until autorData.size) {
-                    item[i] = autorData.get(i).imie + " " + autorData.get(i).nazwisko
+                    item[i] = autorData.get(i).name + " " + autorData.get(i).surname
                 }
                 spinnerAutor?.adapter = activity?.applicationContext?.let {
                     ArrayAdapter1<String?>(
