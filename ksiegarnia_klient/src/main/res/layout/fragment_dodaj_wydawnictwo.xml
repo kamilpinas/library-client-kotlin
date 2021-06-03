@@ -15,7 +15,7 @@
             android:id="@+id/view"
             android:layout_width="753dp"
             android:layout_height="64dp"
-            android:background="@drawable/toolbar_background"
+            android:background="#D3CCC4"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="Dodaj wydawnictwo"
-            android:textColor="#FFFFFF"
+            android:textColor="#434343"
             android:textSize="25sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -89,6 +89,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:ems="10"
+                            android:cursorVisible="false"
+                            android:textColor="@color/text_color"
+                            android:backgroundTint="@color/text_color"
                             android:hint="Nazwa wydawnictwa:"
                             android:inputType="textPersonName"
                             android:singleLine="false" />
@@ -115,6 +118,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:ems="10"
+                            android:textColor="@color/text_color"
+                            android:backgroundTint="@color/text_color"
+                            android:cursorVisible="false"
                             android:hint="Nazwa miasta" />
 
                     </LinearLayout>
@@ -131,7 +137,7 @@
                 android:layout_marginTop="4dp"
                 android:background="@drawable/button_background"
                 android:text="Dodaj wydawnictwo"
-                android:textColor="#FFFFFF" />
+                android:textColor="#4E4E4E" />
 
         </LinearLayout>
     </ScrollView>

@@ -15,8 +15,8 @@
             android:id="@+id/view"
             android:layout_width="753dp"
             android:layout_height="64dp"
-            android:background="@drawable/toolbar_background"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:background="#D3CCC4"
+             />
 
         <ImageView
             android:id="@+id/hamburgerIcon"
@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="Moje Dane"
-            android:textColor="#FFFFFF"
+            android:textColor="#4C4C4C"
             android:textSize="25sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -89,6 +89,9 @@
                             android:layout_height="wrap_content"
                             android:ems="10"
                             android:hint="login"
+                            android:cursorVisible="false"
+                            android:textColor="@color/text_color"
+                            android:backgroundTint="@color/text_color"
                             android:inputType="textPersonName"
                             android:singleLine="false" />
 
@@ -111,8 +114,11 @@
                         <EditText
                             android:id="@+id/editTextPassword"
                             android:layout_width="match_parent"
+                            android:textColor="@color/text_color"
+                            android:backgroundTint="@color/text_color"
                             android:layout_height="wrap_content"
                             android:ems="10"
+                            android:cursorVisible="false"
                             android:hint="haslo"
                             android:inputType="textPassword" />
 
@@ -137,6 +143,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:ems="10"
+                            android:cursorVisible="false"
+                            android:textColor="@color/text_color"
+                            android:backgroundTint="@color/text_color"
                             android:hint="Imię"
                             android:inputType="textPersonName" />
 
@@ -161,6 +170,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:ems="10"
+                            android:cursorVisible="false"
+                            android:textColor="@color/text_color"
+                            android:backgroundTint="@color/text_color"
                             android:hint="Nazwisko"
                             android:inputType="textPersonName" />
 
@@ -185,6 +197,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:ems="10"
+                            android:cursorVisible="false"
+                            android:textColor="@color/text_color"
+                            android:backgroundTint="@color/text_color"
                             android:hint="Miejscowosc"
                             android:inputType="textPersonName" />
 
@@ -208,7 +223,10 @@
                             android:id="@+id/editTextKodPocztowy"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/text_color"
+                            android:backgroundTint="@color/text_color"
                             android:ems="10"
+                            android:cursorVisible="false"
                             android:hint="Kod Pocztowy"
                             android:inputType="textPersonName" />
 
@@ -232,7 +250,10 @@
                             android:id="@+id/editTextTelefon"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/text_color"
+                            android:backgroundTint="@color/text_color"
                             android:ems="10"
+                            android:cursorVisible="false"
                             android:hint="Telefon"
                             android:inputType="textPersonName" />
 
@@ -257,6 +278,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:ems="10"
+                            android:cursorVisible="false"
+                            android:textColor="@color/text_color"
+                            android:backgroundTint="@color/text_color"
                             android:hint="Ulica"
                             android:inputType="textPersonName" />
 
@@ -280,7 +304,10 @@
                             android:id="@+id/editTextNrDomu"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/text_color"
+                            android:backgroundTint="@color/text_color"
                             android:ems="10"
+                            android:cursorVisible="false"
                             android:hint="Numer Domu"
                             android:inputType="textPersonName" />
 
@@ -305,7 +332,7 @@
                 android:layout_height="40dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/button_background_red"
+                android:background="@drawable/button_background"
                 android:text="Skasuj konto" />
         </LinearLayout>
     </ScrollView>

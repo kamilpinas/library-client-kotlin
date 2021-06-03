@@ -4,7 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#D3CCC4"
     tools:context=".activities_ui.StartScreenActivity">
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="297dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="61dp"
+        android:text="Wypożyczalnia Książek"
+        android:textAlignment="center"
+        android:textColor="#222222"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/loginButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <TextView
         android:id="@+id/loginHintTextView"
@@ -15,7 +31,8 @@
         android:textColor="#000000"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/loginButton"
-        app:layout_constraintStart_toStartOf="@+id/loginButton" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/loginButton"
@@ -23,12 +40,13 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="120dp"
         android:layout_marginEnd="16dp"
-        android:background="@drawable/button_background"
+        android:background="@drawable/button_background_red"
         android:text="LOGOWANIE"
+        android:textColor="#393939"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
@@ -41,7 +59,8 @@
         android:textColor="#000000"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/registerButton"
-        app:layout_constraintStart_toStartOf="@+id/registerButton" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/registerButton"
@@ -51,8 +70,9 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="48dp"
         android:layout_marginEnd="16dp"
-        android:background="@drawable/button_background"
+        android:background="@drawable/button_background_red"
         android:text="REJESTRACJA"
+        android:textColor="#393939"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -67,7 +87,8 @@
         android:textColor="#000000"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/loginAsGuestButton"
-        app:layout_constraintStart_toStartOf="@+id/loginAsGuestButton" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/loginAsGuestButton"
@@ -77,8 +98,9 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="48dp"
         android:layout_marginEnd="16dp"
-        android:background="@drawable/button_background"
+        android:background="@drawable/button_background_red"
         android:text="Zaloguj jako gość"
+        android:textColor="#393939"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -86,9 +108,10 @@
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="372dp"
-        android:layout_height="294dp"
+        android:layout_width="219dp"
+        android:layout_height="208dp"
         android:layout_marginStart="32dp"
+        android:layout_marginTop="76dp"
         android:layout_marginEnd="32dp"
         android:src="@drawable/book_icon"
         app:layout_constraintEnd_toEndOf="parent"

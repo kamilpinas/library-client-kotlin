@@ -109,9 +109,6 @@ class WypozyczeniaFragment : Fragment(), CustomWypozyczeniaListAdapter.OnItemCli
                 makeToast("Nie można odświeżyć ksiązek - brak połączenia!")
             }
         }
-
-
-
         return root
     }
 

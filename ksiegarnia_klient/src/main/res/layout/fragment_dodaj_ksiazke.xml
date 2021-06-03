@@ -15,7 +15,7 @@
             android:id="@+id/view"
             android:layout_width="753dp"
             android:layout_height="64dp"
-            android:background="@drawable/toolbar_background"
+            android:background="#D3CCC4"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="Dodaj ksiazke"
-            android:textColor="#FFFFFF"
+            android:textColor="#424242"
             android:textSize="25sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -88,8 +88,11 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:ems="10"
+                            android:cursorVisible="false"
                             android:hint="Tytuł ksiązki"
                             android:inputType="textPersonName"
+                            android:textColor="@color/text_color"
+                            android:backgroundTint="@color/text_color"
                             android:singleLine="false" />
 
                     </LinearLayout>
@@ -114,6 +117,9 @@
                             android:layout_height="wrap_content"
                             android:ems="10"
                             android:hint="Temat książki"
+                            android:cursorVisible="false"
+                            android:textColor="@color/text_color"
+                            android:backgroundTint="@color/text_color"
                             />
 
                     </LinearLayout>
@@ -137,6 +143,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:ems="10"
+                            android:cursorVisible="false"
+                            android:textColor="@color/text_color"
+                            android:backgroundTint="@color/text_color"
                             android:hint="Język w którym książka jest napisana"
                             android:inputType="textPersonName" />
 
@@ -161,7 +170,10 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:ems="10"
+                            android:textColor="@color/text_color"
+                            android:backgroundTint="@color/text_color"
                             android:hint="Rok tego wydania"
+                            android:cursorVisible="false"
                             android:inputType="textPersonName"
                             android:textSize="18sp" />
 
@@ -187,7 +199,10 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:ems="10"
+                            android:textColor="@color/text_color"
+                            android:backgroundTint="@color/text_color"
                             android:hint="Opis książki"
+                            android:cursorVisible="false"
                             android:inputType="textPersonName" />
 
                     </LinearLayout>
@@ -212,6 +227,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+
                             android:foregroundGravity="top"
                             android:text="Prawda/fałsz" />
 
