@@ -87,7 +87,7 @@ class BookDetailsFragment : Fragment() {
 
 
 
-        var iconUrl: String = "http:/192.168.7.167:8080/library/image/" + idKsiazki
+        var iconUrl: String = "http://192.168.0.4:8080/library/image/" + idKsiazki
         Picasso.get().load(iconUrl).into(okladka)
 
         val retrofit = Retrofit.Builder().baseUrl(baseUrl)

@@ -41,21 +41,20 @@ class CustomWypozyczeniaKlientowListAdapter(
         var tytulTextView: TextView = itemView.tytulTextView
         var dataWypozyczenia: TextView = itemView.dataWypozyczeniaTextView
         var dataZwrotu: TextView = itemView.dataZwrotuTextView
-        var imieWypozyczajacego:TextView = itemView.imieWypozyczajacegoTextView
+        var imieWypozyczajacego: TextView = itemView.imieWypozyczajacegoTextView
 
 
         var okladkaImageView: ImageView = itemView.okladkaImageView
 
         fun initialize(item: MyWypozyczenia, action: OnItemClickListener) {
             tytulTextView.text = item.book.title
-            dataWypozyczenia.text="Data wypożyczenia: "+ item.rentalDate
-            dataZwrotu.text="Data zwrotu: "+ item.returnDate
-            imieWypozyczajacego.text=item.client.name+" "+ item.client.surname
-           // nazwiskoWypozyczajacego.text=item.nazwiskoWypozyczajacego
+            dataWypozyczenia.text = "Data wypożyczenia: " + item.rentalDate
+            dataZwrotu.text = "Data zwrotu: " + item.returnDate
+            imieWypozyczajacego.text = item.client.name + " " + item.client.surname
+            // nazwiskoWypozyczajacego.text=item.nazwiskoWypozyczajacego
 
             id = item.book.bookId.toString()
-           // var iconUrl: String = "http:/192.168.0.106:8080/ksiegarnia/image/" + id
-             var iconUrl: String = "http:/192.168.7.168:8080/ksiegarnia/image/" + id
+            var iconUrl: String = "http://192.168.0.4:8080/ksiegarnia/image/" + id
             Picasso.get().load(iconUrl).into(okladkaImageView)
 
             itemView.setOnClickListener {

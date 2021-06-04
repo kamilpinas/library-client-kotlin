@@ -8,6 +8,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+
         val intent = Intent(this@MainActivity, StartScreenActivity::class.java)
         startActivity(intent)
 

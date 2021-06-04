@@ -53,8 +53,7 @@ class CustomBooksListAdapter(
             tytulTextView.text = item.title
             autorTextView.text = item.author.name.toString()+" "+item.author.surname.toString()
             id = item.bookId.toString()
-            //var iconUrl: String = "http:/192.168.0.106:8080/ksiegarnia/image/" + id
-             var iconUrl: String = "http:/192.168.7.168:8080/library/image/" + id
+             var iconUrl: String = "http://192.168.0.4:8080/library/image/" + id
             wydawnictwoTextView.text = item.publishingHouse.name.toString()
             Picasso.get().load(iconUrl).into(okladkaImageView)
 

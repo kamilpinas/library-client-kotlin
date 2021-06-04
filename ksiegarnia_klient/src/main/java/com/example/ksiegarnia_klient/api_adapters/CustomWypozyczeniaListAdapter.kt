@@ -48,8 +48,7 @@ class CustomWypozyczeniaListAdapter(
             dataZwrotu.text="Data zwrotu: "+ item.returnDate
             var id = item.rentalId!!
 
-            //var iconUrl: String = "http:/192.168.0.106:8080/ksiegarnia/image/" + id
-             var iconUrl: String = "http:/192.168.7.167:8080/library/image/" + id
+             var iconUrl: String = "http://192.168.0.4:8080/library/image/" + id
             Picasso.get().load(iconUrl).into(okladkaImageView)
 
             itemView.setOnClickListener {
