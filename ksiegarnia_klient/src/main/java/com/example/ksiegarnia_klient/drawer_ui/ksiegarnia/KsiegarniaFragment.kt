@@ -10,8 +10,10 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProviders
@@ -24,6 +26,7 @@ import com.example.ksiegarnia_klient.api_adapters.CustomBooksListAdapter
 import com.example.ksiegarnia_klient.api_adapters.JsonPlaceholderAPI
 import com.example.ksiegarnia_klient.api_data_structures.MyBooks
 import kotlinx.android.synthetic.main.fragment_ksiegarnia.*
+import kotlinx.android.synthetic.main.fragment_ksiegarnia.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -50,7 +53,8 @@ class KsiegarniaFragment : Fragment(), CustomBooksListAdapter.OnItemClickListene
         ksiegarniaViewModel =
             ViewModelProviders.of(this).get(KsiegarniaViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_ksiegarnia, container, false)
-
+        var searchBarText: TextView =root.searchBarText
+        //searchBarText.text="Hambet"
         //////////json
         retrofit = Retrofit.Builder().baseUrl(baseUrl)
             .addConverterFactory(
@@ -79,6 +83,10 @@ class KsiegarniaFragment : Fragment(), CustomBooksListAdapter.OnItemClickListene
                 makeToast("Nie można odświeżyć ksiązek - brak połączenia!")
             }
         }
+
+        searchBarText.doAfterTextChanged{ getAndShowData()}
+
+
         return root
     }
 
@@ -96,9 +104,16 @@ class KsiegarniaFragment : Fragment(), CustomBooksListAdapter.OnItemClickListene
                 booksData = response.body()!!
                 println(response.body())
                 booksData.reverse()
+                var filteredBooksList:List<MyBooks> = booksData.toList();
+                if(searchBarText.text.toString()!="") {
+                    filteredBooksList =
+                        filteredBooksList.filter { it.title!!.toLowerCase()!!.contains(searchBarText.text.toString()) }
+                }
+                System.out.println(searchBarText.text.toString())
+                filteredBooksList.toTypedArray();
                 recyclerView.adapter =
                     CustomBooksListAdapter(
-                        booksData,
+                        filteredBooksList,
                         this@KsiegarniaFragment
                     )
                 recyclerView.layoutManager = LinearLayoutManager(context)

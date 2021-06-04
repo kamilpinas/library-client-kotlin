@@ -213,14 +213,12 @@ class WypozyczeniaFragment : Fragment(), CustomWypozyczeniaListAdapter.OnItemCli
 
 
     override fun onItemClick(item: MyWypozyczenia, position: Int) {
-        idKsiazki = item.book.bookId!!
-        idKlienta = item.client.clientId!!
-        idWypozyczenia= item.rentalId!!
-        showDialog()
-
-        Log.d("id klienta", idKlienta.toString())
-        Log.d("id ksiazki", idKsiazki.toString())
-
+        if(!isGuest && isAdmin) {
+            idKsiazki = item.book.bookId!!
+            idKlienta = item.client.clientId!!
+            idWypozyczenia = item.rentalId!!
+            showDialog()
+        }
     }
 
     fun usunWypozyczenie() {
@@ -275,7 +273,6 @@ class WypozyczeniaFragment : Fragment(), CustomWypozyczeniaListAdapter.OnItemCli
             })
         val b = dialogBuilder.create()
         if (b.toString() == "tak") {
-            Log.d("dasdas", "DSADASDASD")
         }
         b.show()
     }

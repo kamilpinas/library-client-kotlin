@@ -13,7 +13,7 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.list_layout_books.view.*
 
 class CustomBooksListAdapter(
-    private var myList: Array<MyBooks>,
+    private var myList: List<MyBooks>,
     var clickListener: OnItemClickListener
 ) : RecyclerView.Adapter<CustomBooksListAdapter.ExampleViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExampleViewHolder {
@@ -41,7 +41,10 @@ class CustomBooksListAdapter(
         var wydawnictwoTextView: TextView = itemView.wydawnictwoTextView
         var opisTextView: TextView = itemView.opisTextView
         var okladkaImageView: ImageView = itemView.okladkaImageView
+
+
         fun initialize(item: MyBooks, action: OnItemClickListener) {
+
             if (item.availability.toString() == "true") {
                 dostepnoscTextView.setTextColor(Color.parseColor("#009900"));
                 dostepnoscTextView.text = "Dostępna"
@@ -66,4 +69,7 @@ class CustomBooksListAdapter(
     interface OnItemClickListener {
         fun onItemClick(item: MyBooks, position: Int)
     }
+
+
+
 }
