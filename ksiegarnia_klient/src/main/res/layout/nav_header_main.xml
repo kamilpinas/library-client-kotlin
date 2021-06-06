@@ -27,6 +27,7 @@
         android:id="@+id/currentUserTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:text="Jesteś zalogowany jako: "
         android:textColor="#454545"
         android:textSize="16sp" />

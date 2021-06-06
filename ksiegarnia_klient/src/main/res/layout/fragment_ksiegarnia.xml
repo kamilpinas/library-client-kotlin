@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/swipeRefresh"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
 
     tools:context=".drawer_ui.ksiegarnia.KsiegarniaFragment">
 
@@ -27,9 +27,9 @@
             <ImageView
                 android:id="@+id/hamburgerIcon"
                 android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_height="22dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="18dp"
                 android:layout_marginBottom="16dp"
                 android:onClick="openCloseNavigationDrawer"
                 android:src="@drawable/menu_hamburger_icon" />

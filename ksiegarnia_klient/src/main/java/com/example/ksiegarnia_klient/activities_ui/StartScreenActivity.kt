@@ -8,8 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
 import com.example.ksiegarnia_klient.*
 import com.example.ksiegarnia_klient.drawer_ui.DrawerActivity
-import kotlinx.android.synthetic.main.activity_start_screen.*
-
 
 class StartScreenActivity : AppCompatActivity() {
     private lateinit var registerButton : Button
