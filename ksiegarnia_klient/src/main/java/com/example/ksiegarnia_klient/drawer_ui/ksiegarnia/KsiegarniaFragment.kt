@@ -118,7 +118,7 @@ class KsiegarniaFragment : Fragment(), CustomBooksListAdapter.OnItemClickListene
                     )
                 recyclerView.layoutManager = LinearLayoutManager(context)
                 if (isAdmin) {
-                    recyclerView.setPadding(0, 0, 0, 340)
+                    recyclerView.setPadding(0, 0, 0, 170)
                 }
 
             }

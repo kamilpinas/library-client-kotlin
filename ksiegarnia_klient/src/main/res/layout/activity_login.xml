@@ -11,23 +11,27 @@
         android:id="@+id/emptyLoginHint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:text="Login nie może być pusty!"
         android:textColor="#A63636"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/loginInput"
-        app:layout_constraintStart_toStartOf="@+id/loginInput" />
+        app:layout_constraintStart_toStartOf="@+id/loginInput"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <TextView
         android:id="@+id/wrongLoginOrPasswordHint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         android:layout_marginBottom="8dp"
         android:text="Hasło lub login się nie zgadza!"
         android:textColor="#A63636"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/loginInput"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/emptyLoginHint" />
+        app:layout_constraintStart_toStartOf="@+id/emptyLoginHint"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <Button
         android:id="@+id/loginButton"
@@ -52,11 +56,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="32dp"
-        android:hint="login"
-        android:cursorVisible="false"
-        android:textColor="@color/text_color"
         android:backgroundTint="@color/text_color"
+        android:cursorVisible="false"
+        android:hint="login"
+        android:textColor="@color/text_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -82,17 +87,19 @@
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="278dp"
-        android:layout_height="221dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
+        android:layout_width="250dp"
+        android:layout_height="200dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="32dp"
         android:src="@drawable/book_icon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.135"
+        app:layout_constraintVertical_bias="0"
         app:srcCompat="@drawable/book_icon" />
 
     <TextView

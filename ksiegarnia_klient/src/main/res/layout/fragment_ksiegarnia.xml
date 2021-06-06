@@ -8,83 +8,56 @@
 
     tools:context=".drawer_ui.ksiegarnia.KsiegarniaFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <View
-            android:id="@+id/view3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#F6EFEF" />
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#D3CCC4">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:orientation="horizontal">
 
-        <View
-            android:id="@+id/view"
-            android:layout_width="753dp"
-            android:layout_height="64dp"
-            android:background="#D3CCC4"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteX="-99dp"
+            <ImageView
+                android:id="@+id/hamburgerIcon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:onClick="openCloseNavigationDrawer"
+                android:src="@drawable/menu_hamburger_icon" />
 
-            />
-
-
-        <EditText
-            android:id="@+id/searchBarText"
-            android:layout_width="753dp"
-            android:layout_height="60dp"
-            android:background="#919191"
-            android:drawableLeft="@android:drawable/ic_menu_search"
-            android:ems="10"
-            android:hint="Szukaj książki"
-            android:lines="1"
-            android:maxLines="1"
-            app:layout_constraintTop_toBottomOf="@id/view"
-            tools:layout_editor_absoluteX="-290dp" />
-        />
-
-
-
-        <ImageView
-            android:id="@+id/hamburgerIcon"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            android:onClick="openCloseNavigationDrawer"
-            android:src="@drawable/menu_hamburger_icon"
-            app:layout_constraintBottom_toBottomOf="@+id/view"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
+            <EditText
+                android:id="@+id/searchBarText"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/searchbar_background"
+                android:drawableLeft="@android:drawable/ic_menu_search"
+                android:drawablePadding="2dp"
+                android:ems="10"
+                android:hint="Szukaj książki"
+                android:lines="1"
+                android:maxLines="1"
+                android:paddingLeft="16dp" />
+        </LinearLayout>
+    </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="1dp"
-            android:paddingBottom="70dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/searchBarText" />
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:lines="1"
-            android:maxLines="1"
-            android:text="Księgarnia"
-            android:textColor="#494949"
-            android:textSize="25sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_height="fill_parent"
+            android:layout_marginStart="1dp"></androidx.recyclerview.widget.RecyclerView>
+    </LinearLayout>
 
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
