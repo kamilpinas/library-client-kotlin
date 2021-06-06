@@ -34,5 +34,4 @@ class MyAutor : Serializable {
     override fun toString(): String {
         return "$name $surname"
     }
-
 }

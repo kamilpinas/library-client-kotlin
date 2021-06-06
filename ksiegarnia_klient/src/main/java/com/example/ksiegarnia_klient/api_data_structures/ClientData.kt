@@ -64,6 +64,4 @@ class ClientData : Serializable{
         this.login = login
         this.password = password
     }
-
-
 }

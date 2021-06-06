@@ -26,7 +26,6 @@ var currentUserPassowrd: String = ""
 
 val baseUrl: String = "http://192.168.0.4:8080/" //TODO:: PINAS
 
-
 /**
  * Login activity - Screen where user can log in into aplication by his login and password
  *
@@ -39,7 +38,6 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var retrofit: Retrofit
     private lateinit var login: String
     private lateinit var password: String
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -286,7 +286,6 @@ class DaneKlientaFragment : Fragment() {
         dialogBuilder.setPositiveButton("Tak",
             { dialog, whichButton ->
                 deleteClient()
-
             }
         )
         dialogBuilder.setNegativeButton("Nie",
