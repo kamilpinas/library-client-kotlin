@@ -58,7 +58,7 @@
 
             <androidx.cardview.widget.CardView
                 android:layout_width="fill_parent"
-                android:layout_height="452dp"
+                android:layout_height="450dp"
                 android:layout_margin="8dp">
 
                 <LinearLayout
@@ -87,13 +87,13 @@
                             android:id="@+id/editTextImie"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:backgroundTint="@color/text_color"
+                            android:cursorVisible="false"
                             android:ems="10"
                             android:hint="Imię"
-                            android:textColor="@color/text_color"
-                            android:backgroundTint="@color/text_color"
                             android:inputType="textPersonName"
-                            android:cursorVisible="false"
-                            android:singleLine="false" />
+                            android:singleLine="false"
+                            android:textColor="@color/text_color" />
 
                     </LinearLayout>
 
@@ -115,12 +115,11 @@
                             android:id="@+id/editTextNazwisko"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:ems="10"
-                            android:textColor="@color/text_color"
                             android:backgroundTint="@color/text_color"
-                            android:hint="Nazwisko"
                             android:cursorVisible="false"
-                            />
+                            android:ems="10"
+                            android:hint="Nazwisko"
+                            android:textColor="@color/text_color" />
 
                     </LinearLayout>
 
@@ -142,12 +141,12 @@
                             android:id="@+id/editTextNarodowosc"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:ems="10"
-                            android:textColor="@color/text_color"
                             android:backgroundTint="@color/text_color"
-                            android:hint="Narodowość"
                             android:cursorVisible="false"
-                            android:inputType="textPersonName" />
+                            android:ems="10"
+                            android:hint="Narodowość"
+                            android:inputType="textPersonName"
+                            android:textColor="@color/text_color" />
 
                     </LinearLayout>
 
@@ -170,12 +169,12 @@
                             android:id="@+id/editTextOkresTworzenia"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:backgroundTint="@color/text_color"
+                            android:cursorVisible="false"
                             android:ems="10"
                             android:hint="Okres tworzenia"
-                            android:textColor="@color/text_color"
-                            android:cursorVisible="false"
-                            android:backgroundTint="@color/text_color"
-                            android:inputType="textPersonName" />
+                            android:inputType="textPersonName"
+                            android:textColor="@color/text_color" />
 
                     </LinearLayout>
 
@@ -197,12 +196,12 @@
                             android:id="@+id/editTextJezyk"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:backgroundTint="@color/text_color"
+                            android:cursorVisible="false"
                             android:ems="10"
                             android:hint="Język"
-                            android:cursorVisible="false"
-                            android:textColor="@color/text_color"
-                            android:backgroundTint="@color/text_color"
-                            android:inputType="textPersonName" />
+                            android:inputType="textPersonName"
+                            android:textColor="@color/text_color" />
 
                     </LinearLayout>
 
@@ -216,6 +215,7 @@
                 android:layout_height="40dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
                 android:background="@drawable/button_background"
                 android:text="Dodaj autora"
                 android:textColor="#494949" />

@@ -41,6 +41,9 @@ interface JsonPlaceholderAPI {
     @GET("library/books/category/all")
     fun getCategoryArray(): Call<Array<MyCategory>?>?
 
+    @GET("library/books/category/{category_id}")
+    fun getBooksByCategoryAPI(@Path("category_id") category_id: Long): Call<Array<MyBooks>?>?
+
     @POST("library/authors/add")
     fun createAuthor(@Body MyAutor: MyAutor): Call<MyAutor>
 

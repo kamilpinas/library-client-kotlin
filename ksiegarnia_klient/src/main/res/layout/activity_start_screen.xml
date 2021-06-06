@@ -111,7 +111,7 @@
         android:layout_width="219dp"
         android:layout_height="208dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
         android:src="@drawable/book_icon"
         app:layout_constraintEnd_toEndOf="parent"

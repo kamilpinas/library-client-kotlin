@@ -7,10 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import android.widget.AdapterView.OnItemSelectedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.afollestad.vvalidator.form
-import com.example.ksiegarnia_klient.*
+import com.example.ksiegarnia_klient.R
 import com.example.ksiegarnia_klient.activities_ui.baseUrl
 import com.example.ksiegarnia_klient.activities_ui.isAdmin
 import com.example.ksiegarnia_klient.activities_ui.isGuest
@@ -19,13 +20,13 @@ import com.example.ksiegarnia_klient.api_data_structures.MyAutor
 import com.example.ksiegarnia_klient.api_data_structures.MyBooks
 import com.example.ksiegarnia_klient.api_data_structures.MyCategory
 import com.example.ksiegarnia_klient.api_data_structures.MyWydawnictwa
-import kotlinx.android.synthetic.main.fragment_dodaj_ksiazke.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import android.widget.ArrayAdapter as ArrayAdapter1
+
 
 class DodajKsiazkeFragment : Fragment() {
     private lateinit var dodajKsiazkeViewModel: DodajKsiazkeViewModel
@@ -260,5 +261,7 @@ class DodajKsiazkeFragment : Fragment() {
         infoToast.setGravity(Gravity.TOP, 0, 200)
         infoToast.show()
     }
+
+
 }
 
