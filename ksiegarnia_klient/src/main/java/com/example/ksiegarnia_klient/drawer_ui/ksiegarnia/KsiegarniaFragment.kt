@@ -173,7 +173,7 @@ class KsiegarniaFragment : Fragment(), CustomBooksListAdapter.OnItemClickListene
         bundle.putLong("idKsiazki", item.bookId!!)// TODO:: ID JEST DO EDYCJI
         bundle.putString("rokWydania", item.publicationDate)
         bundle.putString("opis", item.description)
-        bundle.putString("temat", item.genre)
+        bundle.putString("temat", item.category.title)
         bundle.putString("jezykKsiazki", item.bookLanguage)
         bundle.putString("rokWydania", item.publicationDate)
         bundle.putString("dostepnosc", item.availability.toString())

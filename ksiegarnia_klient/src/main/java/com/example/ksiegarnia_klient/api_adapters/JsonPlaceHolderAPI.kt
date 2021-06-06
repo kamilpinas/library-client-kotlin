@@ -9,6 +9,8 @@ interface JsonPlaceholderAPI {
     @GET("library/books/all")
     fun getBookArray(): Call<Array<MyBooks>?>?
 
+
+
     @GET("library/books/rented/get_client_rentals")
     fun getWypozyczeniaArray(@Query("login") login: String, @Query("password") password: String): Call<Array<MyWypozyczenia>?>?
 
@@ -35,6 +37,9 @@ interface JsonPlaceholderAPI {
 
     @GET("library/publishing_houses/all")
     fun getWydawnictwaArray(): Call<Array<MyWydawnictwa>?>?
+
+    @GET("library/books/category/all")
+    fun getCategoryArray(): Call<Array<MyCategory>?>?
 
     @POST("library/authors/add")
     fun createAuthor(@Body MyAutor: MyAutor): Call<MyAutor>
