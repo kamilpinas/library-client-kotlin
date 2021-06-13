@@ -25,6 +25,11 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+/**
+ * Add author fragment - Screen where admin can add new Author
+ *
+ * @constructor Create empty Add author fragment
+ */
 class DodajAutoraFragment : Fragment() {
     private lateinit var dodajAutoraViewModel: DodajAutoraViewModel
     private lateinit var jsonPlaceholderAPI: JsonPlaceholderAPI
@@ -110,6 +115,11 @@ class DodajAutoraFragment : Fragment() {
         return root
     }
 
+    /**
+     * Add author - call server to add author to database
+     *
+     * @param MyAutor
+     */
     private fun addAutor(MyAutor: MyAutor) {
         val call = jsonPlaceholderAPI.createAuthor(MyAutor)
         call.enqueue(object : Callback<MyAutor> {
@@ -136,6 +146,11 @@ class DodajAutoraFragment : Fragment() {
         })
     }
 
+    /**
+     * Make toast
+     *
+     * @param myToastText
+     */
     fun makeToast(myToastText: String) {
         infoToast = Toast.makeText(
             context,

@@ -11,6 +11,11 @@ import com.example.ksiegarnia_klient.drawer_ui.DrawerActivity
 import kotlinx.android.synthetic.main.activity_start_screen.*
 
 
+/**
+ * Start screen activity - Screen where application starts, (MENU)
+ *
+ * @constructor Create empty Start screen activity
+ */
 class StartScreenActivity : AppCompatActivity() {
     private lateinit var registerButton : Button
     private lateinit var loginButton : Button
@@ -51,7 +56,11 @@ class StartScreenActivity : AppCompatActivity() {
         }
     }
 
-    override fun onBackPressed() {//TODO:: BEZ TEGO PRZENOSI DO BIALEGO EKRANU XD
+    /**
+     * On back pressed exit
+     *
+     */
+    override fun onBackPressed() {
         val fm: FragmentManager = supportFragmentManager
         if (fm.backStackEntryCount == 0){
             finish()

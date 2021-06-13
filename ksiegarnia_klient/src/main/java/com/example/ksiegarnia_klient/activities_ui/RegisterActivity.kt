@@ -16,6 +16,11 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+/**
+ * Register activity - Screen where user can make an account
+ *
+ * @constructor Create empty Register activity
+ */
 class RegisterActivity : AppCompatActivity() {
     private lateinit var jsonPlaceholderAPI: JsonPlaceholderAPI
     private lateinit var retrofit: Retrofit
@@ -101,6 +106,11 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Send register data to server, if successfull create new user in database
+     *
+     * @param ClientData
+     */
     private fun sendRegister(ClientData: ClientData) {
         val call = jsonPlaceholderAPI.clientRegister(ClientData)
         call.enqueue(object : Callback<ClientData> {
@@ -130,21 +140,18 @@ class RegisterActivity : AppCompatActivity() {
                         Toast.LENGTH_SHORT
                     ).show()
                     val intent = Intent(this@RegisterActivity, StartScreenActivity::class.java)
-                    finish()//zamknij start screen activity
+                    finish()
                     startActivity(intent)
                 }
             }
         })
     }
 
-    fun View.setVisible(visible: Boolean) {
-        visibility = if (visible) {
-            View.VISIBLE
-        } else {
-            View.GONE
-        }
-    }
 
+    /**
+     * On back pressed
+     *
+     */
     override fun onBackPressed() {
         val intent = Intent(this@RegisterActivity, StartScreenActivity::class.java)
         finish()

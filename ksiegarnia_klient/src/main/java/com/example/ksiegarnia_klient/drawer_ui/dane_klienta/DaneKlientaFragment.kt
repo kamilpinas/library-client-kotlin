@@ -29,6 +29,11 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import kotlin.properties.Delegates
 
+/**
+ * Client Data fragment - Client data details screen
+ *
+ * @constructor Create empty Client data fragment
+ */
 class DaneKlientaFragment : Fragment() {
     private lateinit var daneKlientaViewModel: DaneKlientaViewModel
     private lateinit var jsonPlaceholderAPI: JsonPlaceholderAPI
@@ -145,6 +150,11 @@ class DaneKlientaFragment : Fragment() {
         return root
     }
 
+    /**
+     * Send client data to server to update in database
+     *
+     * @param ClientData
+     */
     private fun sendUpdate(ClientData: ClientData) {
         val call = jsonPlaceholderAPI.updateClient(ClientData)
         call.enqueue(object : Callback<ClientData> {
@@ -171,6 +181,10 @@ class DaneKlientaFragment : Fragment() {
         })
     }
 
+    /**
+     * Get and show client data
+     *
+     */
     fun getAndShowClientData() {
         val call = jsonPlaceholderAPI.getClientArray(
             currentUserLogin,
@@ -209,6 +223,10 @@ class DaneKlientaFragment : Fragment() {
         })
     }
 
+    /**
+     * Delete client
+     *
+     */
     fun deleteClient() {
         val call = jsonPlaceholderAPI.deleteClient(
             currentUserLogin,
@@ -243,6 +261,11 @@ class DaneKlientaFragment : Fragment() {
         })
     }
 
+    /**
+     * Make toast
+     *
+     * @param myToastText
+     */
     fun makeToast(myToastText: String) {
         infoToast = Toast.makeText(
             context,
@@ -253,6 +276,10 @@ class DaneKlientaFragment : Fragment() {
         infoToast.show()
     }
 
+    /**
+     * Show dialog
+     *
+     */
     fun showDialog() {
         val dialogBuilder = AlertDialog.Builder(context)
         dialogBuilder.setMessage("Czy na pewno chcesz nieodwracalnie skasować konto?")

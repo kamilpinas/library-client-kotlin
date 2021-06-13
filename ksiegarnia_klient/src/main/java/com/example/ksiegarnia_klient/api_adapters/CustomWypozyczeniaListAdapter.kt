@@ -14,6 +14,13 @@ import kotlinx.android.synthetic.main.list_layout_wypozyczenia.view.dataZwrotuTe
 import kotlinx.android.synthetic.main.list_layout_wypozyczenia.view.okladkaImageView
 import kotlinx.android.synthetic.main.list_layout_wypozyczenia.view.tytulTextView
 
+/**
+ * Custom Rentals list adapter
+ *
+ * @property myList
+ * @property clickListener
+ * @constructor Create empty Custom Rentals list adapter
+ */
 class CustomWypozyczeniaListAdapter(
     private var myList: Array<MyWypozyczenia>,
     var clickListener: OnItemClickListener
@@ -35,6 +42,13 @@ class CustomWypozyczeniaListAdapter(
 
     override fun getItemCount() = myList.size
 
+    /**
+     * Example view holder
+     *
+     * @constructor
+     *
+     * @param itemView
+     */
     class ExampleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         var tytulTextView: TextView = itemView.tytulTextView
@@ -42,6 +56,12 @@ class CustomWypozyczeniaListAdapter(
         var dataZwrotu: TextView = itemView.dataZwrotuTextView
         var okladkaImageView: ImageView = itemView.okladkaImageView
 
+        /**
+         * Initialize rentals
+         *
+         * @param item
+         * @param action
+         */
         fun initialize(item: MyWypozyczenia, action: OnItemClickListener) {
             tytulTextView.text = item.book.title
             dataWypozyczenia.text="Data wypożyczenia: "+ item.rentalDate
@@ -58,7 +78,18 @@ class CustomWypozyczeniaListAdapter(
         }
     }
 
+    /**
+     * On item click listener
+     *
+     * @constructor Create empty On item click listener
+     */
     interface OnItemClickListener {
+        /**
+         * On item click
+         *
+         * @param item
+         * @param position
+         */
         fun onItemClick(item: MyWypozyczenia, position: Int)
     }
 }

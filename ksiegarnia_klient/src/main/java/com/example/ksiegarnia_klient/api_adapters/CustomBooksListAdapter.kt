@@ -12,6 +12,13 @@ import com.example.ksiegarnia_klient.api_data_structures.MyBooks
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.list_layout_books.view.*
 
+/**
+ * Custom books list adapter
+ *
+ * @property myList
+ * @property clickListener
+ * @constructor Create empty Custom books list adapter
+ */
 class CustomBooksListAdapter(
     private var myList: Array<MyBooks>,
     var clickListener: OnItemClickListener
@@ -31,8 +38,19 @@ class CustomBooksListAdapter(
         holder.initialize(myList[position], clickListener)
     }
 
+    /**
+     * Get item count
+     *
+     */
     override fun getItemCount() = myList.size
 
+    /**
+     * Example view holder
+     *
+     * @constructor
+     *
+     * @param itemView
+     */
     class ExampleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var id: String = ""
         var tytulTextView: TextView = itemView.tytulTextView
@@ -41,6 +59,13 @@ class CustomBooksListAdapter(
         var wydawnictwoTextView: TextView = itemView.wydawnictwoTextView
         var opisTextView: TextView = itemView.opisTextView
         var okladkaImageView: ImageView = itemView.okladkaImageView
+
+        /**
+         * Initialize books
+         *
+         * @param item
+         * @param action
+         */
         fun initialize(item: MyBooks, action: OnItemClickListener) {
             if (item.availability.toString() == "true") {
                 dostepnoscTextView.setTextColor(Color.parseColor("#009900"));
@@ -64,7 +89,18 @@ class CustomBooksListAdapter(
         }
     }
 
+    /**
+     * On item click listener
+     *
+     * @constructor Create empty On item click listener
+     */
     interface OnItemClickListener {
+        /**
+         * On item click
+         *
+         * @param item
+         * @param position
+         */
         fun onItemClick(item: MyBooks, position: Int)
     }
 }

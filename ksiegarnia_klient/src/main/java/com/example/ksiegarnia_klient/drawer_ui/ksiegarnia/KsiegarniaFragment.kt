@@ -30,6 +30,11 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+/**
+ * Bookstore fragment - Screen with all books sorted by availability first
+ *
+ * @constructor Create empty Bookstore fragment
+ */
 class KsiegarniaFragment : Fragment(), CustomBooksListAdapter.OnItemClickListener {
 
     private lateinit var ksiegarniaViewModel: KsiegarniaViewModel
@@ -82,6 +87,10 @@ class KsiegarniaFragment : Fragment(), CustomBooksListAdapter.OnItemClickListene
         return root
     }
 
+    /**
+     * Get and show all books
+     *
+     */
     fun getAndShowData() {
         val call = jsonPlaceholderAPI.getBookArray()
         call!!.enqueue(object : Callback<Array<MyBooks>?> {
@@ -117,6 +126,11 @@ class KsiegarniaFragment : Fragment(), CustomBooksListAdapter.OnItemClickListene
         })
     }
 
+    /**
+     * Check network connection
+     *
+     * @return
+     */
     @RequiresApi(Build.VERSION_CODES.M)
     fun checkNetworkConnection(): Boolean {
         val connectivityManager =
@@ -140,6 +154,11 @@ class KsiegarniaFragment : Fragment(), CustomBooksListAdapter.OnItemClickListene
         return false
     }
 
+    /**
+     * Make toast
+     *
+     * @param myToastText
+     */
     fun makeToast(myToastText: String) {
         infoToast = Toast.makeText(
             context,
@@ -150,6 +169,12 @@ class KsiegarniaFragment : Fragment(), CustomBooksListAdapter.OnItemClickListene
         infoToast.show()
     }
 
+    /**
+     * On item click open book details screen
+     *
+     * @param item
+     * @param position
+     */
     override fun onItemClick(//dzialanie edycji - klikniecia na cokolwiek z listy ksiazek
         item: MyBooks, position: Int
     ) {
@@ -177,20 +202,6 @@ class KsiegarniaFragment : Fragment(), CustomBooksListAdapter.OnItemClickListene
             ?.commit()
     }
 
-    /*
-    fun beginRefreshing() {
-        thread.scheduleAtFixedRate({
-            if (checkNetworkConnection()) {
-                getAndShowData()
-                Log.d("Executors thread: ", "Books refreshed automatically ")
-            } else {
-                Log.d(
-                    "Executors thread: ",
-                    "Cant automatically refresh books  - no internet connection!"
-                )
-            }
-        }, 0, 1, TimeUnit.HOURS)// TODO:::NA RAZIE NIE DZIALA - crashuje jak zmieni sie fragment?
-    }*/
 
     private fun loadLogin() {
         val sharedPref = requireActivity().getPreferences(Context.MODE_PRIVATE) ?: return

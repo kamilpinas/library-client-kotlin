@@ -2,6 +2,11 @@ package com.example.ksiegarnia_klient.api_data_structures
 
 import java.io.Serializable
 
+/**
+ *  Rentals dto class
+ *
+ * @constructor Create empty My wypozyczenia
+ */
 class MyWypozyczenia : Serializable {
     var rentalId: Long? = null
     var book: MyBooks

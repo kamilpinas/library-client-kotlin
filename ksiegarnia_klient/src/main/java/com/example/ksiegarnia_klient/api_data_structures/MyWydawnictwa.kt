@@ -2,6 +2,11 @@ package com.example.ksiegarnia_klient.api_data_structures
 
 import java.io.Serializable
 
+/**
+ * Publishing house dto class
+ *
+ * @constructor Create empty My wydawnictwa
+ */
 class MyWydawnictwa: Serializable {
     var publishingHouseId: String? = null
     var name: String? = null

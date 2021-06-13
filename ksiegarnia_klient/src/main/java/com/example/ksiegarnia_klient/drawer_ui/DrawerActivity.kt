@@ -31,6 +31,11 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 
+/**
+ * Drawer activity - Side menu bar to navigate between screens
+ *
+ * @constructor Create empty Drawer activity
+ */
 class DrawerActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
@@ -133,6 +138,11 @@ class DrawerActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
+    /**
+     * Open close navigation drawer
+     *
+     * @param view
+     */
     fun openCloseNavigationDrawer(view: View) {
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
             drawer_layout.closeDrawer(GravityCompat.START)
@@ -141,6 +151,12 @@ class DrawerActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         }
     }
 
+    /**
+     * On navigation item selected
+     *
+     * @param item
+     * @return
+     */
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_wyloguj -> {
@@ -185,12 +201,20 @@ class DrawerActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         return true
     }
 
+    /**
+     * Load data from device storage
+     *
+     */
     private fun loadData() {
         val sharedPreferences = getSharedPreferences("shared preferences", Context.MODE_PRIVATE)
         userLogin = sharedPreferences.getString("user_login", "gosc_domyslny")!!
     }
 
-    override fun onBackPressed() {//TODO:: BEZ TEGO PRZENOSI DO BIALEGO EKRANU XD
+    /**
+     * On back pressed
+     *
+     */
+    override fun onBackPressed() {
         val fragmentManager: FragmentManager = supportFragmentManager
         //  var currentFragment = supportFragmentManager.findFragmentByTag("KSIEGARNIA")
         var currentFragment = supportFragmentManager.fragments.last()

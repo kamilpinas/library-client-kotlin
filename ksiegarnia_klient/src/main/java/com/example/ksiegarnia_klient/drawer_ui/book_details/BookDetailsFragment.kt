@@ -29,6 +29,11 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import kotlin.properties.Delegates
 
+/**
+ * Book details fragment - Book details screen
+ *
+ * @constructor Create empty Book details fragment
+ */
 class BookDetailsFragment : Fragment() {
 
     private lateinit var bookDetailsViewModel: BookDetailsViewModel
@@ -113,16 +118,21 @@ class BookDetailsFragment : Fragment() {
 
         wypozyczButton.setOnClickListener {
             Log.d("Button::", "ID KSIAZKI TO:" + idKsiazki)
-            wypozyczKsiazke()
+            rentBook()
         }
 
         usunKsiazkeButton.setOnClickListener {
             Log.d("Button::", "ID KSIAZKI TO:" + idKsiazki)
-            usunKsiazke()
+            deleteBook()
         }
         return root
     }
 
+    /**
+     * Set visible
+     *
+     * @param visible
+     */
     fun View.setVisible(visible: Boolean) {
         visibility = if (visible) {
             View.VISIBLE
@@ -131,6 +141,11 @@ class BookDetailsFragment : Fragment() {
         }
     }
 
+    /**
+     * Make toast
+     *
+     * @param myToastText
+     */
     fun makeToast(myToastText: String) {
         infoToast = Toast.makeText(
             context,
@@ -141,9 +156,13 @@ class BookDetailsFragment : Fragment() {
         infoToast.show()
     }
 
-    fun wypozyczKsiazke() {
+    /**
+     * Rent a book - call to server with book rent request, if success add to database rent list
+     *
+     */
+    fun rentBook() {
         val call =
-            jsonPlaceholderAPI.wypozyczKsiazke(
+            jsonPlaceholderAPI.rentBook(
                 currentUserLogin,
                 currentUserPassowrd, idKsiazki
             )
@@ -183,9 +202,13 @@ class BookDetailsFragment : Fragment() {
         })
     }
 
-    fun usunKsiazke() {
+    /**
+     * Delete book - server call to delete book from database
+     *
+     */
+    fun deleteBook() {
         val call =
-            jsonPlaceholderAPI.usunKsiazke(
+            jsonPlaceholderAPI.deleteBook(
                 idKsiazki
             )
         call.enqueue(object : Callback<MyBooks> {

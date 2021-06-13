@@ -25,6 +25,11 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import android.widget.ArrayAdapter as ArrayAdapter1
 
+/**
+ * Add book fragment - Screen where admin can add new book
+ *
+ * @constructor Create empty Add book fragment
+ */
 class DodajKsiazkeFragment : Fragment() {
     private lateinit var dodajKsiazkeViewModel: DodajKsiazkeViewModel
     private lateinit var jsonPlaceholderAPI: JsonPlaceholderAPI
@@ -131,8 +136,12 @@ class DodajKsiazkeFragment : Fragment() {
         return root
     }
 
+    /**
+     * Get publishing houses - call server to retrieve publishing houses array
+     *
+     */
     fun getWydawnictwa() {
-        val call = jsonPlaceholderAPI.getWydawnictwaArray()
+        val call = jsonPlaceholderAPI.getPublishingHousesArray()
         call!!.enqueue(object : Callback<Array<MyWydawnictwa>?> {
             override fun onResponse(
                 call: Call<Array<MyWydawnictwa>?>,
@@ -162,6 +171,10 @@ class DodajKsiazkeFragment : Fragment() {
         })
     }
 
+    /**
+     * Get authors -  call server to retrieve authors array
+     *
+     */
     fun getAutors() {
         val call = jsonPlaceholderAPI.getAutorsArray()
         call!!.enqueue(object : Callback<Array<MyAutor>?> {
@@ -193,6 +206,11 @@ class DodajKsiazkeFragment : Fragment() {
         })
     }
 
+    /**
+     * Add book -  call to server and add book to database
+     *
+     * @param MyBooks
+     */
     private fun addBook(MyBooks: MyBooks) {
         val call = jsonPlaceholderAPI.createBook(MyBooks)
         call.enqueue(object : Callback<MyBooks> {
@@ -219,6 +237,11 @@ class DodajKsiazkeFragment : Fragment() {
         })
     }
 
+    /**
+     * Make toast
+     *
+     * @param myToastText
+     */
     fun makeToast(myToastText: String) {
         infoToast = Toast.makeText(
             context,

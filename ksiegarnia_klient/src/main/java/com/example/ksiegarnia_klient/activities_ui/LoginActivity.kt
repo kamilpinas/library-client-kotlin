@@ -27,6 +27,12 @@ var currentUserPassowrd: String = ""
 //val baseUrl: String = "http://192.168.0.106:8080/" //TODO:: BUDZICZEK
 val baseUrl: String = "http://192.168.7.167:8080/" //TODO:: PINAS
 
+
+/**
+ * Login activity - Screen where user can log in into aplication by his login and password
+ *
+ * @constructor Create empty Login activity
+ */
 class LoginActivity : AppCompatActivity() {
     private lateinit var loginInput: EditText
     private lateinit var passwordInput: EditText
@@ -84,6 +90,11 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Send login and password to server
+     *
+     * @param MyLogin
+     */
     private fun sendLogin(MyLogin: MyLogin) {
         val call = jsonPlaceholderAPI.clientLogin(MyLogin)
         val callAdmin = jsonPlaceholderAPI.createPostAdmin(MyLogin)
@@ -154,6 +165,11 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Set visible
+     *
+     * @param visible
+     */
     fun View.setVisible(visible: Boolean) {
         visibility = if (visible) {
             View.VISIBLE
@@ -162,12 +178,20 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * On back pressed back to previous screen
+     *
+     */
     override fun onBackPressed() {
         val intent = Intent(this@LoginActivity, StartScreenActivity::class.java)
         finish()
         startActivity(intent)
     }
 
+    /**
+     * Save login and password to device storage
+     *
+     */
     fun saveLogin() {
         val sharedPreferences = getSharedPreferences("shared preferences", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()

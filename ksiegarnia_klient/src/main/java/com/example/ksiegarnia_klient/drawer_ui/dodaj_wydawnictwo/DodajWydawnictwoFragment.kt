@@ -26,6 +26,11 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 
+/**
+ * Add publishing house fragment - Screen where admin can add new publishing house
+ *
+ * @constructor Create empty publishing house fragment
+ */
 class DodajWydawnictwoFragment : Fragment() {
     private lateinit var dodajWydawnictwoViewModel: DodajWydawnictwoViewModel
     private lateinit var jsonPlaceholderAPI: JsonPlaceholderAPI
@@ -86,6 +91,11 @@ class DodajWydawnictwoFragment : Fragment() {
         return root
     }
 
+    /**
+     * Add publishing house - call server and add new publishing house to database
+     *
+     * @param wydawnictwaData
+     */
     private fun addWydawnictwo(wydawnictwaData: MyWydawnictwa) {
         val call = jsonPlaceholderAPI.createPublishingHouse(wydawnictwaData)
         call.enqueue(object : Callback<MyWydawnictwa> {
@@ -112,6 +122,11 @@ class DodajWydawnictwoFragment : Fragment() {
         })
     }
 
+    /**
+     * Make toast
+     *
+     * @param myToastText
+     */
     fun makeToast(myToastText: String) {
         infoToast = Toast.makeText(
             context,
