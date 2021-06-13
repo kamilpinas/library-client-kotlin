@@ -4,6 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
+/**
+ * Client Data view model
+ *
+ * @constructor Create empty Client Data view model
+ */
 class DaneKlientaViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {

@@ -3,6 +3,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
+/**
+ * Add author view model
+ *
+ * @constructor Create empty Add author view model
+ */
 class DodajAutoraViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {

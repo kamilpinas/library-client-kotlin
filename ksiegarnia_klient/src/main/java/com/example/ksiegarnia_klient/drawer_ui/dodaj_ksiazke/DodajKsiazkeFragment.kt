@@ -7,18 +7,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import android.widget.AdapterView.OnItemSelectedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.afollestad.vvalidator.form
-import com.example.ksiegarnia_klient.R
+import com.example.ksiegarnia_klient.*
 import com.example.ksiegarnia_klient.activities_ui.baseUrl
 import com.example.ksiegarnia_klient.activities_ui.isAdmin
 import com.example.ksiegarnia_klient.activities_ui.isGuest
 import com.example.ksiegarnia_klient.api_adapters.JsonPlaceholderAPI
 import com.example.ksiegarnia_klient.api_data_structures.MyAutor
 import com.example.ksiegarnia_klient.api_data_structures.MyBooks
-import com.example.ksiegarnia_klient.api_data_structures.MyCategory
 import com.example.ksiegarnia_klient.api_data_structures.MyWydawnictwa
 import retrofit2.Call
 import retrofit2.Callback
@@ -27,7 +25,11 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import android.widget.ArrayAdapter as ArrayAdapter1
 
-
+/**
+ * Add book fragment - Screen where admin can add new book
+ *
+ * @constructor Create empty Add book fragment
+ */
 class DodajKsiazkeFragment : Fragment() {
     private lateinit var dodajKsiazkeViewModel: DodajKsiazkeViewModel
     private lateinit var jsonPlaceholderAPI: JsonPlaceholderAPI
@@ -35,15 +37,14 @@ class DodajKsiazkeFragment : Fragment() {
     private lateinit var infoToast: Toast
     private lateinit var autorData: Array<MyAutor>
     private lateinit var wydawnictwaData: Array<MyWydawnictwa>
-    private lateinit var categoryData: Array<MyCategory>
     private lateinit var editTextTytulKsiazki: EditText
+    private lateinit var editTextTematKsiazki: EditText
     private lateinit var editTextJezykKsiazki: EditText
     private lateinit var editTextRokWydania: EditText
     private lateinit var editTextOpisKsiazki: EditText
     private lateinit var dostepnoscCheckBox: CheckBox
     private lateinit var spinnerAutor: Spinner
     private lateinit var spinnerWydawnictwo: Spinner
-    private lateinit var spinnerCategory: Spinner
     private lateinit var dodajKsiazkeButton: Button
     private lateinit var dodajKsiazkeView: LinearLayout
 
@@ -57,13 +58,13 @@ class DodajKsiazkeFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_dodaj_ksiazke, container, false)
 
         editTextTytulKsiazki = root.findViewById(R.id.editTextTytulKsiazki)
+        editTextTematKsiazki = root.findViewById(R.id.editTextTematKsiazki)
         editTextJezykKsiazki = root.findViewById(R.id.editTextJezykKsiazki)
         editTextRokWydania = root.findViewById(R.id.editTextRokWydania)
         editTextOpisKsiazki = root.findViewById(R.id.editTextOpisKsiazki)
         dostepnoscCheckBox = root.findViewById(R.id.dostepnoscCheckBox)
         spinnerAutor = root.findViewById(R.id.spinnerAutor)
         spinnerWydawnictwo = root.findViewById(R.id.spinnerWydawnictwo)
-        spinnerCategory = root.findViewById(R.id.spinnerCategory)
         dodajKsiazkeButton = root.findViewById(R.id.dodajKsiazkeButton)
 
         dodajKsiazkeView = root.findViewById(R.id.dodajKsiazkeView)
@@ -80,12 +81,15 @@ class DodajKsiazkeFragment : Fragment() {
         } else {
             getWydawnictwa()
             getAutors()
-            getCategories()
             form {
                 input(editTextTytulKsiazki, name = "tytul") {
                     isNotEmpty().description("Podaj tytuł książki !")
                     length().atMost(100).description("Tytuł może mieć max 100 znaków")
 
+                }
+                input(editTextTematKsiazki, name = "temat") {
+                    isNotEmpty().description("Podaj temat !")
+                    length().atMost(30).description("Temat może mieć max 30 znaków")
                 }
                 input(editTextJezykKsiazki, name = "jezyk_ksiazki") {
                     isNotEmpty().description("Podaj język ksiazki !")
@@ -102,28 +106,27 @@ class DodajKsiazkeFragment : Fragment() {
                     isNotEmpty().description("Podaj Opis książki !")
                 }
 
-                spinner(spinnerAutor, name = "autor") {
-                    selection().description("Wybierz Autora")
-                }
-                spinner(spinnerWydawnictwo, name = "telefon") {
-                    selection().description("Wybierz Wydawnictwo")
-                }
-                spinner(spinnerCategory, name = "category") {
-                    selection().description("Wybierz kategorię")
-                }
+               spinner(spinnerAutor, name = "autor") {
+                   selection().description("Wybierz Autora")
+               }
+               spinner(spinnerWydawnictwo, name = "telefon") {
+                   selection().description("Wybierz Wydawnictwo")
+               }
 
                 submitWith(dodajKsiazkeButton) { result ->
 
                     val bookData =
                         MyBooks(
                             editTextTytulKsiazki.text.toString(),
+                            editTextTematKsiazki.text.toString(),
                             editTextJezykKsiazki.text.toString(),
                             editTextRokWydania.text.toString(),
                             dostepnoscCheckBox.isChecked,
                             editTextOpisKsiazki.text.toString(),
+
                             spinnerWydawnictwo.selectedItem as MyWydawnictwa,
-                            spinnerAutor.selectedItem as MyAutor,
-                            spinnerCategory.selectedItem as MyCategory
+                            spinnerAutor.selectedItem as MyAutor
+
                         )
                     Log.d("NOWA KS:", "KLIKNALES PRYCISK")
                     addBook(bookData)
@@ -133,8 +136,12 @@ class DodajKsiazkeFragment : Fragment() {
         return root
     }
 
+    /**
+     * Get publishing houses - call server to retrieve publishing houses array
+     *
+     */
     fun getWydawnictwa() {
-        val call = jsonPlaceholderAPI.getWydawnictwaArray()
+        val call = jsonPlaceholderAPI.getPublishingHousesArray()
         call!!.enqueue(object : Callback<Array<MyWydawnictwa>?> {
             override fun onResponse(
                 call: Call<Array<MyWydawnictwa>?>,
@@ -164,37 +171,10 @@ class DodajKsiazkeFragment : Fragment() {
         })
     }
 
-    fun getCategories() {
-        val call = jsonPlaceholderAPI.getCategoryArray()
-        call!!.enqueue(object : Callback<Array<MyCategory>?> {
-            override fun onResponse(
-                call: Call<Array<MyCategory>?>,
-                response: Response<Array<MyCategory>?>
-            ) {
-                if (!response.isSuccessful) {
-                    println("Code: " + response.code())
-                    return
-                }
-                categoryData = response.body()!!
-
-                spinnerCategory?.adapter = activity?.applicationContext?.let {
-                    ArrayAdapter1<MyCategory?>(
-                        it,
-                        R.layout.support_simple_spinner_dropdown_item,
-                        categoryData
-                    )
-                } as SpinnerAdapter
-            }
-
-            override fun onFailure(
-                call: Call<Array<MyCategory>?>,
-                t: Throwable
-            ) {
-                println(t.message)
-            }
-        })
-    }
-
+    /**
+     * Get authors -  call server to retrieve authors array
+     *
+     */
     fun getAutors() {
         val call = jsonPlaceholderAPI.getAutorsArray()
         call!!.enqueue(object : Callback<Array<MyAutor>?> {
@@ -207,7 +187,7 @@ class DodajKsiazkeFragment : Fragment() {
                     return
                 }
                 autorData = response.body()!!
-                System.out.println(autorData[0].toString())
+
                 spinnerAutor?.adapter = activity?.applicationContext?.let {
                     ArrayAdapter1<MyAutor?>(
                         it,
@@ -226,6 +206,11 @@ class DodajKsiazkeFragment : Fragment() {
         })
     }
 
+    /**
+     * Add book -  call to server and add book to database
+     *
+     * @param MyBooks
+     */
     private fun addBook(MyBooks: MyBooks) {
         val call = jsonPlaceholderAPI.createBook(MyBooks)
         call.enqueue(object : Callback<MyBooks> {
@@ -252,6 +237,11 @@ class DodajKsiazkeFragment : Fragment() {
         })
     }
 
+    /**
+     * Make toast
+     *
+     * @param myToastText
+     */
     fun makeToast(myToastText: String) {
         infoToast = Toast.makeText(
             context,
@@ -261,7 +251,5 @@ class DodajKsiazkeFragment : Fragment() {
         infoToast.setGravity(Gravity.TOP, 0, 200)
         infoToast.show()
     }
-
-
 }
 

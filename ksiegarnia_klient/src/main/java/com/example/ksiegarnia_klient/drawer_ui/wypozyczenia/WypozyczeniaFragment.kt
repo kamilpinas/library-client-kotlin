@@ -33,6 +33,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 import kotlin.properties.Delegates
 
 
+/**
+ * Rentals fragment - Screen where user can see their actual rented books
+ *
+ * @constructor Create empty Rentals fragment
+ */
 class WypozyczeniaFragment : Fragment(), CustomWypozyczeniaListAdapter.OnItemClickListener,
     CustomWypozyczeniaKlientowListAdapter.OnItemClickListener {
     private lateinit var wypozyczeniaViewModel: WypozyczeniaViewModel
@@ -112,6 +117,10 @@ class WypozyczeniaFragment : Fragment(), CustomWypozyczeniaListAdapter.OnItemCli
         return root
     }
 
+    /**
+     * Get and show client rents - call server to retrieve all client book rents
+     *
+     */
     fun getAndShowWypozyczeniaKlienta() {
         val call = jsonPlaceholderAPI.getWypozyczeniaArray(
             currentUserLogin,
@@ -147,6 +156,10 @@ class WypozyczeniaFragment : Fragment(), CustomWypozyczeniaListAdapter.OnItemCli
         })
     }
 
+    /**
+     * Get and show all client rentals - call server to retrieve all rentals of clients
+     *
+     */
     fun getAndShowWypozyczeniaKlientow() {
         val call = jsonPlaceholderAPI.getWypozyczeniaKlientowArray()
         call!!.enqueue(object : Callback<Array<MyWypozyczenia>?> {
@@ -179,6 +192,11 @@ class WypozyczeniaFragment : Fragment(), CustomWypozyczeniaListAdapter.OnItemCli
         })
     }
 
+    /**
+     * Check network connection
+     *
+     * @return
+     */
     fun checkNetworkConnection(): Boolean {
         val connectivityManager =
             context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -201,6 +219,11 @@ class WypozyczeniaFragment : Fragment(), CustomWypozyczeniaListAdapter.OnItemCli
         return false
     }
 
+    /**
+     * Make toast
+     *
+     * @param myToastText
+     */
     fun makeToast(myToastText: String) {
         infoToast = Toast.makeText(
             context,
@@ -211,7 +234,12 @@ class WypozyczeniaFragment : Fragment(), CustomWypozyczeniaListAdapter.OnItemCli
         infoToast.show()
     }
 
-
+    /**
+     * On item click
+     *
+     * @param item
+     * @param position
+     */
     override fun onItemClick(item: MyWypozyczenia, position: Int) {
         if(!isGuest && isAdmin) {
             idKsiazki = item.book.bookId!!
@@ -221,9 +249,13 @@ class WypozyczeniaFragment : Fragment(), CustomWypozyczeniaListAdapter.OnItemCli
         }
     }
 
+    /**
+     * Delete rent - call server and delete book if its not actual rented
+     *
+     */
     fun usunWypozyczenie() {
         val call =
-            jsonPlaceholderAPI.usunWypozyczenie(idWypozyczenia)
+            jsonPlaceholderAPI.deleteRent(idWypozyczenia)
         call.enqueue(object : Callback<MyWypozyczenia> {
             override fun onFailure(
                 call: Call<MyWypozyczenia>,
@@ -260,6 +292,10 @@ class WypozyczeniaFragment : Fragment(), CustomWypozyczeniaListAdapter.OnItemCli
         })
     }
 
+    /**
+     * Show dialog - Confirmation dialog to return book
+     *
+     */
     fun showDialog() {
         val dialogBuilder = AlertDialog.Builder(context)
         dialogBuilder.setMessage("Czy na pewno chcesz potweirdzić zwrot książki?")

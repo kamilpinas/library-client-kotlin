@@ -4,6 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
+/**
+ * Rentals view model
+ *
+ * @constructor Create empty Rentals view model
+ */
 class WypozyczeniaViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {

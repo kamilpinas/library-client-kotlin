@@ -2,6 +2,11 @@ package com.example.ksiegarnia_klient.api_data_structures
 
 import java.io.Serializable
 
+/**
+ * Author dto class
+ *
+ * @constructor Create empty My autor
+ */
 class MyAutor : Serializable {
     var authorId: String? = null
     var surname: String? = null

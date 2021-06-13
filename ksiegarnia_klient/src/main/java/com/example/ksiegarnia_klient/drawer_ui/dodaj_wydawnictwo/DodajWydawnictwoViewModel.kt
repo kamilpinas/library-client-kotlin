@@ -3,6 +3,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
+/**
+ * Add publishing house view model
+ *
+ * @constructor Create empty publishing house view model
+ */
 class DodajWydawnictwoViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {

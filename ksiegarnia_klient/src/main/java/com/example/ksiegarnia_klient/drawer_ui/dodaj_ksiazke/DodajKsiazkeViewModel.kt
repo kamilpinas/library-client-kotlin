@@ -3,6 +3,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
+/**
+ * Add book view model
+ *
+ * @constructor Create empty Add book view model
+ */
 class DodajKsiazkeViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
